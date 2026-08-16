@@ -4,51 +4,54 @@ framework_version: 1.0.0
 
 # Behavioral Profile
 
-<!-- SETUP: This file is populated by running /setup -->
-<!-- You can use results from PI, DISC, Myers-Briggs, StrengthsFinder, or a self-assessment -->
+<!-- Source: CliftonStrengths (StrengthsFinder) top 5, self-reported -->
 
 ## Overview
-[YOUR_NAME]'s behavioral assessment identifies them as a **[PROFILE_TYPE]** pattern. [1-2 SENTENCE_SUMMARY].
+Whui-Mei's top 5 CliftonStrengths are Deliberative, Input, Responsibility, Strategic, and Achiever - three Executing themes and two Strategic Thinking themes. This is a **careful-strategist-who-executes-reliably** pattern: gathers information and weighs risk before committing, then follows through with high ownership and work ethic.
 
 ## Core Behavioral Drives
 
-| Drive | Level | Meaning |
-|-------|-------|---------|
-| [DRIVE_1] | [LEVEL] | [DESCRIPTION] |
-| [DRIVE_2] | [LEVEL] | [DESCRIPTION] |
-| [DRIVE_3] | [LEVEL] | [DESCRIPTION] |
-| [DRIVE_4] | [LEVEL] | [DESCRIPTION] |
+| Drive | Domain | Meaning |
+|-------|--------|---------|
+| Deliberative | Executing | Careful, vigilant decision-making; anticipates obstacles and risks before acting |
+| Input | Strategic Thinking | Curious collector of information, ideas, and resources |
+| Responsibility | Executing | Psychological ownership of commitments; highly reliable, follows through |
+| Strategic | Strategic Thinking | Spots patterns quickly; finds the best path through complexity |
+| Achiever | Executing | High stamina and work ethic; satisfaction from being consistently productive |
 
 ## Strongest Behaviors
-- **[BEHAVIOR_1]:** [DESCRIPTION]
-- **[BEHAVIOR_2]:** [DESCRIPTION]
-- **[BEHAVIOR_3]:** [DESCRIPTION]
+- **Thorough discovery before acting:** Deliberative + Input drive careful stakeholder discovery and risk assessment before proposing a solution (visible in client discovery sessions, BPMN mapping, requirements gathering across past roles)
+- **Reliable ownership:** Responsibility shows up as being the "sole technical implementer" or single point of accountability on delivery (e.g. CRM configuration, publishing system rollout)
+- **Strategic framing under complexity:** Strategic + Input combine to build business cases and proposals that map current-state to future-state (BPMN work, ROI/payback analysis)
 
 ## How You Work Best
-- [ENVIRONMENT_PREFERENCE_1]
-- [ENVIRONMENT_PREFERENCE_2]
-- [ENVIRONMENT_PREFERENCE_3]
+- Structured, process-driven environments (playbooks, BPMN, scoping frameworks) rather than ad hoc or purely reactive ones
+- Team-based delivery toward a shared goal, not solo/entrepreneurial ownership
+- Enough runway to gather information and deliberate before committing to a course of action
 
 ## Growth Areas (frame positively in applications)
-- **[AREA_1]:** [HOW_TO_FRAME_IT_POSITIVELY]
-- **[AREA_2]:** [HOW_TO_FRAME_IT_POSITIVELY]
+- **Deliberative can read as slow to decide under time pressure:** frame as "thorough risk assessment that prevents costly rework"
+- **Responsibility + Achiever can lead to overcommitting:** frame as strong ownership balanced with clear prioritization once scope is agreed
 
 ## Mapping to Job Posting Language
 
 When a job posting mentions these keywords, it's a **strong behavioral fit**:
-- [KEYWORD_OR_PHRASE_THAT_MATCHES_YOUR_STYLE]
-- [ANOTHER_KEYWORD]
+- "collaborative", "team-based", "cross-functional"
+- "structured process", "methodology-driven", "playbooks"
+- "trusted advisor", "in-depth discovery", "requirements gathering"
+- "hybrid" or "in-person" work arrangement
 
-When a job posting mentions these, flag as **potential friction** (not deal-breaker):
-- [KEYWORD_OR_PHRASE_THAT_MIGHT_CLASH]
-- [ANOTHER_KEYWORD]
+When a job posting mentions these, flag as **friction or deal-breaker** (see also Deal-breakers in `01-candidate-profile.md`):
+- "fast-paced, move fast and break things" (tension with Deliberative)
+- "self-starter expected to work independently / autonomously" (overlaps with the "working alone" deal-breaker)
+- "sales-driven", "quota-carrying", "performance-based commission"
 
 ## Management Style Preferences
-- [WHAT_MANAGEMENT_STYLE_WORKS_FOR_YOU]
-- [WHAT_DOESN'T_WORK]
+- Works best with clear scope and shared team goals, and autonomy to execute once scope is agreed
+- Does not work well under management that prioritizes speed over discovery, or expects solo/entrepreneurial delivery
 
 ## Using This in Applications
-- **Cover letters:** [HOW_TO_WEAVE_IN_BEHAVIORAL_STRENGTHS]
-- **CV:** [WHAT_TO_EMPHASIZE]
-- **Interviews:** [WHAT_STAR_EXAMPLES_TO_USE]
-- **Don't overstate:** [WHAT_NOT_TO_CLAIM]
+- **Cover letters:** Lead with discovery-to-delivery narrative (understand the client's problem deeply, then build and ship the solution)
+- **CV:** Emphasize ownership language ("sole technical implementer," "achieved X% adoption") and business-case/ROI framing
+- **Interviews:** Use STAR examples that show structured discovery followed by measurable delivery (see `07-interview-prep.md`)
+- **Don't overstate:** Avoid claiming fast-and-loose, high-autonomy solo delivery as a strength - it isn't, and it maps directly onto a stated deal-breaker

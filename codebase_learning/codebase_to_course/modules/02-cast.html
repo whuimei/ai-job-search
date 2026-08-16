@@ -1,0 +1,234 @@
+<section class="module" id="module-2">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the Cast</h1>
+      <p class="module-subtitle">Skills, commands, subagents, and CLI tools &mdash; the four kinds of files behind every AI job-search action.</p>
+    </div>
+
+    <!-- SCREEN 1: Hook, connect back to Module 1 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>In Module 1 you watched <code>/apply</code> fetch a job posting. That fetching step didn't happen by magic. It happened because a specific <em>kind</em> of file told Claude exactly how.</p>
+      </div>
+      <div class="animate-in">
+        <p>This module meets the four kinds of files that make up the whole cast. Think of the repo as a <strong>theater company running backstage</strong>: every file is a role, and every role behaves differently once the curtain goes up.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: The metaphor + 4 pattern cards -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Four Roles, Four Jobs</h2>
+      <div class="animate-in">
+        <p>A <span class="term" data-definition="A command is a plain markdown file starting with a '# /name' heading. You trigger it by typing '/name' in Claude Code. It's a one-shot instruction for right now, not something Claude remembers later.">command</span> is the script cue-card an actor is handed at showtime: "say this line now." A <span class="term" data-definition="A skill is a folder with a SKILL.md file containing reusable reference knowledge. Claude loads it automatically whenever the situation matches its description &mdash; it's standing knowledge, not a one-time trigger.">skill</span> is the actor's full training and standing instructions, reusable across many shows.</p>
+      </div>
+      <div class="animate-in">
+        <p>A <span class="term" data-definition="A subagent is a second, temporary instance of Claude spun up mid-task with a completely fresh memory. It does one job, reports back, and is discarded. It never sees the rest of the conversation.">subagent</span> is a stunt double: brought in for one dangerous scene, given a fresh briefing, and sent home when the scene wraps. A <span class="term" data-definition="A CLI (command-line interface) tool is a small standalone program, written in a language like Python or TypeScript, that runs when Claude calls it. It follows fixed instructions and has no judgment of its own &mdash; it just executes.">CLI</span> tool is a stagehand who only does one physical task &mdash; raise the curtain &mdash; when cued, and doesn't act at all.</p>
+      </div>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">🎬</div>
+          <h4 class="pattern-title">Command</h4>
+          <p class="pattern-desc">A cue-card triggered by typing <code>/name</code>. One-shot: fires now, then it's done.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.claude/commands/interview.md</code></p>
+          <p class="pattern-desc">You'd say: <em>"add a new command for /outcome"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">📖</div>
+          <h4 class="pattern-title">Skill</h4>
+          <p class="pattern-desc">Standing reference knowledge Claude loads automatically when it's relevant &mdash; not something you trigger by name.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.claude/skills/job-scraper/SKILL.md</code></p>
+          <p class="pattern-desc">You'd say: <em>"that belongs in a skill's reference file"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">🎭</div>
+          <h4 class="pattern-title">Subagent</h4>
+          <p class="pattern-desc">A second, temporary Claude with fresh memory, spun up for one scene, then dismissed.</p>
+          <p class="pattern-desc"><strong>Example:</strong> the <code>/apply</code> reviewer agent</p>
+          <p class="pattern-desc">You'd say: <em>"spin up a subagent to review this with fresh eyes"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">⚙️</div>
+          <h4 class="pattern-title">CLI Tool</h4>
+          <p class="pattern-desc">A plain program with flags. It executes; it doesn't think or judge.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.agents/skills/linkedin-search/cli/src/cli.ts</code></p>
+          <p class="pattern-desc">You'd say: <em>"run the linkedin-search CLI with a location flag"</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Translation block - SKILL.md frontmatter -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Inside a Skill's Training Sheet</h2>
+      <div class="animate-in">
+        <p>Skills are the role with real <span class="term" data-definition="YAML is a plain-text format for writing structured settings, using indentation instead of brackets. It's the header block at the top of many config and skill files.">YAML</span> <span class="term" data-definition="Frontmatter is a block of settings at the very top of a file, marked off by '---' lines. It configures the file before the actual content begins.">frontmatter</span>. Commands are just plain markdown starting with a heading &mdash; no frontmatter needed. Here's the real training sheet for the <code>freehire-search</code> skill.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">---</span>
+<span class="code-line"><span class="code-property">name</span>: freehire-search</span>
+<span class="code-line"><span class="code-property">version</span>: 1.0.0</span>
+<span class="code-line"><span class="code-property">description</span>: &gt;</span>
+<span class="code-line">  Use this skill to search live software / tech / data / engineering job listings</span>
+<span class="code-line">  across many countries and markets (and remote) via the freehire.dev aggregator's</span>
+<span class="code-line">  public API, or to look up a specific posting. It aggregates roles from ~50 ATS</span>
+<span class="code-line">  platforms into one schema, so a single skill covers many markets &mdash; but its faceted</span>
+<span class="code-line">  filtering (skills, category, seniority) is tuned tech-first, so scope triggers to</span>
+<span class="code-line">  technical roles. Trigger phrases: find a tech job, software job search, developer</span>
+<span class="code-line">  jobs, engineering vacancies, data/ML jobs, DevOps roles, remote developer jobs,</span>
+<span class="code-line">  "are there any &lt;tech role&gt; jobs in &lt;place&gt;", look up this freehire job posting.</span>
+<span class="code-line"><span class="code-property">context</span>: fork</span>
+<span class="code-line"><span class="code-property">allowed-tools</span>: Bash(bun run .agents/skills/freehire-search/cli/src/cli.ts *)</span>
+<span class="code-line">---</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><code>name</code> is the skill's ID &mdash; how Claude and the file system refer to it internally.</p>
+            <p class="tl"><code>description</code> is the trigger list: the phrases that make Claude decide "this skill is relevant, load it now." This is literally how Claude discovers what tools exist for a given request.</p>
+            <p class="tl">Every scenario listed here (job search, ATS lookup) teaches Claude when to reach for this skill instead of guessing.</p>
+            <p class="tl"><code>allowed-tools</code> is a safety fence: this skill can ONLY run this one specific command, nothing else &mdash; it can't suddenly start deleting files or browsing the web.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Good to know</strong>
+          <p>A second real example, <code>.claude/skills/job-scraper/SKILL.md</code>, restricts its <code>allowed-tools</code> to <code>Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), WebFetch, WebSearch, Agent, AskUserQuestion</code> &mdash; a wider fence, because scraping needs to read files, call multiple CLIs, and even hand off to a subagent.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: CLI tool as "dumb executor" -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Stagehand Doesn't Improvise</h2>
+      <div class="animate-in">
+        <p>A CLI tool has its own help text, written by a human, not generated by AI judgment. Here's the actual header from the LinkedIn search tool.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">const</span> HELP = <span class="code-string">`linkedin-cli &mdash; search jobs on LinkedIn (any country/region, plus remote)</span></span>
+<span class="code-line"></span>
+<span class="code-line">USAGE</span>
+<span class="code-line">  bun run src/cli.ts search --location "&lt;place&gt;" [flags]</span>
+<span class="code-line">  bun run src/cli.ts detail &lt;id|url&gt; [--format json|plain]</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This text is hard-coded. The tool doesn't "decide" what to say &mdash; a human wrote these exact words once.</p>
+            <p class="tl">"USAGE" spells out the fixed commands you can run and nothing else.</p>
+            <p class="tl">A <span class="term" data-definition="A flag is an option you add to a command to change its behavior, usually starting with -- like --location or --format. When talking to AI, you'd say 'add a flag for verbose output.'">flag</span> like <code>--location</code> is a fixed switch; the tool reads it and follows the rule, it doesn't reason about it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-in">
+        <p>When this CLI hits an error, it exits with an error code and a canned message. It isn't "thinking" about the failure &mdash; it's just reporting one, the way a smoke alarm beeps instead of explaining the fire.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: Quiz -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check Your Understanding</h2>
+      <div class="quiz-container animate-in" id="quiz-module2">
+
+        <div class="quiz-question-block"
+             data-correct="skill"
+             data-explanation-right="Exactly. A command fires once when you type it. Your search-query preferences need to persist and apply every single time you scrape &mdash; that's standing knowledge, which is a skill's job."
+             data-explanation-wrong="Think about the difference: a command is a cue-card for one moment. What you're describing needs to apply automatically, every time, without you retyping anything.">
+          <h3 class="quiz-question">You want Claude to remember your search-query preferences every time you scrape for jobs, not just once. Should that live in a command or a skill?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="command" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A command &mdash; add it to the /scrape cue-card</span>
+            </button>
+            <button class="quiz-option" data-value="skill" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A skill &mdash; standing reference knowledge Claude reloads every time</span>
+            </button>
+            <button class="quiz-option" data-value="cli" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A CLI tool &mdash; write a small program to store it</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="fresh-eyes"
+             data-explanation-right="Exactly. It's on purpose: a subagent with no memory of the drafting conversation can't be talked into agreeing with the draft. It critiques what's actually on the page, the way a stunt double doesn't know how earlier scenes went &mdash; they just do their scene."
+             data-explanation-wrong="Not quite. 'Fresh context' isn't about speed or cost &mdash; it's about what the subagent does and doesn't remember. Consider why a reviewer might want to NOT remember how the draft was written.">
+          <h3 class="quiz-question">The <code>/apply</code> reviewer agent gets "a fresh context." What does that mean, and why does the workflow do it on purpose?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="faster" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It's just faster to start a new session than reuse the old one</span>
+            </button>
+            <button class="quiz-option" data-value="fresh-eyes" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It has no memory of the drafting conversation, so it critiques with genuinely fresh eyes instead of agreeing with itself</span>
+            </button>
+            <button class="quiz-option" data-value="cheaper" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Fresh context just means it uses less computing power</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="reporting"
+             data-explanation-right="Exactly. A CLI tool follows fixed code paths written by a human. An error code is a pre-written signal, not a judgment call &mdash; there's no reasoning happening, just a report of what already went wrong."
+             data-explanation-wrong="Not quite. Re-read what a CLI tool actually is: a small standalone program with no AI behind it. What would 'thinking about a failure' require that a plain program doesn't have?">
+          <h3 class="quiz-question">A CLI tool like <code>linkedin-search</code> exits with an error code instead of a helpful sentence. Is that CLI "thinking" about the failure, or just reporting one?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="thinking" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Thinking &mdash; it decided the error code was the best way to explain itself</span>
+            </button>
+            <button class="quiz-option" data-value="reporting" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Reporting &mdash; it's a dumb executor following fixed code, with no judgment involved</span>
+            </button>
+            <button class="quiz-option" data-value="both" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Both &mdash; CLI tools have some built-in AI reasoning for errors</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: Transition to Module 3 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>You now know what a subagent is: a stunt double with no memory of the main show.</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🎭</div>
+        <div class="callout-content">
+          <strong class="callout-title">Next up</strong>
+          <p>Next module: watch one argue with the main AI over your cover letter's opening line. Two actors, same file, opposite jobs.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

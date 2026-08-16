@@ -60,9 +60,9 @@ How well do the required/preferred skills align with the candidate's capabilitie
 | 40-59 | Partial match, significant upskilling needed |
 | 0-39 | Fundamental mismatch |
 
-**Strong match areas:** [YOUR_PRIMARY_SKILLS]
-**Moderate match areas:** [YOUR_SECONDARY_SKILLS]
-**Weak match areas:** [SKILLS_YOU_LACK]
+**Strong match areas:** AI workflow automation design, AI agent/multi-model LLM evaluation, client discovery and requirements gathering, business case and solution proposal development
+**Moderate match areas:** BPMN process mapping, CRM implementation (Zoho), Agile/Scrum project management, cross-cultural stakeholder management
+**Weak match areas:** Deep software engineering / hands-on coding roles (background is from 2000s-2012; recent experience is consulting and no-code/low-code AI tooling, not production software development)
 
 ### 2. Experience Match (0-100)
 Does work history align with what they're looking for?
@@ -74,9 +74,11 @@ Does work history align with what they're looking for?
 | 40-59 | Adjacent experience, would need to make the case |
 | 0-39 | Unrelated experience |
 
-**Strong:** [YOUR_DIRECT_EXPERIENCE_DOMAINS]
-**Moderate:** [YOUR_ADJACENT_EXPERIENCE]
-**Entry-level:** [ROLES_WITH_LIMITED_EXPERIENCE]
+**Strong:** AI/workflow automation solutions consulting, technical business analysis, CRM implementation, client-facing solution scoping
+**Moderate:** Solutions engineering, technical implementation/delivery management, Scrum Master / Agile delivery roles
+**Entry-level:** Hands-on software engineering roles (most recent coding-heavy role ended 2012)
+
+**Important distinction - don't conflate total tenure with AI-specific tenure:** the candidate has 10+ years of *professional* experience, but *AI-specific* hands-on experience (workflow automation, LLM-based consulting) is under one year (PhaseOne AI + Agentic-X combined, Sep 2025-Jun 2026). A posting that asks for "1 year minimum" AI/AI-tools experience is an appropriately-leveled entry point, not a seniority mismatch - do not penalize the Experience score for an entry-level AI-specific requirement. Reserve the seniority-mismatch penalty for postings that are entry-level across the board (junior title, low responsibility scope, low pay band for the market) rather than just low on the AI-years axis specifically.
 
 ### 3. Behavioral/Culture Fit (0-100)
 Does the role and company culture match the behavioral profile?
@@ -88,12 +90,14 @@ Does the role and company culture match the behavioral profile?
 | 40-59 | Some friction areas |
 | 0-39 | Significant culture mismatch |
 
-**Red flags to research:** Department disorganization, work dominated by maintenance over development, poor chemistry with leadership, culture mismatches. Check reviews, media coverage, LinkedIn connections, and network contacts for insider perspective.
+**Red flags to research:** Department disorganization, mostly solo work, work dominated by maintenance over development, poor chemistry with leadership, culture mismatches. Check reviews, media coverage, LinkedIn connections, and network contacts for insider perspective.
 
 ### 4. Location & Logistics (Pass/Fail + Notes)
-- Within commute range: PASS
-- Remote with occasional office: PASS
-- Requires relocation: FAIL (deal-breaker)
+- Based in Malmö, Sweden (Singapore citizen). Hybrid or in-person roles in the Öresund region (incl. Copenhagen) are in scope without relocation. Also open to relocating to Stockholm, Göteborg/Gothenburg, or Singapore.
+- Within Malmö / Öresund region, hybrid or in-person: PASS
+- Within Stockholm, Göteborg/Gothenburg, or Singapore: PASS (relocation) - flag clearly as relocation so it's evaluated against relocation readiness, not commute
+- Fully remote: PASS
+- Requires relocation outside Öresund/Stockholm/Göteborg/Singapore: FAIL (deal-breaker)
 - Frequent international travel: FLAG (discuss with user)
 
 ### 5. Career Alignment & Motivation (0-100)
@@ -107,19 +111,19 @@ Does this role advance career goals and contain tasks that energize?
 | 0-39 | Dead end or backwards step |
 
 **Career goals:**
-- [YOUR_CAREER_GOAL_1]
-- [YOUR_CAREER_GOAL_2]
-- [YOUR_CAREER_GOAL_3]
+- Deploy technical AI solutions directly to customers (AI Solutions Consultant, AI Implementation Consultant, AI Deployment Specialist, Solutions Engineer, Technical Implementation Manager, or equivalent titles)
+- Stay in team-based delivery roles, not solo/entrepreneurial ownership
+- Grow a track record in AI-powered workflow deployment for SME/enterprise clients
 
 **Motivation filter:** Evaluate not just whether you *can* do the tasks, but whether the tasks will *energize* you. Consider:
-- Tasks that energize: [YOUR_ENERGIZING_TASKS]
-- Tasks that drain: [YOUR_DRAINING_TASKS]
+- Tasks that energize: Helping customers use technology to improve operations; freeing customers from menial work so they can focus on specialised expertise; client discovery and solution scoping; hands-on AI/automation build
+- Tasks that drain: Solo/entrepreneurial ownership with no team; environments where fast delivery is prioritized over doing it right; sales-quota-driven performance measurement
 - Non-task factors: leadership style, department culture, company values, degree of autonomy
 
 **Life situation alignment:** Consider personal constraints:
-- **Security**: [YOUR_FINANCIAL_SITUATION_CONTEXT]
-- **Flexibility**: [YOUR_SCHEDULE_CONSTRAINTS]
-- **Professional development**: [YOUR_GROWTH_PRIORITIES]
+- **Security**: Currently between roles
+- **Flexibility**: Hybrid or in-person only, within Malmö/Öresund region (incl. Copenhagen); not open to fully solo/remote-only entrepreneurial arrangements
+- **Professional development**: Building depth in AI solution deployment; open to Solutions Engineer / Technical Implementation Manager as adjacent growth paths
 
 ### 6. Salary Benchmark (Optional)
 

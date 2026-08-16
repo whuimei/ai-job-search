@@ -1,0 +1,280 @@
+<section class="module" id="module-5">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h2 class="module-title">The Clever Tricks: Compile, Inspect, Iterate</h2>
+      <p class="module-subtitle">Module 4 sent Claude outside the repo to gather data. Now we're back inside, for the other big feat of engineering: turning a text file into a document that actually looks right.</p>
+    </div>
+
+    <!-- SCREEN 1: Hook + metaphor -->
+    <div class="screen">
+      <p class="animate-in">You've seen Claude write a <span class="term" data-definition="LaTeX is a text-based system for writing documents. Instead of dragging text boxes around like Word, you write plain-text commands that describe the document's structure, then a separate program turns that text into a PDF.">LaTeX</span> file for a CV. Here's the catch: a file that looks perfect as text can still produce a broken document.</p>
+
+      <p class="animate-in">A job title stranded alone at the bottom of page 1. Its bullet points spilling onto page 2. The source code gave no hint anything was wrong.</p>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">✂️</div>
+        <div class="callout-content">
+          <strong class="callout-title">Think of a tailor's final fitting</strong>
+          <p>Anyone can cut fabric to a pattern's exact measurements. A good tailor puts the finished garment ON the client and LOOKS at it before calling the job done &mdash; because fabric drapes unpredictably and seams bunch up in ways the paper pattern never showed. This module is about the workflow doing the equivalent for documents.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: The loop -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Not just cutting the pattern &mdash; trying it on</h3>
+      <p class="animate-in">The workflow doesn't trust that the LaTeX source "looks right." It <span class="term" data-definition="To compile is to run a program that converts source text into a finished output &mdash; here, turning a .tex text file into an actual PDF you could open and read.">compiles</span> a real <span class="term" data-definition="PDF (Portable Document Format) is the standard file format for finished, page-formatted documents &mdash; the kind you'd email or print, as opposed to an editable source file.">PDF</span>, then looks at the actual <span class="term" data-definition="To render is to turn source instructions into the final visual output a person would actually see &mdash; here, turning the compiled PDF into pages you can look at, rather than just trusting the text that generated them.">rendered</span> pages before anyone else sees them.</p>
+
+      <div class="flow-steps animate-in">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <p>Generate the LaTeX source</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <p>Compile it to a real PDF</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <p>Visually inspect the pages</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <p>Fix &amp; repeat until clean</p>
+        </div>
+      </div>
+
+      <p class="animate-in">Step 3 is the surprising part: Claude uses its Read tool to look at the <em>rendered</em> PDF pages, the same way you'd look at a finished garment on the client &mdash; not just the pattern (the .tex source) it was cut from.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-comment">### 5a. Compile</span></span>
+<span class="code-line">cd cv &amp;&amp; lualatex -interaction=nonstopmode main_&lt;company&gt;.tex</span>
+<span class="code-line">cd ../cover_letters &amp;&amp; xelatex -interaction=nonstopmode cover_&lt;company&gt;_&lt;role&gt;.tex</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is step 5a of the apply workflow: actually compiling the documents.</p>
+            <p class="tl">Turn the CV's text file into a real PDF, using <code>lualatex</code> &mdash; the CV needs this specific compiler because a more common one breaks on the icon fonts it uses.</p>
+            <p class="tl">Do the same for the cover letter, but with <code>xelatex</code> instead, because the cover letter's template needs that compiler's font handling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Code <-> English translation of the checklist -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">The checklist Claude runs against its own PDF</h3>
+      <p class="animate-in">This is step 5b: after compiling, Claude reads the actual rendered pages and checks them against a literal pass/fail list.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-comment">### 5b. Inspect layout</span></span>
+<span class="code-line">Read both PDFs via the Read tool and verify:</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">**CV (cv/main_&lt;company&gt;.pdf):**</span></span>
+<span class="code-line">- [ ] Exactly 2 pages (not 1, not 3)</span>
+<span class="code-line">- [ ] No orphaned \cventry titles &mdash; a job/education</span>
+<span class="code-line">      title line must never sit alone at the bottom of</span>
+<span class="code-line">      page 1 with its bullets on page 2. This is the</span>
+<span class="code-line">      most common failure.</span>
+<span class="code-line">- [ ] Section headings are not isolated at the top of</span>
+<span class="code-line">      page 2 with only 1-2 lines below</span>
+<span class="code-line">- [ ] No awkward whitespace gaps</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">A 2-page CV that compiles to 1 or 3 pages failed &mdash; the content doesn't fit the format, something has to change.</p>
+            <p class="tl">The most common bug: imagine flipping to a résumé and seeing only a company name and dates at the very bottom of a page &mdash; you'd have to turn the page just to find out what the person actually did there. That's what this line catches.</p>
+            <p class="tl">A section title (like "Experience") shouldn't be the last thing on a page, or sit at the top of a new page with almost nothing under it &mdash; both look broken to a reader.</p>
+            <p class="tl">Big empty gaps mean LaTeX's automatic spacing did something ugly. A human eye catches this; the source text never shows it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: Two kinds of fixes -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Two different repairs, for two different problems</h3>
+      <p class="animate-in">A tailor doesn't handle a loose thread and a too-short hem the same way. This workflow makes the same distinction between a near-miss and real overflow.</p>
+
+      <p class="animate-in"><strong>Near-miss: pin the seam.</strong> If a title is about to get orphaned, add a hint in the <span class="term" data-definition="The preamble is the setup section at the top of a LaTeX document &mdash; before the actual content begins &mdash; where you load extra features the document will use.">preamble</span> that tells the compiler "keep this block together."</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">\needspace{5\baselineskip}</span>
+<span class="code-line">\item{\cventry{YEAR--YEAR}{Role Title}{Organization}{Location}{}{...}}</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">"Before starting this entry, make sure there's room for at least 5 lines below it &mdash; otherwise push the whole thing to the next page instead of splitting it."</p>
+            <p class="tl">The actual job entry, now protected from being orphaned. (Requires adding <code>\usepackage{needspace}</code> up in the preamble.)</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="animate-in"><strong>Real overflow: alter the garment.</strong> If a CV is genuinely too long, don't trim mechanically by section &mdash; score every line and cut the weakest one first.</p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Relevance to this posting</strong>
+            <p>Does the line name a tool, keyword, or responsibility the job ad actually asks for?</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Uniqueness</strong>
+            <p>Is this the only place the claim appears, or is it repeated elsewhere on the CV?</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Narrative load</strong>
+            <p>Does the cover letter depend on this line? Cutting it would force a rewrite elsewhere.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="animate-in">Whichever line scores lowest gets cut first &mdash; regardless of which section it happens to sit in. An older role that speaks directly to the posting can outrank a recent one that doesn't.</p>
+    </div>
+
+    <!-- SCREEN 5: Pattern cards + callout -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Clever tricks worth asking any AI tool for</h3>
+      <p class="animate-in">None of this is specific to CVs or LaTeX. These are habits worth requesting whenever an AI tool generates something you'll rely on.</p>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">👁️</div>
+          <h4 class="pattern-title">Render before you trust</h4>
+          <p class="pattern-desc">Don't just read the source &mdash; compile it, run it, or render it, then look at the real output before calling it done.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">⚖️</div>
+          <h4 class="pattern-title">Score before you cut</h4>
+          <p class="pattern-desc">When something must be trimmed, weigh each piece by relevance and impact &mdash; don't cut mechanically by position or section.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">🧵</div>
+          <h4 class="pattern-title">Match the fix to the problem</h4>
+          <p class="pattern-desc">A near-miss gets a nudge (<code>\enlargethispage</code>), not a cut. The project's own rules say it plainly: don't cut to fit if the fit is borderline (2.02 pages).</p>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Aha!</strong>
+          <p>An AI that writes code, or LaTeX, or any generated file, is not the same as an AI that CHECKS what that code produces. The checking step is where real quality comes from &mdash; and it's a step you can explicitly ask for.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: Quiz + transition -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Check your understanding</h3>
+
+      <div class="quiz-container animate-in" id="quiz-module5">
+
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly. Relevance-weighted cutting means the lowest-scoring line goes first, no matter which section it's in &mdash; a real 3-page overflow with actual content still needs the scoring pass, not a mechanical trim."
+             data-explanation-wrong="Not quite. Real content spilling to page 3 isn't a near-miss you can nudge away with spacing &mdash; and the checklist explicitly rejects removing whole sections by fixed priority order.">
+          <h3 class="quiz-question">The CV compiles to 3 pages, with real content &mdash; not just a stray blank line &mdash; spilling onto page 3. What should Claude do first?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Delete the oldest education entry, since older items are always lowest priority</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Score every candidate line by relevance, uniqueness, and narrative load, then cut the lowest-scoring one first</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Add <code>\needspace</code> above the last entry so it doesn't spill over</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly. This is the checklist's most common failure, and needspace is the fix built for it: it tells the compiler to keep a title and its first lines together, pushing the whole block to the next page instead of splitting it."
+             data-explanation-wrong="Not quite. Relevance-weighted cutting is for trimming content when a CV is genuinely too long &mdash; this symptom is a page-break placement problem, not a length problem.">
+          <h3 class="quiz-question">A finished CV shows a job title and company name alone at the bottom of page 1, with all its bullet points starting on page 2. Which fix addresses this exact symptom?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Apply relevance-weighted cutting to shorten the CV</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Add <code>\needspace{5\baselineskip}</code> before that <code>\cventry</code>, with <code>\usepackage{needspace}</code> in the preamble</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Recompile with xelatex instead of lualatex</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>You're building an AI tool that generates PowerPoint slides for you.</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. This module's core lesson generalizes: generating source isn't the same as checking the result. For slides, that means actually opening the rendered deck and looking at each slide before calling it finished &mdash; the same generate-render-inspect-fix loop, just applied to a different file type."
+               data-explanation-wrong="Not quite. Faster generation or more slide templates don't catch the failure mode this module is about &mdash; a slide that looks fine in the source but renders with, say, overlapping text or a cut-off image.">
+            <h3 class="quiz-question">Based on this module, what step should you insist the AI take before calling a slide deck "done"?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Generate the slides faster, using a shorter prompt</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Offer more slide templates to choose from</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Render the actual deck and visually check each slide against a checklist, fixing and re-rendering until it passes</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+      </div>
+
+      <p class="animate-in">Claude checks its own PDFs before showing them to you. But who checks Claude Code's own permissions before they reach thousands of forks of this repo? One last layer of self-checking, zoomed all the way out &mdash; that's Module 6.</p>
+    </div>
+
+  </div>
+</section>

@@ -127,6 +127,13 @@ Rules for the presentation:
 - Then ask: "Want to apply to any of these? Give me the number(s) and I'll start with the full `/apply` workflow."
 - If the user picks one, run the `/apply` workflow on that job's URL, passing the triage verdict as prior context but **re-running the full Step 1 evaluation** - triage never substitutes for it.
 
+## Step 6: Save Results to File
+
+Save the full ranking output (shortlist table, below-threshold table, detail sections,
+and any vetoed entries) to `job_scraper/rankings_YYYY-MM-DD.md`. This file is the durable
+record of the ranking run. Always create it before presenting the final summary to the
+user.
+
 ---
 
 ## Important Rules

@@ -1,0 +1,3544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside AI Job Search</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+/* =============================================================
+   CODEBASE-TO-COURSE — COMPLETE DESIGN SYSTEM
+   Copy this file verbatim into the course output directory.
+   Never regenerate it — customize only via :root overrides
+   in _base.html (accent color only).
+   ============================================================= */
+
+/* ── GOOGLE FONTS (loaded via _base.html <head>) ───────────────
+   Bricolage Grotesque · DM Sans · JetBrains Mono
+   ──────────────────────────────────────────────────────────── */
+
+/* ── DESIGN TOKENS ─────────────────────────────────────────── */
+:root {
+  /* BACKGROUNDS */
+  --color-bg:             #FAF7F2;
+  --color-bg-warm:        #F5F0E8;
+  --color-bg-code:        #1E1E2E;
+  --color-text:           #2C2A28;
+  --color-text-secondary: #6B6560;
+  --color-text-muted:     #9E9790;
+  --color-border:         #E5DFD6;
+  --color-border-light:   #EEEBE5;
+  --color-surface:        #FFFFFF;
+  --color-surface-warm:   #FDF9F3;
+
+  /* ACCENT — overridden per course in _base.html */
+  --color-accent:         #D94F30;
+  --color-accent-hover:   #C4432A;
+  --color-accent-light:   #FDEEE9;
+  --color-accent-muted:   #E8836C;
+
+  /* SEMANTIC */
+  --color-success:        #2D8B55;
+  --color-success-light:  #E8F5EE;
+  --color-error:          #C93B3B;
+  --color-error-light:    #FDE8E8;
+  --color-info:           #2A7B9B;
+  --color-info-light:     #E4F2F7;
+
+  /* ACTOR COLORS */
+  --color-actor-1:        #D94F30;
+  --color-actor-2:        #2A7B9B;
+  --color-actor-3:        #7B6DAA;
+  --color-actor-4:        #D4A843;
+  --color-actor-5:        #2D8B55;
+
+  /* FONTS */
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* TYPE SCALE */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
+
+  /* LINE HEIGHTS */
+  --leading-tight:  1.15;
+  --leading-snug:   1.3;
+  --leading-normal: 1.6;
+  --leading-loose:  1.8;
+
+  /* SPACING */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* LAYOUT */
+  --content-width:      800px;
+  --content-width-wide: 1000px;
+  --nav-height:         50px;
+
+  /* RADII */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-full: 9999px;
+
+  /* SHADOWS (warm-tinted, never pure black) */
+  --shadow-sm: 0 1px 2px rgba(44,42,40,0.05);
+  --shadow-md: 0 4px 12px rgba(44,42,40,0.08);
+  --shadow-lg: 0 8px 24px rgba(44,42,40,0.10);
+  --shadow-xl: 0 16px 48px rgba(44,42,40,0.12);
+
+  /* EASING */
+  --ease-out:    cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.65,0,0.35,1);
+
+  /* DURATIONS */
+  --duration-fast:   150ms;
+  --duration-normal: 300ms;
+  --duration-slow:   500ms;
+  --stagger-delay:   120ms;
+}
+
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+  background: var(--color-bg);
+  background-image: radial-gradient(
+    ellipse at 20% 50%,
+    rgba(217,79,48,0.03) 0%,
+    transparent 50%
+  );
+}
+
+/* ── SCROLLBAR ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* ── CODE GLOBALS ───────────────────────────────────────────── */
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: hidden;
+}
+.translation-code::-webkit-scrollbar,
+pre::-webkit-scrollbar { display: none; }
+
+/* Catppuccin-inspired syntax highlighting */
+.code-keyword  { color: #CBA6F7; }
+.code-string   { color: #A6E3A1; }
+.code-function { color: #89B4FA; }
+.code-comment  { color: #6C7086; }
+.code-number   { color: #FAB387; }
+.code-property { color: #F9E2AF; }
+.code-operator { color: #94E2D5; }
+.code-tag      { color: #F38BA8; }
+.code-attr     { color: #F9E2AF; }
+.code-value    { color: #A6E3A1; }
+.code-line     { display: block; }
+
+/* ── NAV ────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  z-index: 1000;
+  background: rgba(250,247,242,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--color-accent);
+  transition: width 100ms linear;
+}
+
+.nav-inner {
+  max-width: var(--content-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.nav-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.nav-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.nav-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  position: relative;
+}
+.nav-dot::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+.nav-dot:hover::after { opacity: 1; }
+.nav-dot.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+.nav-dot.visited {
+  border-color: var(--color-accent-muted);
+  background: var(--color-accent-muted);
+}
+
+/* ── MODULE STRUCTURE ───────────────────────────────────────── */
+.module {
+  min-height: 100dvh;
+  min-height: 100vh;
+  scroll-snap-align: start;
+  padding: var(--space-16) var(--space-6);
+  padding-top: calc(var(--nav-height) + var(--space-12));
+}
+
+.module-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.module-header { margin-bottom: var(--space-12); }
+
+.module-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-6xl);
+  font-weight: 800;
+  color: var(--color-accent);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: var(--space-2);
+}
+
+.module-title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+}
+
+.module-subtitle {
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+}
+
+.screen {
+  margin-bottom: var(--space-16);
+}
+
+.screen-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-snug);
+}
+
+p { margin-bottom: var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+/* ── SCROLL ANIMATIONS ──────────────────────────────────────── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out);
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stagger-children > .animate-in {
+  transition-delay: calc(var(--stagger-index, 0) * var(--stagger-delay));
+}
+
+/* ── TRANSLATION BLOCKS ─────────────────────────────────────── */
+.translation-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.translation-code {
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  padding: var(--space-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.translation-english {
+  background: var(--color-surface-warm);
+  padding: var(--space-6);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  border-left: 3px solid var(--color-accent);
+}
+
+.translation-label {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+}
+.translation-english .translation-label {
+  position: static;
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.translation-lines .tl {
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  color: var(--color-text-secondary);
+}
+.translation-lines .tl:last-child { border-bottom: none; }
+
+/* ── QUIZ ───────────────────────────────────────────────────── */
+.quiz-container {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.quiz-question-block { margin-bottom: var(--space-8); }
+.quiz-question-block:last-of-type { margin-bottom: 0; }
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-snug);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--color-accent-muted); }
+.quiz-option.selected { border-color: var(--color-accent); background: var(--color-accent-light); }
+.quiz-option.correct  { border-color: var(--color-success); background: var(--color-success-light); }
+.quiz-option.incorrect{ border-color: var(--color-error);   background: var(--color-error-light); }
+.quiz-option:disabled { cursor: default; }
+
+.quiz-option-radio {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  flex-shrink: 0;
+  transition: all var(--duration-fast);
+}
+.quiz-option.selected .quiz-option-radio {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  box-shadow: inset 0 0 0 3px white;
+}
+.quiz-option.correct .quiz-option-radio  { border-color: var(--color-success); background: var(--color-success); box-shadow: inset 0 0 0 3px white; }
+.quiz-option.incorrect .quiz-option-radio{ border-color: var(--color-error);   background: var(--color-error);   box-shadow: inset 0 0 0 3px white; }
+
+.quiz-feedback {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--duration-normal), opacity var(--duration-normal);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+.quiz-feedback.show {
+  max-height: 200px;
+  opacity: 1;
+  padding: var(--space-3);
+  margin-top: var(--space-2);
+}
+.quiz-feedback.success { background: var(--color-success-light); color: var(--color-success); }
+.quiz-feedback.error   { background: var(--color-error-light);   color: var(--color-error); }
+.quiz-feedback.warning { background: var(--color-info-light);    color: var(--color-info); }
+
+.quiz-check-btn, .quiz-reset-btn {
+  margin-top: var(--space-6);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background var(--duration-fast), transform var(--duration-fast);
+}
+.quiz-check-btn {
+  background: var(--color-accent);
+  color: white;
+  margin-right: var(--space-3);
+}
+.quiz-check-btn:hover { background: var(--color-accent-hover); transform: translateY(-1px); }
+.quiz-reset-btn {
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+.quiz-reset-btn:hover { border-color: var(--color-accent-muted); }
+
+/* Scenario block */
+.scenario-block { margin-bottom: var(--space-6); }
+.scenario-context {
+  background: var(--color-info-light);
+  border-left: 3px solid var(--color-info);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.scenario-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-info);
+  margin-bottom: var(--space-2);
+}
+
+/* ── DRAG AND DROP ──────────────────────────────────────────── */
+.dnd-container { margin: var(--space-8) 0; }
+.dnd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.dnd-chip {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: grab;
+  user-select: none;
+  transition: opacity var(--duration-fast), transform var(--duration-fast);
+}
+.dnd-chip:active { cursor: grabbing; transform: scale(1.05); }
+.dnd-chip.dragging { opacity: 0.4; }
+.dnd-chip.placed { opacity: 0.3; pointer-events: none; }
+
+.dnd-zones { display: flex; flex-direction: column; gap: var(--space-4); }
+.dnd-zone {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  background: var(--color-surface);
+}
+.dnd-zone-label { font-size: var(--text-sm); color: var(--color-text-secondary); margin-bottom: var(--space-3); }
+.dnd-zone-target {
+  min-height: 40px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  transition: border-color var(--duration-fast), background var(--duration-fast);
+}
+.dnd-zone-target.drag-over { border-color: var(--color-accent); background: var(--color-accent-light); }
+.dnd-zone-target.correct-placed { border-color: var(--color-success); background: var(--color-success-light); color: var(--color-success); font-weight: 600; }
+.dnd-zone-target.incorrect-placed{ border-color: var(--color-error); background: var(--color-error-light); }
+.touch-ghost {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* ── GROUP CHAT ─────────────────────────────────────────────── */
+.chat-window {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin: var(--space-8) 0;
+}
+
+.chat-messages {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 200px;
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+
+.chat-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 4px;
+  padding: var(--space-3) var(--space-4);
+}
+
+.chat-sender {
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chat-bubble p {
+  font-size: var(--text-sm);
+  margin: 0;
+  line-height: var(--leading-normal);
+}
+
+.chat-typing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-6) var(--space-4);
+}
+
+.chat-typing-dots {
+  display: flex;
+  gap: var(--space-1);
+  background: var(--color-bg-warm);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.typing-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+  animation: typingBounce 1.4s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+.chat-controls {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface-warm);
+}
+.chat-progress {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── FLOW / DATA FLOW ANIMATION ─────────────────────────────── */
+.flow-animation {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+
+.flow-actors {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.flow-actor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.flow-actor-icon {
+  width: 56px; height: 56px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-warm);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.flow-actor span {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+.flow-actor.active .flow-actor-icon {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  box-shadow: 0 0 0 3px var(--color-accent-light), 0 0 20px rgba(217,79,48,0.15);
+  transform: scale(1.1);
+}
+
+.flow-packet {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  box-shadow: 0 0 8px rgba(217,79,48,0.5);
+}
+
+.flow-step-label {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  min-height: 2.5em;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-6);
+  line-height: var(--leading-normal);
+}
+
+.flow-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.flow-progress {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* ── ARCHITECTURE DIAGRAM ───────────────────────────────────── */
+.arch-diagram {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+.arch-zone {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+.arch-zone-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+.arch-component {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin: var(--space-2);
+  transition: all var(--duration-fast);
+  font-size: var(--text-sm);
+}
+.arch-component:hover, .arch-component.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+.arch-icon { font-size: 1.5rem; }
+.arch-description {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  min-height: 2.5em;
+}
+
+/* ── LAYER TOGGLE ───────────────────────────────────────────── */
+.layer-demo { margin: var(--space-8) 0; }
+.layer-tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.layer-tab {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+}
+.layer-tab.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+.layer-viewport {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.layer-description {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── BUG CHALLENGE ──────────────────────────────────────────── */
+.bug-challenge {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-8) 0;
+}
+.bug-challenge h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+}
+.bug-code {
+  background: var(--color-bg-code);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+.bug-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+.bug-line:hover { background: rgba(255,255,255,0.05); }
+.bug-line.correct  { background: rgba(45,139,85,0.2); }
+.bug-line.incorrect{ background: rgba(201,59,59,0.2); }
+.line-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: #6C7086;
+  min-width: 1.5em;
+  text-align: right;
+  user-select: none;
+}
+.bug-line code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: #CDD6F4;
+}
+.bug-feedback {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--duration-normal), opacity var(--duration-normal);
+  font-size: var(--text-sm);
+  border-radius: var(--radius-sm);
+}
+.bug-feedback.show {
+  max-height: 200px;
+  opacity: 1;
+  padding: var(--space-3);
+}
+.bug-feedback.success { background: var(--color-success-light); color: var(--color-success); }
+.bug-feedback.error   { background: var(--color-error-light);   color: var(--color-error); }
+
+/* ── CALLOUT BOXES ──────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  margin: var(--space-6) 0;
+  border-left: 4px solid;
+}
+.callout-accent  { background: var(--color-accent-light);  border-color: var(--color-accent); }
+.callout-info    { background: var(--color-info-light);    border-color: var(--color-info); }
+.callout-warning { background: var(--color-error-light);   border-color: var(--color-error); }
+
+.callout-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+.callout-title { display: block; font-weight: 700; margin-bottom: var(--space-1); }
+.callout-content p { font-size: var(--text-sm); margin: 0; color: var(--color-text-secondary); }
+
+/* ── PATTERN / FEATURE CARDS ────────────────────────────────── */
+.pattern-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.pattern-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  border-top: 3px solid var(--color-accent);
+  transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal);
+}
+.pattern-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.pattern-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-3);
+}
+.pattern-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.pattern-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+  margin: 0;
+}
+
+/* ── FLOW DIAGRAMS (static) ─────────────────────────────────── */
+.flow-steps {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin: var(--space-6) 0;
+}
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+.flow-step-num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flow-step p { font-size: var(--text-sm); color: var(--color-text-secondary); max-width: 120px; margin: 0; }
+.flow-arrow {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* ── BADGE / CONFIG LIST ────────────────────────────────────── */
+.badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-6) 0;
+}
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  transition: border-color var(--duration-fast);
+}
+.badge-item:hover { border-color: var(--color-accent-muted); }
+.badge-code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-bg-code);
+  color: #CBA6F7;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+.badge-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+/* ── GLOSSARY TOOLTIPS ──────────────────────────────────────── */
+.term {
+  border-bottom: 1.5px dashed var(--color-accent-muted);
+  cursor: pointer;
+}
+.term:hover, .term.active {
+  border-bottom-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.term-tooltip {
+  position: fixed;
+  background: var(--color-bg-code);
+  color: #CDD6F4;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  line-height: var(--leading-normal);
+  width: max(200px, min(320px, 80vw));
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+  z-index: 10000;
+}
+.term-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-bg-code);
+}
+.term-tooltip.visible { opacity: 1; }
+.term-tooltip.flip::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--color-bg-code);
+}
+
+/* ── VISUAL FILE TREE ───────────────────────────────────────── */
+.file-tree {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  margin: var(--space-6) 0;
+}
+.ft-folder, .ft-file {
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--color-border-light);
+  margin-left: var(--space-4);
+}
+.ft-folder > .ft-name { color: var(--color-accent); font-weight: 600; }
+.ft-folder > .ft-name::before { content: '📁 '; }
+.ft-file > .ft-name::before { content: '📄 '; }
+.ft-desc {
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+}
+.ft-children { margin-left: var(--space-4); }
+
+/* ── ICON-LABEL ROWS ────────────────────────────────────────── */
+.icon-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.icon-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.icon-row strong { display: block; font-weight: 600; }
+.icon-row p { margin: var(--space-1) 0 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+.icon-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ── NUMBERED STEP CARDS ────────────────────────────────────── */
+.step-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+.step-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+.step-body strong { display: block; font-weight: 600; margin-bottom: var(--space-1); }
+.step-body p { margin: 0; color: var(--color-text-secondary); font-size: var(--text-sm); }
+
+/* ── SHARED BUTTON STYLE ────────────────────────────────────── */
+.btn {
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  color: var(--color-text-secondary);
+}
+.btn:hover { border-color: var(--color-accent-muted); color: var(--color-accent); }
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover { background: var(--color-accent-hover); border-color: var(--color-accent-hover); color: white; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    --text-4xl: 1.875rem;
+    --text-5xl: 2.25rem;
+    --text-6xl: 3rem;
+  }
+  .translation-block { grid-template-columns: 1fr; }
+  .translation-english { border-left: none; border-top: 3px solid var(--color-accent); }
+  .pattern-cards { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 1.5rem;
+    --text-5xl: 1.875rem;
+    --text-6xl: 2.25rem;
+  }
+  .module { padding: var(--space-8) var(--space-4); }
+  .pattern-cards { grid-template-columns: 1fr; }
+  .flow-steps { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); }
+  .nav-title { max-width: 140px; }
+}
+
+/* ── KEYFRAMES ──────────────────────────────────────────────── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-6px); }
+}
+
+@keyframes packetMove {
+  from { left: var(--packet-from-x); top: var(--packet-from-y); opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  to   { left: var(--packet-to-x);   top: var(--packet-to-y);   opacity: 0; }
+}
+
+</style>
+
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script>
+/**
+ * CODEBASE-TO-COURSE — COMPLETE JS ENGINE
+ * Copy this file verbatim into the course output directory.
+ * Never regenerate it. It handles all interactivity generically.
+ *
+ * Engines included:
+ *  - Navigation & progress bar
+ *  - Scroll-triggered reveal animations
+ *  - Keyboard navigation
+ *  - Glossary tooltips
+ *  - Quiz (multiple-choice & scenario)
+ *  - Drag-and-drop matching
+ *  - Group chat animation
+ *  - Data flow / message flow animation
+ *  - Architecture diagram
+ *  - "Spot the bug" challenge
+ *  - Layer toggle
+ */
+(function () {
+  'use strict';
+
+  /* ── HELPERS ──────────────────────────────────────────────── */
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
+
+  /* ── NAVIGATION & PROGRESS BAR ────────────────────────────── */
+  const progressBar = $('#progress-bar');
+  const navDots     = $$('.nav-dot');
+  const modules     = $$('.module');
+
+  function updateProgress() {
+    if (!progressBar) return;
+    const scrollTop    = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct          = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+    progressBar.setAttribute('aria-valuenow', Math.round(pct));
+    updateNavDots();
+  }
+
+  function updateNavDots() {
+    const scrollMid = window.scrollY + window.innerHeight / 2;
+    modules.forEach((mod, i) => {
+      const dot = navDots[i];
+      if (!dot) return;
+      const top    = mod.offsetTop;
+      const bottom = top + mod.offsetHeight;
+      if (scrollMid >= top && scrollMid < bottom) {
+        dot.classList.add('active');
+        dot.classList.remove('visited');
+      } else if (window.scrollY + window.innerHeight > top) {
+        dot.classList.remove('active');
+        dot.classList.add('visited');
+      } else {
+        dot.classList.remove('active', 'visited');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', () => requestAnimationFrame(updateProgress), { passive: true });
+  updateProgress();
+
+  // Nav dot click → scroll to module
+  navDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = $('#' + dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ── KEYBOARD NAVIGATION ───────────────────────────────────── */
+  function currentModuleIndex() {
+    const scrollMid = window.scrollY + window.innerHeight / 2;
+    for (let i = 0; i < modules.length; i++) {
+      const top    = modules[i].offsetTop;
+      const bottom = top + modules[i].offsetHeight;
+      if (scrollMid >= top && scrollMid < bottom) return i;
+    }
+    return 0;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      const next = modules[currentModuleIndex() + 1];
+      if (next) { next.scrollIntoView({ behavior: 'smooth' }); e.preventDefault(); }
+    }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      const prev = modules[currentModuleIndex() - 1];
+      if (prev) { prev.scrollIntoView({ behavior: 'smooth' }); e.preventDefault(); }
+    }
+  });
+
+  /* ── SCROLL-TRIGGERED REVEAL ───────────────────────────────── */
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  $$('.animate-in').forEach(el => revealObserver.observe(el));
+
+  // Stagger children
+  $$('.stagger-children').forEach(parent => {
+    Array.from(parent.children).forEach((child, i) => {
+      child.style.setProperty('--stagger-index', i);
+    });
+  });
+
+  /* ── GLOSSARY TOOLTIPS ─────────────────────────────────────── */
+  let activeTooltip = null;
+
+  function positionTooltip(term, tip) {
+    const rect     = term.getBoundingClientRect();
+    const tipWidth = Math.min(320, Math.max(200, window.innerWidth * 0.8));
+    let left = rect.left + rect.width / 2 - tipWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - tipWidth - 8));
+    tip.style.left  = left + 'px';
+    tip.style.width = tipWidth + 'px';
+    document.body.appendChild(tip);
+    const tipHeight = tip.offsetHeight;
+    if (rect.top - tipHeight - 12 < 0) {
+      tip.style.top = (rect.bottom + 8) + 'px';
+      tip.classList.add('flip');
+    } else {
+      tip.style.top = (rect.top - tipHeight - 8) + 'px';
+      tip.classList.remove('flip');
+    }
+  }
+
+  function showTooltip(term, tip) {
+    if (activeTooltip && activeTooltip !== tip) {
+      activeTooltip.classList.remove('visible');
+      activeTooltip.remove();
+    }
+    positionTooltip(term, tip);
+    requestAnimationFrame(() => tip.classList.add('visible'));
+    activeTooltip = tip;
+  }
+
+  function hideTooltip(tip) {
+    tip.classList.remove('visible');
+    setTimeout(() => { if (!tip.classList.contains('visible')) tip.remove(); }, 150);
+    if (activeTooltip === tip) activeTooltip = null;
+  }
+
+  $$('.term').forEach(term => {
+    const tip = document.createElement('span');
+    tip.className = 'term-tooltip';
+    tip.textContent = term.dataset.definition;
+
+    term.addEventListener('mouseenter', () => showTooltip(term, tip));
+    term.addEventListener('mouseleave', () => hideTooltip(tip));
+    term.addEventListener('click', e => {
+      e.stopPropagation();
+      tip.classList.contains('visible') ? hideTooltip(tip) : showTooltip(term, tip);
+    });
+  });
+
+  document.addEventListener('click', () => {
+    if (activeTooltip) { activeTooltip.classList.remove('visible'); activeTooltip.remove(); activeTooltip = null; }
+  });
+
+  /* ── QUIZ ENGINE ───────────────────────────────────────────── */
+  window.selectOption = function (btn) {
+    const block = btn.closest('.quiz-question-block');
+    $$('.quiz-option', block).forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+
+  window.checkQuiz = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.quiz-question-block', container).forEach(q => {
+      const selected  = $('.quiz-option.selected', q);
+      const feedback  = $('.quiz-feedback', q);
+      const correct   = q.dataset.correct;
+      const rightExp  = q.dataset.explanationRight  || '';
+      const wrongExp  = q.dataset.explanationWrong  || '';
+
+      if (!selected) {
+        feedback.textContent = 'Pick an answer first!';
+        feedback.className = 'quiz-feedback show warning';
+        return;
+      }
+      $$('.quiz-option', q).forEach(o => o.disabled = true);
+
+      if (selected.dataset.value === correct) {
+        selected.classList.add('correct');
+        feedback.innerHTML = '<strong>Exactly!</strong> ' + rightExp;
+        feedback.className = 'quiz-feedback show success';
+      } else {
+        selected.classList.add('incorrect');
+        const correctBtn = $(`.quiz-option[data-value="${correct}"]`, q);
+        if (correctBtn) correctBtn.classList.add('correct');
+        feedback.innerHTML = '<strong>Not quite.</strong> ' + wrongExp;
+        feedback.className = 'quiz-feedback show error';
+      }
+    });
+  };
+
+  window.resetQuiz = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.quiz-option', container).forEach(o => {
+      o.classList.remove('selected', 'correct', 'incorrect');
+      o.disabled = false;
+    });
+    $$('.quiz-feedback', container).forEach(f => { f.className = 'quiz-feedback'; f.textContent = ''; });
+  };
+
+  /* ── DRAG-AND-DROP ENGINE ──────────────────────────────────── */
+  function initDnD(containerEl) {
+    if (!containerEl) return;
+    const chips = $$('.dnd-chip', containerEl);
+    const zones = $$('.dnd-zone', containerEl);
+
+    // Mouse (HTML5 Drag API)
+    chips.forEach(chip => {
+      chip.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', chip.dataset.answer);
+        chip.classList.add('dragging');
+      });
+      chip.addEventListener('dragend', () => chip.classList.remove('dragging'));
+    });
+
+    zones.forEach(zone => {
+      const target = $('.dnd-zone-target', zone);
+      if (!target) return;
+      target.addEventListener('dragover',  e => { e.preventDefault(); target.classList.add('drag-over'); });
+      target.addEventListener('dragleave', ()  => target.classList.remove('drag-over'));
+      target.addEventListener('drop', e => {
+        e.preventDefault();
+        target.classList.remove('drag-over');
+        const answer = e.dataTransfer.getData('text/plain');
+        const chip   = $(`.dnd-chip[data-answer="${answer}"]`, containerEl);
+        if (!chip) return;
+        target.textContent    = chip.textContent;
+        target.dataset.placed = answer;
+        chip.classList.add('placed');
+      });
+    });
+
+    // Touch
+    chips.forEach(chip => {
+      chip.addEventListener('touchstart', e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const ghost = chip.cloneNode(true);
+        ghost.classList.add('touch-ghost');
+        ghost.style.cssText = `position:fixed;z-index:9999;pointer-events:none;left:${touch.clientX - 40}px;top:${touch.clientY - 20}px;`;
+        document.body.appendChild(ghost);
+        chip._ghost  = ghost;
+        chip._answer = chip.dataset.answer;
+      }, { passive: false });
+
+      chip.addEventListener('touchmove', e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        if (chip._ghost) {
+          chip._ghost.style.left = (touch.clientX - 40) + 'px';
+          chip._ghost.style.top  = (touch.clientY - 20) + 'px';
+        }
+        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
+        const el = document.elementFromPoint(touch.clientX, touch.clientY);
+        const zt = el && el.closest('.dnd-zone-target');
+        if (zt) zt.classList.add('drag-over');
+      }, { passive: false });
+
+      chip.addEventListener('touchend', e => {
+        if (chip._ghost) { chip._ghost.remove(); chip._ghost = null; }
+        const touch = e.changedTouches[0];
+        const el    = document.elementFromPoint(touch.clientX, touch.clientY);
+        const zt    = el && el.closest('.dnd-zone-target');
+        if (zt) {
+          zt.textContent    = chip.textContent;
+          zt.dataset.placed = chip._answer;
+          chip.classList.add('placed');
+        }
+        zones.forEach(z => { const t = $('.dnd-zone-target', z); if (t) t.classList.remove('drag-over'); });
+      });
+    });
+  }
+
+  window.checkDnD = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.dnd-zone', container).forEach(zone => {
+      const target  = $('.dnd-zone-target', zone);
+      if (!target || !target.dataset.placed) return;
+      if (target.dataset.placed === zone.dataset.correct) {
+        target.classList.add('correct-placed');
+      } else {
+        target.classList.add('incorrect-placed');
+      }
+    });
+  };
+
+  window.resetDnD = function (containerId) {
+    const container = $('#' + containerId);
+    if (!container) return;
+    $$('.dnd-zone-target', container).forEach(t => {
+      t.textContent = 'Drop here';
+      delete t.dataset.placed;
+      t.classList.remove('correct-placed', 'incorrect-placed');
+    });
+    $$('.dnd-chip', container).forEach(c => c.classList.remove('placed', 'dragging'));
+  };
+
+  // Auto-init all dnd containers
+  $$('.dnd-container').forEach(el => initDnD(el));
+
+  /* ── GROUP CHAT ENGINE ─────────────────────────────────────── */
+  function initChat(containerEl) {
+    if (!containerEl) return;
+    const messages    = $$('.chat-message', containerEl);
+    const typingEl    = $('.chat-typing', containerEl);
+    const typingAvEl  = $('#' + containerEl.id + '-typing-avatar') || $('.chat-avatar', typingEl);
+    const progressEl  = $('.chat-progress', containerEl);
+    let index = 0;
+
+    // Build actor map from messages
+    const actors = {};
+    messages.forEach(msg => {
+      const sender = msg.dataset.sender;
+      const avatar = $('.chat-avatar', msg);
+      if (avatar && !actors[sender]) {
+        actors[sender] = { initial: avatar.textContent.trim(), style: avatar.style.background };
+      }
+    });
+
+    function updateProgress() {
+      if (progressEl) progressEl.textContent = index + ' / ' + messages.length + ' messages';
+    }
+
+    function showNext() {
+      if (index >= messages.length) return;
+      const msg    = messages[index];
+      const sender = msg.dataset.sender;
+
+      if (typingEl && actors[sender]) {
+        if (typingAvEl) {
+          typingAvEl.textContent       = actors[sender].initial;
+          typingAvEl.style.background  = actors[sender].style;
+        }
+        typingEl.style.display = 'flex';
+      }
+
+      setTimeout(() => {
+        if (typingEl) typingEl.style.display = 'none';
+        msg.style.display = 'flex';
+        msg.style.animation = 'fadeSlideUp 0.3s var(--ease-out)';
+        index++;
+        updateProgress();
+      }, 800);
+    }
+
+    function showAll() {
+      const iv = setInterval(() => {
+        if (index >= messages.length) { clearInterval(iv); return; }
+        showNext();
+      }, 1200);
+    }
+
+    function reset() {
+      index = 0;
+      messages.forEach(m => { m.style.display = 'none'; m.style.animation = ''; });
+      if (typingEl) typingEl.style.display = 'none';
+      updateProgress();
+    }
+
+    // Bind controls
+    const nextBtn  = $('.chat-next-btn',  containerEl);
+    const allBtn   = $('.chat-all-btn',   containerEl);
+    const resetBtn = $('.chat-reset-btn', containerEl);
+    if (nextBtn)  nextBtn.addEventListener('click',  showNext);
+    if (allBtn)   allBtn.addEventListener('click',   showAll);
+    if (resetBtn) resetBtn.addEventListener('click', reset);
+
+    updateProgress();
+  }
+
+  $$('.chat-window').forEach(el => initChat(el));
+
+  /* ── FLOW ANIMATION ENGINE ─────────────────────────────────── */
+  function initFlow(containerEl) {
+    if (!containerEl) return;
+    const stepsData  = JSON.parse(containerEl.dataset.steps || '[]');
+    const labelEl    = $('.flow-step-label', containerEl);
+    const progressEl = $('.flow-progress',   containerEl);
+    const packet     = $('.flow-packet',     containerEl);
+    let step = 0;
+
+    function updateProgress() {
+      if (progressEl) progressEl.textContent = 'Step ' + step + ' / ' + stepsData.length;
+    }
+
+    function animatePacket(fromId, toId) {
+      if (!packet) return;
+      const fromEl = $('#' + fromId);
+      const toEl   = $('#' + toId);
+      if (!fromEl || !toEl) return;
+      const fromR = fromEl.getBoundingClientRect();
+      const toR   = toEl.getBoundingClientRect();
+      const contR = containerEl.getBoundingClientRect();
+      const fx = fromR.left + fromR.width / 2  - contR.left;
+      const fy = fromR.top  + fromR.height / 2 - contR.top;
+      const tx = toR.left   + toR.width / 2    - contR.left;
+      const ty = toR.top    + toR.height / 2   - contR.top;
+      packet.style.setProperty('--packet-from-x', fx + 'px');
+      packet.style.setProperty('--packet-from-y', fy + 'px');
+      packet.style.setProperty('--packet-to-x',   tx + 'px');
+      packet.style.setProperty('--packet-to-y',   ty + 'px');
+      packet.style.display    = 'block';
+      packet.style.animation  = 'none';
+      packet.offsetHeight; // reflow
+      packet.style.animation  = 'packetMove 0.8s var(--ease-in-out) forwards';
+      setTimeout(() => { packet.style.display = 'none'; }, 850);
+    }
+
+    function next() {
+      if (step >= stepsData.length) return;
+      const s = stepsData[step];
+      $$('.flow-actor', containerEl).forEach(a => a.classList.remove('active'));
+      if (s.highlight) {
+        const hEl = $('#' + s.highlight, containerEl) || $('#flow-' + s.highlight);
+        if (hEl) hEl.classList.add('active');
+      }
+      if (s.packet && s.from && s.to) animatePacket('flow-' + s.from, 'flow-' + s.to);
+      if (labelEl) labelEl.textContent = s.label || '';
+      step++;
+      updateProgress();
+    }
+
+    function reset() {
+      step = 0;
+      $$('.flow-actor', containerEl).forEach(a => a.classList.remove('active'));
+      if (labelEl) labelEl.textContent = 'Click "Next Step" to begin';
+      if (packet)  packet.style.display = 'none';
+      updateProgress();
+    }
+
+    const nextBtn  = $('.flow-next-btn',  containerEl);
+    const resetBtn = $('.flow-reset-btn', containerEl);
+    if (nextBtn)  nextBtn.addEventListener('click',  next);
+    if (resetBtn) resetBtn.addEventListener('click', reset);
+
+    updateProgress();
+  }
+
+  $$('.flow-animation').forEach(el => initFlow(el));
+
+  /* ── ARCHITECTURE DIAGRAM ──────────────────────────────────── */
+  $$('.arch-component').forEach(comp => {
+    comp.addEventListener('click', function () {
+      const diagram = this.closest('.arch-diagram');
+      $$('.arch-component', diagram).forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      const descEl = $('.arch-description', diagram);
+      if (descEl) descEl.textContent = this.dataset.desc || '';
+    });
+  });
+
+  /* ── BUG CHALLENGE ─────────────────────────────────────────── */
+  window.checkBugLine = function (el, isCorrect) {
+    const challenge = el.closest('.bug-challenge');
+    const feedback  = $('.bug-feedback', challenge);
+    if (isCorrect) {
+      el.classList.add('correct');
+      feedback.innerHTML  = '<strong>Found it!</strong> ' + (el.dataset.explanation || '');
+      feedback.className  = 'bug-feedback show success';
+      $$('.bug-line', challenge).forEach(l => l.style.pointerEvents = 'none');
+    } else {
+      el.classList.add('incorrect');
+      feedback.innerHTML  = (el.dataset.hint || 'Not this line — keep looking...');
+      feedback.className  = 'bug-feedback show error';
+      setTimeout(() => {
+        el.classList.remove('incorrect');
+        feedback.className = 'bug-feedback';
+      }, 1800);
+    }
+  };
+
+  /* ── LAYER TOGGLE ──────────────────────────────────────────── */
+  window.showLayer = function (layerId, btn) {
+    const demo = btn ? btn.closest('.layer-demo') : null;
+    if (!demo) return;
+    $$('.layer', demo).forEach(l => l.style.display = 'none');
+    $$('.layer-tab', demo).forEach(t => t.classList.remove('active'));
+    const layer = $('#' + layerId);
+    if (layer) layer.style.display = 'block';
+    btn.classList.add('active');
+  };
+
+})();
+
+</script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">Inside AI Job Search</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="The Journey" role="tab" aria-label="Module 1: The Journey"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="Meet the Cast" role="tab" aria-label="Module 2: Meet the Cast"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="Drafter & Reviewer" role="tab" aria-label="Module 3: Drafter and Reviewer"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="The Outside World" role="tab" aria-label="Module 4: The Outside World"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Clever Tricks" role="tab" aria-label="Module 5: Clever Tricks"></button>
+        <button class="nav-dot" data-target="module-6" data-tooltip="Guardrails" role="tab" aria-label="Module 6: Guardrails"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">The Journey</h1>
+      <p class="module-subtitle">What actually happens when you type <code>/apply</code></p>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <p><strong>AI Job Search</strong> is a free toolkit built on top of <span class="term" data-definition="Claude Code is Anthropic's AI coding assistant — a program you run from a terminal (a text-based command window) that can read files, write files, and carry out multi-step instructions on your behalf.">Claude Code</span>. It turns Claude Code into a personal job-application team: it checks whether a job posting is a good fit for you, drafts a tailored two-page CV and cover letter, and preps you for interviews. A geophysicist built it to land his own AI engineering job — then open-sourced it.</p>
+        <p>This module follows one command through the whole system, start to finish, so you can see the machinery behind the result.</p>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Imagine this</h2>
+        <p>You find a job posting for an AI Solutions Consultant role. You type <code>/apply &lt;url&gt;</code> into your terminal. Twenty minutes later, you have a tailored two-page CV and a one-page cover letter &mdash; both proofread and pressure-tested by a second AI reviewer.</p>
+        <p>Here is everything that happens in those twenty minutes.</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🏃</div>
+        <div class="callout-content">
+          <strong class="callout-title">Think relay race, not solo sprint</strong>
+          <p>You're the runner &mdash; you just want to cross the finish line and get hired. At each leg of the race, a specialist hands off the baton: one does job-fit evaluation, another drafts, another reviews. No single piece does everything.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">The whole system, in one map</h2>
+        <p>Before we zoom into <code>/apply</code>, here's the bigger picture. Three entry points, each a <span class="term" data-definition="A command is a short typed instruction, starting with a slash, that tells Claude Code to run a specific pre-written set of steps &mdash; like a keyboard shortcut for an entire workflow.">command</span> you type into the terminal.</p>
+      </div>
+      <div class="flow-steps animate-in">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <p><code>/setup</code> &mdash; fill in your profile once, so every later step knows who you are</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <p><code>/scrape</code> &mdash; search job portals, present matches with fit ratings</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <p><code>/apply &lt;url&gt;</code> &mdash; evaluate fit, draft CV + cover letter, have a reviewer agent critique and revise</p>
+        </div>
+      </div>
+      <div class="animate-in" style="margin-top: var(--space-8);">
+        <p>This module picks up right at step 3, the moment you hand Claude a real job posting.</p>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Watch the handoff happen</h2>
+        <p>Here's the courier route your job posting takes through the system. Click through each step.</p>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"You type /apply <url> in the terminal."},
+        {"highlight":"flow-actor-2","label":"You hand Claude a checklist to follow.","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"Claude reads Step 0: is this a URL or plain text?","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"Claude fetches the posting and pulls out company, role, location, language.","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-3","label":"Those facts stay in memory for every remaining step. No re-fetching.","packet":true,"from":"actor-4","to":"actor-3"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">🧑</div>
+            <span>User</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">📋</div>
+            <span>apply.md instructions</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">🤖</div>
+            <span>Claude Code</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">📄</div>
+            <span>Job Posting</span>
+          </div>
+        </div>
+
+        <div class="flow-packet" id="flow-packet"></div>
+
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">The key insight: it's just a checklist</h2>
+        <p>Here's the part that surprises most people. <code>apply.md</code> isn't a hidden program or a black box &mdash; it's a <span class="term" data-definition="Markdown is a plain-text format for writing documents with simple symbols for headings, bold text, and lists (like # for a heading). It's the format most instruction files and READMEs in this project use.">Markdown</span> file, the same kind of plain-text file you'd use for a to-do list. Claude Code reads it top to bottom and follows it like a recipe.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"># /apply - Drafter-Reviewer Job Application Workflow</span>
+<span class="code-line"></span>
+<span class="code-line">You are orchestrating a two-agent job application workflow. The job posting is provided below as `$ARGUMENTS` (either a URL or pasted text).</span>
+<span class="code-line"></span>
+<span class="code-line">Follow these steps **exactly in order**. Do not skip steps.</span>
+<span class="code-line"></span>
+<span class="code-line">**Token-efficiency rules for this workflow:**</span>
+<span class="code-line">- Never re-Read a file whose contents are already in your context from an earlier step. If you read it in Step 1, it is still available in Step 2.</span>
+<span class="code-line">- When dispatching the reviewer agent, pass draft content **inline in the agent prompt** rather than asking the agent to Read files you already have in memory.</span>
+<span class="code-line">- Run the full verification checklist exactly once, at the end (Step 6). The reviewer focuses on content critique, not verification.</span>
+<span class="code-line">- Step 5 (compile and inspect PDFs) is mandatory and non-skippable...</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is the title of the recipe, and a reminder that two AI helpers are involved: one drafts, one reviews. Whatever you pasted after <code>/apply</code> &mdash; a link or raw text &mdash; gets stored in a placeholder called <code>$ARGUMENTS</code>.</p>
+            <p class="tl">A firm rule: go through the steps in order, don't improvise, don't skip ahead.</p>
+            <p class="tl">These are cost-saving habits: don't make Claude re-read a file it already has in memory, and don't waste a second AI's time re-fetching things the first one already found.</p>
+            <p class="tl">Save the big "check everything" pass for the very end, once, instead of repeating it after every step.</p>
+            <p class="tl">Some steps are flagged as unskippable because skipping them causes real, hard-to-spot problems later &mdash; like a CV that looks fine in the source file but renders broken.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">There's no hidden server</strong>
+          <p>No database, no login, no cloud backend running somewhere. The "code" here is mostly plain-English instructions that an AI reads and follows, step by step, in a folder on your own computer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Step 0: the very first thing Claude does</h2>
+        <p>Before anything else, Claude has to figure out what you actually gave it.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">## Step 0: Parse Input</span>
+<span class="code-line"></span>
+<span class="code-line">- If `$ARGUMENTS` looks like a URL, use `WebFetch` to retrieve the job posting content.</span>
+<span class="code-line">- If it is pasted text, use it directly.</span>
+<span class="code-line">- Extract: **company name**, **role title**, **department** (if mentioned), **location**, and **language** of the posting (Danish or English).</span>
+<span class="code-line">- Store these for use throughout the workflow.</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Claude checks: does what you gave it look like a web link?</p>
+            <p class="tl">If it's a link, Claude uses a <span class="term" data-definition="WebFetch is a tool Claude Code can call to visit a web address and pull back the page's content, the same way your browser loads a page &mdash; except Claude reads the text, it doesn't show you a screenshot.">tool called WebFetch</span> to go open that page and read it. If you pasted the job description directly instead, Claude skips fetching and just reads what you typed.</p>
+            <p class="tl">Either way, Claude then pulls out the specific facts it'll need later: company name, job title, department, location, and whether the posting is in Danish or English.</p>
+            <p class="tl">Those facts get kept in Claude's memory for every later step &mdash; nobody has to re-explain them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Quick check</h2>
+        <p>Three scenarios. Think it through before you pick.</p>
+      </div>
+
+      <div class="quiz-container animate-in" id="quiz-module1">
+
+        <div class="quiz-question-block"
+             data-correct="opt-b"
+             data-explanation-right="Exactly. Step 0 branches on what it's given: URL goes through WebFetch, pasted text skips straight to extraction. Same destination, different route in."
+             data-explanation-wrong="Not quite. Re-read the two bullet points in Step 0 &mdash; they describe two different paths depending on what $ARGUMENTS looks like.">
+          <h3 class="quiz-question">You paste the raw text of a job posting instead of a URL into <code>/apply</code>. What does Step 0 do differently?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Nothing works &mdash; <code>/apply</code> requires a URL</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Claude skips WebFetch and reads the pasted text directly, then extracts the same facts either way</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Claude asks you to convert the text into a URL first</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="opt-b"
+             data-explanation-right="Right. This is a cost- and reliability-tradeoff: verifying every step individually is expensive and repetitive, so the workflow front-loads discipline (do it right, in order, once) and saves the expensive full check for one pass at the end."
+             data-explanation-wrong="Not quite. Look again at the 'token-efficiency rules' &mdash; the reasoning isn't about being extra cautious, it's about avoiding repeated, costly work.">
+          <h3 class="quiz-question">Why does <code>apply.md</code> say "do not skip steps" but also "run the verification checklist exactly once, at the end"?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because the two rules contradict each other and one is a mistake</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because checking after every single step would waste time and Claude's context; doing steps in strict order plus one final check is cheaper and just as reliable</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because the reviewer agent isn't trustworthy until the very last step</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="opt-a"
+             data-explanation-right="Exactly. Skills and commands are just editable text files. A new skill keeps translation as a separate, reusable capability &mdash; you could invoke it elsewhere too. Bolting a French-translation step directly into apply.md would work, but couples an unrelated capability to this one specific workflow."
+             data-explanation-wrong="Think about it differently: apply.md is a checklist for one workflow. Translating a CV is a distinct, reusable capability that other workflows might also want &mdash; that points toward a separate file, not a bolt-on step.">
+          <h3 class="quiz-question">You want <code>/apply</code> to also translate the CV into French. Is that a new skill file, or a change to <code>apply.md</code>'s existing steps?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Best as a new, separate skill file that <code>apply.md</code> can call &mdash; translation is its own reusable capability</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Impossible &mdash; only the original developer can add new capabilities</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It must be hardcoded into Claude Code itself, not into any Markdown file</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">What this means for you</h2>
+        <p><code>/apply</code> is really an ordered checklist that Claude executes, one line at a time. Because it's just a Markdown file, you can open it, read every step, and even edit it yourself &mdash; no programming required.</p>
+        <p>Want Claude to skip a step this one time, or add a step of your own? You can just tell it. It's your checklist.</p>
+      </div>
+      <div class="animate-in" style="margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--color-border-light);">
+        <p>You just watched Claude follow instructions and fetch a job posting. But who are all these <code>.md</code> files, and what's a "skill" versus a "command"? And what happens after Step 0, when the drafting actually starts? Coming up in Module 2: meet the full cast &mdash; including a sneak peek at two AI agents who are about to literally argue over your cover letter.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-2">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the Cast</h1>
+      <p class="module-subtitle">Skills, commands, subagents, and CLI tools &mdash; the four kinds of files behind every AI job-search action.</p>
+    </div>
+
+    <!-- SCREEN 1: Hook, connect back to Module 1 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>In Module 1 you watched <code>/apply</code> fetch a job posting. That fetching step didn't happen by magic. It happened because a specific <em>kind</em> of file told Claude exactly how.</p>
+      </div>
+      <div class="animate-in">
+        <p>This module meets the four kinds of files that make up the whole cast. Think of the repo as a <strong>theater company running backstage</strong>: every file is a role, and every role behaves differently once the curtain goes up.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: The metaphor + 4 pattern cards -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Four Roles, Four Jobs</h2>
+      <div class="animate-in">
+        <p>A <span class="term" data-definition="A command is a plain markdown file starting with a '# /name' heading. You trigger it by typing '/name' in Claude Code. It's a one-shot instruction for right now, not something Claude remembers later.">command</span> is the script cue-card an actor is handed at showtime: "say this line now." A <span class="term" data-definition="A skill is a folder with a SKILL.md file containing reusable reference knowledge. Claude loads it automatically whenever the situation matches its description &mdash; it's standing knowledge, not a one-time trigger.">skill</span> is the actor's full training and standing instructions, reusable across many shows.</p>
+      </div>
+      <div class="animate-in">
+        <p>A <span class="term" data-definition="A subagent is a second, temporary instance of Claude spun up mid-task with a completely fresh memory. It does one job, reports back, and is discarded. It never sees the rest of the conversation.">subagent</span> is a stunt double: brought in for one dangerous scene, given a fresh briefing, and sent home when the scene wraps. A <span class="term" data-definition="A CLI (command-line interface) tool is a small standalone program, written in a language like Python or TypeScript, that runs when Claude calls it. It follows fixed instructions and has no judgment of its own &mdash; it just executes.">CLI</span> tool is a stagehand who only does one physical task &mdash; raise the curtain &mdash; when cued, and doesn't act at all.</p>
+      </div>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">🎬</div>
+          <h4 class="pattern-title">Command</h4>
+          <p class="pattern-desc">A cue-card triggered by typing <code>/name</code>. One-shot: fires now, then it's done.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.claude/commands/interview.md</code></p>
+          <p class="pattern-desc">You'd say: <em>"add a new command for /outcome"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">📖</div>
+          <h4 class="pattern-title">Skill</h4>
+          <p class="pattern-desc">Standing reference knowledge Claude loads automatically when it's relevant &mdash; not something you trigger by name.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.claude/skills/job-scraper/SKILL.md</code></p>
+          <p class="pattern-desc">You'd say: <em>"that belongs in a skill's reference file"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-3)">
+          <div class="pattern-icon" style="background: var(--color-actor-3)">🎭</div>
+          <h4 class="pattern-title">Subagent</h4>
+          <p class="pattern-desc">A second, temporary Claude with fresh memory, spun up for one scene, then dismissed.</p>
+          <p class="pattern-desc"><strong>Example:</strong> the <code>/apply</code> reviewer agent</p>
+          <p class="pattern-desc">You'd say: <em>"spin up a subagent to review this with fresh eyes"</em></p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+          <div class="pattern-icon" style="background: var(--color-actor-4)">⚙️</div>
+          <h4 class="pattern-title">CLI Tool</h4>
+          <p class="pattern-desc">A plain program with flags. It executes; it doesn't think or judge.</p>
+          <p class="pattern-desc"><strong>File:</strong> <code>.agents/skills/linkedin-search/cli/src/cli.ts</code></p>
+          <p class="pattern-desc">You'd say: <em>"run the linkedin-search CLI with a location flag"</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Translation block - SKILL.md frontmatter -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Inside a Skill's Training Sheet</h2>
+      <div class="animate-in">
+        <p>Skills are the role with real <span class="term" data-definition="YAML is a plain-text format for writing structured settings, using indentation instead of brackets. It's the header block at the top of many config and skill files.">YAML</span> <span class="term" data-definition="Frontmatter is a block of settings at the very top of a file, marked off by '---' lines. It configures the file before the actual content begins.">frontmatter</span>. Commands are just plain markdown starting with a heading &mdash; no frontmatter needed. Here's the real training sheet for the <code>freehire-search</code> skill.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">---</span>
+<span class="code-line"><span class="code-property">name</span>: freehire-search</span>
+<span class="code-line"><span class="code-property">version</span>: 1.0.0</span>
+<span class="code-line"><span class="code-property">description</span>: &gt;</span>
+<span class="code-line">  Use this skill to search live software / tech / data / engineering job listings</span>
+<span class="code-line">  across many countries and markets (and remote) via the freehire.dev aggregator's</span>
+<span class="code-line">  public API, or to look up a specific posting. It aggregates roles from ~50 ATS</span>
+<span class="code-line">  platforms into one schema, so a single skill covers many markets &mdash; but its faceted</span>
+<span class="code-line">  filtering (skills, category, seniority) is tuned tech-first, so scope triggers to</span>
+<span class="code-line">  technical roles. Trigger phrases: find a tech job, software job search, developer</span>
+<span class="code-line">  jobs, engineering vacancies, data/ML jobs, DevOps roles, remote developer jobs,</span>
+<span class="code-line">  "are there any &lt;tech role&gt; jobs in &lt;place&gt;", look up this freehire job posting.</span>
+<span class="code-line"><span class="code-property">context</span>: fork</span>
+<span class="code-line"><span class="code-property">allowed-tools</span>: Bash(bun run .agents/skills/freehire-search/cli/src/cli.ts *)</span>
+<span class="code-line">---</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl"><code>name</code> is the skill's ID &mdash; how Claude and the file system refer to it internally.</p>
+            <p class="tl"><code>description</code> is the trigger list: the phrases that make Claude decide "this skill is relevant, load it now." This is literally how Claude discovers what tools exist for a given request.</p>
+            <p class="tl">Every scenario listed here (job search, ATS lookup) teaches Claude when to reach for this skill instead of guessing.</p>
+            <p class="tl"><code>allowed-tools</code> is a safety fence: this skill can ONLY run this one specific command, nothing else &mdash; it can't suddenly start deleting files or browsing the web.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Good to know</strong>
+          <p>A second real example, <code>.claude/skills/job-scraper/SKILL.md</code>, restricts its <code>allowed-tools</code> to <code>Read, Write, Edit, Glob, Grep, Bash(bun --version), Bash(bun run .agents/skills/*/cli/src/cli.ts *), WebFetch, WebSearch, Agent, AskUserQuestion</code> &mdash; a wider fence, because scraping needs to read files, call multiple CLIs, and even hand off to a subagent.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: CLI tool as "dumb executor" -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Stagehand Doesn't Improvise</h2>
+      <div class="animate-in">
+        <p>A CLI tool has its own help text, written by a human, not generated by AI judgment. Here's the actual header from the LinkedIn search tool.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-keyword">const</span> HELP = <span class="code-string">`linkedin-cli &mdash; search jobs on LinkedIn (any country/region, plus remote)</span></span>
+<span class="code-line"></span>
+<span class="code-line">USAGE</span>
+<span class="code-line">  bun run src/cli.ts search --location "&lt;place&gt;" [flags]</span>
+<span class="code-line">  bun run src/cli.ts detail &lt;id|url&gt; [--format json|plain]</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This text is hard-coded. The tool doesn't "decide" what to say &mdash; a human wrote these exact words once.</p>
+            <p class="tl">"USAGE" spells out the fixed commands you can run and nothing else.</p>
+            <p class="tl">A <span class="term" data-definition="A flag is an option you add to a command to change its behavior, usually starting with -- like --location or --format. When talking to AI, you'd say 'add a flag for verbose output.'">flag</span> like <code>--location</code> is a fixed switch; the tool reads it and follows the rule, it doesn't reason about it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-in">
+        <p>When this CLI hits an error, it exits with an error code and a canned message. It isn't "thinking" about the failure &mdash; it's just reporting one, the way a smoke alarm beeps instead of explaining the fire.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: Quiz -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check Your Understanding</h2>
+      <div class="quiz-container animate-in" id="quiz-module2">
+
+        <div class="quiz-question-block"
+             data-correct="skill"
+             data-explanation-right="Exactly. A command fires once when you type it. Your search-query preferences need to persist and apply every single time you scrape &mdash; that's standing knowledge, which is a skill's job."
+             data-explanation-wrong="Think about the difference: a command is a cue-card for one moment. What you're describing needs to apply automatically, every time, without you retyping anything.">
+          <h3 class="quiz-question">You want Claude to remember your search-query preferences every time you scrape for jobs, not just once. Should that live in a command or a skill?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="command" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A command &mdash; add it to the /scrape cue-card</span>
+            </button>
+            <button class="quiz-option" data-value="skill" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A skill &mdash; standing reference knowledge Claude reloads every time</span>
+            </button>
+            <button class="quiz-option" data-value="cli" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A CLI tool &mdash; write a small program to store it</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="fresh-eyes"
+             data-explanation-right="Exactly. It's on purpose: a subagent with no memory of the drafting conversation can't be talked into agreeing with the draft. It critiques what's actually on the page, the way a stunt double doesn't know how earlier scenes went &mdash; they just do their scene."
+             data-explanation-wrong="Not quite. 'Fresh context' isn't about speed or cost &mdash; it's about what the subagent does and doesn't remember. Consider why a reviewer might want to NOT remember how the draft was written.">
+          <h3 class="quiz-question">The <code>/apply</code> reviewer agent gets "a fresh context." What does that mean, and why does the workflow do it on purpose?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="faster" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It's just faster to start a new session than reuse the old one</span>
+            </button>
+            <button class="quiz-option" data-value="fresh-eyes" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It has no memory of the drafting conversation, so it critiques with genuinely fresh eyes instead of agreeing with itself</span>
+            </button>
+            <button class="quiz-option" data-value="cheaper" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Fresh context just means it uses less computing power</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="reporting"
+             data-explanation-right="Exactly. A CLI tool follows fixed code paths written by a human. An error code is a pre-written signal, not a judgment call &mdash; there's no reasoning happening, just a report of what already went wrong."
+             data-explanation-wrong="Not quite. Re-read what a CLI tool actually is: a small standalone program with no AI behind it. What would 'thinking about a failure' require that a plain program doesn't have?">
+          <h3 class="quiz-question">A CLI tool like <code>linkedin-search</code> exits with an error code instead of a helpful sentence. Is that CLI "thinking" about the failure, or just reporting one?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="thinking" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Thinking &mdash; it decided the error code was the best way to explain itself</span>
+            </button>
+            <button class="quiz-option" data-value="reporting" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Reporting &mdash; it's a dumb executor following fixed code, with no judgment involved</span>
+            </button>
+            <button class="quiz-option" data-value="both" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Both &mdash; CLI tools have some built-in AI reasoning for errors</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: Transition to Module 3 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>You now know what a subagent is: a stunt double with no memory of the main show.</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🎭</div>
+        <div class="callout-content">
+          <strong class="callout-title">Next up</strong>
+          <p>Next module: watch one argue with the main AI over your cover letter's opening line. Two actors, same file, opposite jobs.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg)">
+  <div class="module-content">
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">How the Pieces Talk</h1>
+      <p class="module-subtitle">The Drafter-Reviewer handoff</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- SCREEN 1: Hook + metaphor -->
+      <div class="screen">
+        <h2 class="screen-heading">One author, one cold-read editor</h2>
+        <div class="animate-in">
+          <p>Module 2 introduced the
+            <span class="term" data-definition="A subagent is a second, independent AI process that a main AI can spawn to handle a specific job — like calling in a specialist instead of doing everything yourself.">subagent</span>
+            as a stunt double with a fresh briefing. In <code>/apply</code>, that stunt double has a name: the <strong>Reviewer</strong>.</p>
+        </div>
+        <div class="animate-in">
+          <p>Think of a publishing house. The <strong>Drafter</strong> is the author who writes the full manuscript, the CV and cover letter, from scratch. Authors are bad at spotting their own mistakes; they know the text too well.</p>
+        </div>
+        <div class="animate-in">
+          <p>So the manuscript goes to an independent <strong>editor</strong> who has never seen a single draft of it. The editor reads it cold, researches the market, and sends back a specific edit letter, not vague notes.</p>
+        </div>
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">📖</div>
+          <div class="callout-content">
+            <strong class="callout-title">Opening hook</strong>
+            <p>In Module 1, <code>/apply</code> wrote a CV and cover letter to disk. The workflow doesn't stop there: Step 3 spawns a second AI agent whose only job is to read those drafts with zero prior context and tear them apart. Here's that conversation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 2: The chat animation -->
+      <div class="screen">
+        <h2 class="screen-heading">Watch the handoff happen</h2>
+        <div class="animate-in">
+          <p>This is a real exchange from <code>.claude/commands/apply.md</code>, dramatized as a conversation. Press <strong>Next Message</strong> to step through it, or <strong>Play All</strong> to watch it unfold.</p>
+        </div>
+
+        <div class="chat-window animate-in" id="chat-module3">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="drafter" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Drafter</span>
+                <p>Here's the CV and cover letter I wrote for the Acme Corp Solutions Consultant role, plus the job posting text. You've never seen these before. Tear them apart.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="reviewer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Reviewer</span>
+                <p>Give me a minute, researching Acme Corp's website, recent news, and the hiring team first.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="reviewer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Reviewer</span>
+                <p>Found it. Your cover letter never mentions Acme's new EU expansion, which the posting calls out twice. Also, "responsible for stakeholder management" is passive. Sending structured edits.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="reviewer" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Reviewer</span>
+                <pre style="margin: 0; white-space: pre-wrap; word-break: break-word; font-family: var(--font-mono); font-size: var(--text-xs); line-height: 1.6; background: var(--color-bg-code); color: #CDD6F4; padding: var(--space-3); border-radius: var(--radius-sm);"><code><span class="code-line">{</span>
+<span class="code-line">  <span class="code-property">"file"</span>: <span class="code-string">"cover_letters/cover_acmecorp_solutionsconsultant.tex"</span>,</span>
+<span class="code-line">  <span class="code-property">"old_string"</span>: <span class="code-string">"responsible for stakeholder management"</span>,</span>
+<span class="code-line">  <span class="code-property">"new_string"</span>: <span class="code-string">"led stakeholder management across three markets"</span>,</span>
+<span class="code-line">  <span class="code-property">"reason"</span>: <span class="code-string">"reframing / active voice"</span></span>
+<span class="code-line">}</span></code></pre>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="drafter" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Drafter</span>
+                <p>Got it, applying that edit directly, no re-read needed. Also folding in your EU-expansion angle into the opening paragraph.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module3-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 3: Fresh context insight -->
+      <div class="screen">
+        <h2 class="screen-heading">Why the Reviewer starts from zero</h2>
+        <div class="animate-in">
+          <p>The Reviewer is dispatched with a completely fresh
+            <span class="term" data-definition="Context is everything an AI can currently 'see' — the conversation so far, any files it's read, any instructions it's been given. A fresh context means none of that carries over.">context</span>. It did not watch the Drafter write a single word.</p>
+        </div>
+        <div class="animate-in">
+          <p>So the Drafter must paste the CV text, cover letter text, and job posting text directly into the Reviewer's instructions. Engineers call this passing data
+            <span class="term" data-definition="Passing data 'inline' means including the actual content directly in a message or instruction, instead of pointing to a file and asking the reader to go open it themselves.">inline</span>.</p>
+        </div>
+        <div class="animate-in">
+          <p>It's also a deliberate cost-saving trick. Re-reading the same files from disk twice costs time and money; handing over text already sitting in memory is cheaper.</p>
+        </div>
+        <div class="callout callout-accent animate-in">
+          <div class="callout-icon">💡</div>
+          <div class="callout-content">
+            <strong class="callout-title">The whole trick</strong>
+            <p>A reviewer that watched the first draft get written will defend its own choices, even when it's a different AI process. A reviewer that only sees the finished draft has no ego invested in it. That's the whole trick.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 4: Code translation for Step 4 -->
+      <div class="screen">
+        <h2 class="screen-heading">The edit letter, applied mechanically</h2>
+        <div class="animate-in">
+          <p>Once the Reviewer's message arrives, the Drafter doesn't re-read anything. It applies each edit straight from the JSON object using a
+            <span class="term" data-definition="A tool is a specific action an AI agent can take, like editing a file, running a command, or searching the web. 'Calling a tool' means the AI triggers that action.">tool</span> called <code>Edit</code>.</p>
+        </div>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+            <pre><code><span class="code-line"><span class="code-comment"># .claude/commands/apply.md — Step 4</span></span>
+<span class="code-line">## Step 4: DRAFTER - Revise Based on Feedback</span>
+<span class="code-line"></span>
+<span class="code-line">Once the reviewer agent returns its feedback:</span>
+<span class="code-line"></span>
+<span class="code-line">1. **Apply Part A (structured edits) directly with the Edit tool.**</span>
+<span class="code-line">Do NOT re-read the draft files — you already have them</span>
+<span class="code-line">in context from Step 2, and the reviewer's `old_string`</span>
+<span class="code-line">values were quoted from that same text. For each edit in</span>
+<span class="code-line">the JSON array, call `Edit` with the given `file`,</span>
+<span class="code-line">`old_string`, and `new_string`. Skip any whose rationale</span>
+<span class="code-line">would require fabricating content.</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">This is the instruction the Drafter follows after the Reviewer replies.</p>
+              <p class="tl">For each JSON edit, the Drafter calls the <code>Edit</code> tool: think of <code>old_string</code> and <code>new_string</code> as a precise find-and-replace, swap this exact text for that exact text.</p>
+              <p class="tl">It never reopens the file to double-check. It already holds the draft text in memory from when it wrote it, and the Reviewer quoted <code>old_string</code> straight from that same text, so the match is guaranteed to line up.</p>
+              <p class="tl">Skipping the re-read matters twice over: it's faster (no extra file read), and it's cheaper (fewer tokens sent back through the AI).</p>
+              <p class="tl">If an edit would require inventing a fact rather than rewording an existing one, the Drafter skips it rather than fabricate content.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 5: Quiz -->
+      <div class="screen">
+        <h2 class="screen-heading">Check your understanding</h2>
+        <div class="animate-in">
+          <div class="quiz-container" id="quiz-module3">
+
+            <div class="quiz-question-block"
+                 data-correct="option-b"
+                 data-explanation-right="Exactly. The Reviewer's research is useful but not gospel — the Drafter is required to independently verify every company fact via WebFetch or WebSearch before it goes anywhere near the final draft."
+                 data-explanation-wrong="Not quite. The Reviewer already did research once with a fresh, unbiased eye — but its claims still need an independent check. That check happens at Step 4, and it's the Drafter's job, not a rubber-stamp of whatever the Reviewer said.">
+              <h3 class="quiz-question">The Reviewer's critique references a company fact that turns out to be wrong. Whose job is it to catch that, and when?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>Nobody's — the Reviewer already researched it, so it's trusted as-is</span>
+                </button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>The Drafter's, at Step 4 — it must independently verify every Reviewer claim before using it</span>
+                </button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>The user's, after the final documents are shown to them</span>
+                </button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question-block"
+                 data-correct="option-b"
+                 data-explanation-right="Exactly. Every extra file read costs the Reviewer time to fetch the file and tokens to process it. The Drafter already has the text sitting in memory, so pasting it in is strictly cheaper and faster than making the Reviewer fetch it itself."
+                 data-explanation-wrong="Not quite. It's not about the Reviewer's honesty or focus — it's about avoiding redundant work. The Drafter already holds the CV text from writing it; making the Reviewer re-open the same file from disk repeats work that's already done, at extra time and token cost.">
+              <h3 class="quiz-question">Why would pasting the CV text directly into the Reviewer's prompt be faster and cheaper than telling the Reviewer to open the file itself?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>Because a Reviewer that reads its own files is less trustworthy</span>
+                </button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>Because the Drafter already has the text in memory — reopening the same file from disk repeats work and costs extra time and tokens</span>
+                </button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>Because subagents are physically unable to open files</span>
+                </button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <div class="quiz-question-block"
+                 data-correct="option-a"
+                 data-explanation-right="Exactly. A fresh context is what gives the editor agent its value: no memory of the writer's reasoning, no attachment to earlier phrasing choices. Sharing history would just recreate the 'author re-reading their own work' problem with extra steps."
+                 data-explanation-wrong="Think back to the publishing-house metaphor. If the editor watched the manuscript get written, they'd start defending word choices they half-remember agreeing with. The whole value of a second reviewer comes from it never having seen the first draft take shape.">
+              <h3 class="quiz-question">You're building a similar two-agent review pattern for a blog-post-editing tool. Should the editor agent share the same conversation history as the writer agent, or get a fresh one?</h3>
+              <div class="quiz-options">
+                <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>A fresh one — an editor that saw the draft being written will defend choices it's already invested in</span>
+                </button>
+                <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>The same history — more context always produces a better critique</span>
+                </button>
+                <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                  <div class="quiz-option-radio"></div>
+                  <span>It doesn't matter, as long as both agents use the same underlying AI model</span>
+                </button>
+              </div>
+              <div class="quiz-feedback"></div>
+            </div>
+
+            <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+            <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 6: Transition hook -->
+      <div class="screen">
+        <h2 class="screen-heading">What's actually behind "researching Acme's website"?</h2>
+        <div class="animate-in">
+          <p>The Reviewer said it was "researching Acme Corp's website, recent news, and the hiring team." That sentence is doing a lot of work.</p>
+        </div>
+        <div class="animate-in">
+          <p>Next: what that research actually looks like in code, and everywhere else the Drafter and Reviewer reach outside this repo, job portals, salary data, and the web itself.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The Outside World</h1>
+      <p class="module-subtitle">APIs, CLIs, and a fuzzy-matching scout that finds "Acme" inside "ACME Danmark A/S"</p>
+    </div>
+
+    <!-- SCREEN 1: Hook, connecting back to Module 3 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>Back in Module 3, the Reviewer went off to research "Acme Corp's website" before approving a cover letter.</p>
+        <p>When you ran <code>/scrape</code> in Module 1's diagram, Claude didn't invent those job listings out of thin air. It ran real programs that fetch real web pages and real <span class="term" data-definition="An API (Application Programming Interface) is a documented way for one program to ask another program for data — like a restaurant menu that tells you exactly what you can order and how.">APIs</span>.</p>
+      </div>
+      <div class="animate-in">
+        <p>This module opens the hood on two of them: <code>linkedin-search</code> and the salary lookup tool. Think of them as <strong>local scouts</strong> — each with their own beat, and their own rulebook for how to behave once they're out in the field.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: Two kinds of scouts -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Two Scouts, Two Rulebooks</h2>
+      <div class="animate-in">
+        <p>One scout only walks LinkedIn's public job board. It's been told, in writing, to keep visits low-key so it doesn't get thrown out.</p>
+        <p>Another scout radios a data aggregator's official switchboard — a real <span class="term" data-definition="An API is a documented way for one program to ask another for data. Calling an API is like phoning a business's official switchboard instead of reading notes taped to their front door.">API</span>, no trespassing involved — and gets back clean, structured reports instead of having to read handwritten notes off a board.</p>
+      </div>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">🕵️</div>
+          <h4 class="pattern-title">Scout 1: linkedin-search</h4>
+          <p class="pattern-desc">Reads LinkedIn's public <span class="term" data-definition="HTML (HyperText Markup Language) is the code that structures a web page — the text, images, and layout you see in a browser.">HTML</span> job pages directly. No login needed, but fragile: if LinkedIn redesigns the page, the scout's notes stop making sense. Rate-limited by courtesy, not by a real contract.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">☎️</div>
+          <h4 class="pattern-title">Scout 2: freehire-search</h4>
+          <p class="pattern-desc">Calls freehire.dev's real <span class="term" data-definition="JSON (JavaScript Object Notation) is a tidy, structured way of writing data — like a form with labeled fields instead of a wall of free-text notes.">JSON</span> API. A proper contract, structured data, no guesswork about layout.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Both are "zero install"</strong>
+          <p>Both scouts run with nothing installed beyond the <span class="term" data-definition="Bun is a fast JavaScript runtime — the program that executes JavaScript/TypeScript code, similar to Node.js.">bun</span> JavaScript runtime itself. No extra libraries to trust, update, or worry about breaking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: The ToS warning callout -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Reading a Scout's Rulebook</h2>
+      <div class="animate-in">
+        <p>Every real codebase file that touches someone else's website has a warning at the top, if you know to look. Here's the LinkedIn scout's own comment, word for word:</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">#!/usr/bin/env bun</span>
+<span class="code-line">// Self-contained CLI for searching jobs on LinkedIn's public jobs-guest endpoints,</span>
+<span class="code-line">// for any country/region (plus remote). No external CLI framework, so it runs</span>
+<span class="code-line">// anywhere `bun` is available with zero install beyond the repo clone.</span>
+<span class="code-line">//</span>
+<span class="code-line">// Personal use only. This reads LinkedIn's public job pages; automated access is</span>
+<span class="code-line">// against LinkedIn's Terms of Service, so keep volume low and do not use it</span>
+<span class="code-line">// commercially or for bulk data collection. Run it on your own responsibility.</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is a self-running command-line tool. It needs nothing installed except bun.</p>
+            <p class="tl">It works for any country or region, including "Remote" jobs.</p>
+            <p class="tl">No extra command-line framework was needed to build it.</p>
+            <p class="tl">A blank line, for readability.</p>
+            <p class="tl">This is a personal-use warning: reading LinkedIn's pages this way breaks LinkedIn's own rules.</p>
+            <p class="tl">So the scout is told to stay quiet — low volume, no reselling the data.</p>
+            <p class="tl">And a reminder: you, the runner, own the risk of using it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-content">
+          <strong class="callout-title">"Personal use only" is the real aha</strong>
+          <p>Automated tools that touch other people's websites usually carry a written or unwritten rulebook: <span class="term" data-definition="Terms of Service (ToS) are the rules a website sets for how you're allowed to use it. Breaking them can get your access revoked, even if no law was broken.">Terms of Service</span>, rate limits, "don't scrape at scale." Respecting that isn't politeness — it's how a scout avoids getting its access cut off entirely.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: CLI flags -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A Scout Takes Orders Like Any Command-Line Tool</h2>
+      <div class="animate-in">
+        <p>The LinkedIn scout isn't magic — it's a <span class="term" data-definition="A CLI (Command-Line Interface) is a tool you control by typing text commands instead of clicking buttons. Think of it as giving written instructions instead of using a remote control.">CLI</span> you point with plain text options, the same way you'd tell a delivery app "no onions, extra spicy."</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">SEARCH FLAGS</span>
+<span class="code-line">  --location, -l &lt;text&gt;   Location to search. REQUIRED.</span>
+<span class="code-line">  --query, -q &lt;text&gt;      Keywords (job title, skill, or role). Recommended.</span>
+<span class="code-line">  --jobage &lt;days&gt;         Posted within N days: 1, 7, 14, 30. Default: all.</span>
+<span class="code-line">  --remote &lt;mode&gt;         remote | hybrid | onsite. Filter by workplace type.</span>
+<span class="code-line">  --page &lt;n&gt;              1-indexed page (10 results/page). Default 1.</span>
+<span class="code-line">  --limit, -n &lt;n&gt;         Cap results emitted (client-side).</span>
+<span class="code-line">  --format &lt;fmt&gt;          json (default) | table | plain.</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">These are the scout's <span class="term" data-definition="A flag is an option you add to a command to change its behavior — like adding '--json' to get structured data instead of plain text. When talking to an AI agent, you'd say 'add a flag for verbose output.'">flags</span> — the knobs you can turn on a search.</p>
+            <p class="tl">Where to look, and what job title or skill to look for.</p>
+            <p class="tl">How fresh the postings must be, and whether the job is remote, hybrid, or in-person.</p>
+            <p class="tl">Which page of results, and how many to keep.</p>
+            <p class="tl">What shape to hand the results back in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: freehire env var + SLA -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Contract Scout Has a Backup Plan</h2>
+      <div class="animate-in">
+        <p>freehire.dev is a personal project, actively maintained, but it runs on a <span class="term" data-definition="An SLA (Service Level Agreement) is a formal promise about how reliable a service will be — like a guarantee your parcel arrives within 3 days. 'No SLA' means no such formal promise exists.">best-effort basis with no formal SLA</span>.</p>
+        <p>If it goes down, the scout doesn't crash the whole workflow — it fails cleanly and hands back a clear error message.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">FREEHIRE_API_URL=http://localhost:8080 bun run .agents/skills/freehire-search/cli/src/cli.ts search -q "go"</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Point the scout at your own local copy of the backend, using an <span class="term" data-definition="An environment variable (env var) is a named setting you pass to a program from outside its code — like sticking a Post-it note on a machine that changes how it behaves, without touching the machine itself.">environment variable</span> instead of the hosted default.</p>
+            <p class="tl">Same tool, same commands — it just talks to a different address.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔌</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why this matters</strong>
+          <p>The scout can be redirected to a self-hosted backend with one line, because it was built to honor an override instead of hard-coding one address. That's a small design choice with a big payoff.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: The fuzzy matcher — flow animation -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A Third Kind of Scout: Matching Messy Names</h2>
+      <div class="animate-in">
+        <p>The salary lookup tool is a different kind of scout. It doesn't fetch anything from the internet — it searches a local file of salary data and has to guess which company you meant.</p>
+        <p>Type "Acme," and the file might have "ACME Danmark A/S (VG)." A human reads that instantly. The scout needs a rulebook to get there too.</p>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-cli","label":"You run: python salary_lookup.py \"Acme\""},
+        {"highlight":"flow-strip","label":"The query text is handed to STRIP_PATTERNS, which strips legal noise like &apos;A/S&apos;, &apos;ApS&apos;, &apos;(VG)&apos;, and anything after a comma.","packet":true,"from":"cli","to":"strip"},
+        {"highlight":"flow-normalize","label":"The cleaned query moves to normalize(), which lowercases it and strips accents and punctuation.","packet":true,"from":"strip","to":"normalize"},
+        {"highlight":"flow-match","label":"The normalized query goes to match_score(), which scores every company in salary_data.json from 0 to 100 for how well it matches.","packet":true,"from":"normalize","to":"match"},
+        {"highlight":"flow-data","label":"match_score() checks each entry against salary_data.json, the local file of company names.","packet":true,"from":"match","to":"data"},
+        {"highlight":"flow-match","label":"Results come back sorted best-first, dropping anything scoring below 30.","packet":true,"from":"data","to":"match"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-cli">
+            <div class="flow-actor-icon" style="background: var(--color-actor-1)">🧑</div>
+            <span>You (CLI)</span>
+          </div>
+          <div class="flow-actor" id="flow-strip">
+            <div class="flow-actor-icon" style="background: var(--color-actor-2)">✂️</div>
+            <span>STRIP_PATTERNS</span>
+          </div>
+          <div class="flow-actor" id="flow-normalize">
+            <div class="flow-actor-icon" style="background: var(--color-actor-3)">🧹</div>
+            <span>normalize()</span>
+          </div>
+          <div class="flow-actor" id="flow-match">
+            <div class="flow-actor-icon" style="background: var(--color-actor-4)">🎯</div>
+            <span>match_score()</span>
+          </div>
+          <div class="flow-actor" id="flow-data">
+            <div class="flow-actor-icon" style="background: var(--color-actor-5)">🗂️</div>
+            <span>salary_data.json</span>
+          </div>
+        </div>
+
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to trace a real search for "Acme"</div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 7: STRIP_PATTERNS code -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Noise the Scout Learns to Ignore</h2>
+      <div class="animate-in">
+        <p>Danish and Nordic company names carry a lot of legal clutter. Here's the exact list the scout strips before comparing anything.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">STRIP_PATTERNS = [</span>
+<span class="code-line">    r"\ba/s\b", r"\baps\b", r"\bi/s\b", r"\bp/s\b", r"\bk/s\b",</span>
+<span class="code-line">    r"\bivs\b", r"\bamba\b", r"\ba\.m\.b\.a\.\b",</span>
+<span class="code-line">    r"\(vg\)", r"\(.*?\)",  # (VG) and other parentheticals</span>
+<span class="code-line">    r"\bdanmark\b", r"\bdenmark\b", r"\bscandinavia\b", r"\bnordic\b",</span>
+<span class="code-line">    r"\bgroup\b", r"\bholding\b",</span>
+<span class="code-line">    r",\s*.*$",  # everything after comma (sub-entities)</span>
+<span class="code-line">]</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">A checklist of Danish legal-entity suffixes to delete: A/S, ApS, I/S, and more.</p>
+            <p class="tl">A few more suffix types, including the German-style "amba."</p>
+            <p class="tl">Anything in parentheses, like "(VG)," gets dropped too.</p>
+            <p class="tl">Country and region words like "Danmark" or "Nordic" are noise, not identity.</p>
+            <p class="tl">So are generic corporate words like "Group" or "Holding."</p>
+            <p class="tl">And anything after a comma — usually a sub-entity name — gets chopped off.</p>
+            <p class="tl">End of the checklist.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 8: match_score code -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Scoring the Match</h2>
+      <div class="animate-in">
+        <p>Once both names are cleaned up, the scout scores how well they match. A perfect match scores 100. A partial containment — your query sitting fully inside a longer name — scores lower, but still counts.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">def match_score_optimized(q_norm, q_ang, q_words_set, q_words_ang_set, query, entry_name):</span>
+<span class="code-line">    """Compute a match score between 0 and 100 using precalculated query values."""</span>
+<span class="code-line">    n_norm = normalize(entry_name)</span>
+<span class="code-line"></span>
+<span class="code-line">    if not q_norm or not n_norm:</span>
+<span class="code-line">        return 0</span>
+<span class="code-line"></span>
+<span class="code-line">    if q_norm == n_norm:</span>
+<span class="code-line">        return 100</span>
+<span class="code-line"></span>
+<span class="code-line">    if q_norm in n_norm:</span>
+<span class="code-line">        ratio = len(q_norm) / len(n_norm)</span>
+<span class="code-line">        if len(q_norm) &lt;= 4 and ratio &lt; 0.5:</span>
+<span class="code-line">            n_words = set(extract_core_words(entry_name))</span>
+<span class="code-line">            if not q_words_set & n_words:</span>
+<span class="code-line">                pass</span>
+<span class="code-line">            else:</span>
+<span class="code-line">                return 80 + int(ratio * 10)</span>
+<span class="code-line">        else:</span>
+<span class="code-line">            return 80 + int(ratio * 10)</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This function compares your cleaned-up search text against one cleaned-up company name.</p>
+            <p class="tl">First, clean up the company name the same way the search text was cleaned.</p>
+            <p class="tl">If either side is empty after cleaning, there's nothing to compare — score 0.</p>
+            <p class="tl">If your search exactly matches the company name, score it 100. Perfect match.</p>
+            <p class="tl">If your search is fully contained inside the longer company name (like "Acme" inside "Acme Denmark A/S")...</p>
+            <p class="tl">...score it high but not perfect, based on how much of the name your search actually covers. This is how "Acme" finds "Acme Denmark A/S" automatically.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Fuzzy matching, in one line</strong>
+          <p>Clean the noise, then check for exact match first, then partial containment. This same two-step pattern — normalize, then compare — shows up everywhere search boxes feel "smart."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 9: Quiz -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check Your Understanding</h2>
+
+      <div class="quiz-container animate-in" id="quiz-module4">
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>You search salary data for "Acme" and the file has an entry called "ACME Danmark A/S (VG)." Will it match, and why?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-yes-strip"
+               data-explanation-right="Exactly — STRIP_PATTERNS removes 'A/S', '(VG)', and 'Danmark' before anything gets compared, and normalize() lowercases the rest. What's left, 'acme', matches your query exactly."
+               data-explanation-wrong="Not quite. Think about what STRIP_PATTERNS is designed to remove before the comparison even happens — legal suffixes, parentheses, and country names.">
+            <h3 class="quiz-question">What happens?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-no" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>No match — "ACME Danmark A/S (VG)" is too different from "Acme"</span>
+              </button>
+              <button class="quiz-option" data-value="opt-yes-strip" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes — STRIP_PATTERNS removes "A/S," "(VG)," and "Danmark" first, then normalize() lowercases what's left, leaving "acme" on both sides</span>
+              </button>
+              <button class="quiz-option" data-value="opt-luck" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes, but only by luck — the matcher doesn't actually clean the text first</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>linkedin-search reads public HTML pages. freehire-search calls a real JSON API. Which one is more likely to break if the website redesigns its page layout?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-linkedin"
+               data-explanation-right="Exactly — a page scrape depends on the page's structure staying the same. A real API is a documented contract, so the people running it have to keep it stable on purpose."
+               data-explanation-wrong="Think about which scout is reading a web page meant for human eyes, versus which one is calling an address specifically built for programs to talk to.">
+            <h3 class="quiz-question">Which is more fragile to redesigns?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-linkedin" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>linkedin-search — it reads the page's HTML structure directly, so a redesign can break it</span>
+              </button>
+              <button class="quiz-option" data-value="opt-freehire" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>freehire-search — APIs change more often than web pages</span>
+              </button>
+              <button class="quiz-option" data-value="opt-both" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both equally — neither integration pattern is more stable than the other</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>freehire.dev goes down for an hour. Based on its "best-effort, no SLA" design, what should happen to the rest of the /scrape workflow?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-degrade"
+               data-explanation-right="Exactly — the CLI fails with a clear, non-zero-exit error instead of crashing silently, so /scrape loses one source but keeps running the rest, like LinkedIn search."
+               data-explanation-wrong="Reread the freehire skill note: 'if the API is unreachable, the CLI fails gracefully... so an outage degrades this source rather than breaking the surrounding workflow.'">
+            <h3 class="quiz-question">What should happen?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-crash" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The whole /scrape command should crash, since one data source failed</span>
+              </button>
+              <button class="quiz-option" data-value="opt-degrade" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The freehire CLI fails with a clear error, but /scrape keeps running its other sources, like LinkedIn search</span>
+              </button>
+              <button class="quiz-option" data-value="opt-retry" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The CLI should silently retry forever until freehire.dev comes back</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 10: Transition to Module 5 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>So far you've seen Claude gather information from local scouts out in the field, and clean up messy names once the reports come back.</p>
+        <p><strong>Next: watch it catch its own layout mistakes in a PDF it just built, and fix them without being told how.</strong></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-5">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h2 class="module-title">The Clever Tricks: Compile, Inspect, Iterate</h2>
+      <p class="module-subtitle">Module 4 sent Claude outside the repo to gather data. Now we're back inside, for the other big feat of engineering: turning a text file into a document that actually looks right.</p>
+    </div>
+
+    <!-- SCREEN 1: Hook + metaphor -->
+    <div class="screen">
+      <p class="animate-in">You've seen Claude write a <span class="term" data-definition="LaTeX is a text-based system for writing documents. Instead of dragging text boxes around like Word, you write plain-text commands that describe the document's structure, then a separate program turns that text into a PDF.">LaTeX</span> file for a CV. Here's the catch: a file that looks perfect as text can still produce a broken document.</p>
+
+      <p class="animate-in">A job title stranded alone at the bottom of page 1. Its bullet points spilling onto page 2. The source code gave no hint anything was wrong.</p>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">✂️</div>
+        <div class="callout-content">
+          <strong class="callout-title">Think of a tailor's final fitting</strong>
+          <p>Anyone can cut fabric to a pattern's exact measurements. A good tailor puts the finished garment ON the client and LOOKS at it before calling the job done &mdash; because fabric drapes unpredictably and seams bunch up in ways the paper pattern never showed. This module is about the workflow doing the equivalent for documents.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: The loop -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Not just cutting the pattern &mdash; trying it on</h3>
+      <p class="animate-in">The workflow doesn't trust that the LaTeX source "looks right." It <span class="term" data-definition="To compile is to run a program that converts source text into a finished output &mdash; here, turning a .tex text file into an actual PDF you could open and read.">compiles</span> a real <span class="term" data-definition="PDF (Portable Document Format) is the standard file format for finished, page-formatted documents &mdash; the kind you'd email or print, as opposed to an editable source file.">PDF</span>, then looks at the actual <span class="term" data-definition="To render is to turn source instructions into the final visual output a person would actually see &mdash; here, turning the compiled PDF into pages you can look at, rather than just trusting the text that generated them.">rendered</span> pages before anyone else sees them.</p>
+
+      <div class="flow-steps animate-in">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <p>Generate the LaTeX source</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <p>Compile it to a real PDF</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <p>Visually inspect the pages</p>
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-step">
+          <div class="flow-step-num">4</div>
+          <p>Fix &amp; repeat until clean</p>
+        </div>
+      </div>
+
+      <p class="animate-in">Step 3 is the surprising part: Claude uses its Read tool to look at the <em>rendered</em> PDF pages, the same way you'd look at a finished garment on the client &mdash; not just the pattern (the .tex source) it was cut from.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-comment">### 5a. Compile</span></span>
+<span class="code-line">cd cv &amp;&amp; lualatex -interaction=nonstopmode main_&lt;company&gt;.tex</span>
+<span class="code-line">cd ../cover_letters &amp;&amp; xelatex -interaction=nonstopmode cover_&lt;company&gt;_&lt;role&gt;.tex</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is step 5a of the apply workflow: actually compiling the documents.</p>
+            <p class="tl">Turn the CV's text file into a real PDF, using <code>lualatex</code> &mdash; the CV needs this specific compiler because a more common one breaks on the icon fonts it uses.</p>
+            <p class="tl">Do the same for the cover letter, but with <code>xelatex</code> instead, because the cover letter's template needs that compiler's font handling.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: Code <-> English translation of the checklist -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">The checklist Claude runs against its own PDF</h3>
+      <p class="animate-in">This is step 5b: after compiling, Claude reads the actual rendered pages and checks them against a literal pass/fail list.</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"><span class="code-comment">### 5b. Inspect layout</span></span>
+<span class="code-line">Read both PDFs via the Read tool and verify:</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">**CV (cv/main_&lt;company&gt;.pdf):**</span></span>
+<span class="code-line">- [ ] Exactly 2 pages (not 1, not 3)</span>
+<span class="code-line">- [ ] No orphaned \cventry titles &mdash; a job/education</span>
+<span class="code-line">      title line must never sit alone at the bottom of</span>
+<span class="code-line">      page 1 with its bullets on page 2. This is the</span>
+<span class="code-line">      most common failure.</span>
+<span class="code-line">- [ ] Section headings are not isolated at the top of</span>
+<span class="code-line">      page 2 with only 1-2 lines below</span>
+<span class="code-line">- [ ] No awkward whitespace gaps</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">A 2-page CV that compiles to 1 or 3 pages failed &mdash; the content doesn't fit the format, something has to change.</p>
+            <p class="tl">The most common bug: imagine flipping to a résumé and seeing only a company name and dates at the very bottom of a page &mdash; you'd have to turn the page just to find out what the person actually did there. That's what this line catches.</p>
+            <p class="tl">A section title (like "Experience") shouldn't be the last thing on a page, or sit at the top of a new page with almost nothing under it &mdash; both look broken to a reader.</p>
+            <p class="tl">Big empty gaps mean LaTeX's automatic spacing did something ugly. A human eye catches this; the source text never shows it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: Two kinds of fixes -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Two different repairs, for two different problems</h3>
+      <p class="animate-in">A tailor doesn't handle a loose thread and a too-short hem the same way. This workflow makes the same distinction between a near-miss and real overflow.</p>
+
+      <p class="animate-in"><strong>Near-miss: pin the seam.</strong> If a title is about to get orphaned, add a hint in the <span class="term" data-definition="The preamble is the setup section at the top of a LaTeX document &mdash; before the actual content begins &mdash; where you load extra features the document will use.">preamble</span> that tells the compiler "keep this block together."</p>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">\needspace{5\baselineskip}</span>
+<span class="code-line">\item{\cventry{YEAR--YEAR}{Role Title}{Organization}{Location}{}{...}}</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">"Before starting this entry, make sure there's room for at least 5 lines below it &mdash; otherwise push the whole thing to the next page instead of splitting it."</p>
+            <p class="tl">The actual job entry, now protected from being orphaned. (Requires adding <code>\usepackage{needspace}</code> up in the preamble.)</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="animate-in"><strong>Real overflow: alter the garment.</strong> If a CV is genuinely too long, don't trim mechanically by section &mdash; score every line and cut the weakest one first.</p>
+
+      <div class="step-cards animate-in">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Relevance to this posting</strong>
+            <p>Does the line name a tool, keyword, or responsibility the job ad actually asks for?</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Uniqueness</strong>
+            <p>Is this the only place the claim appears, or is it repeated elsewhere on the CV?</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Narrative load</strong>
+            <p>Does the cover letter depend on this line? Cutting it would force a rewrite elsewhere.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="animate-in">Whichever line scores lowest gets cut first &mdash; regardless of which section it happens to sit in. An older role that speaks directly to the posting can outrank a recent one that doesn't.</p>
+    </div>
+
+    <!-- SCREEN 5: Pattern cards + callout -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Clever tricks worth asking any AI tool for</h3>
+      <p class="animate-in">None of this is specific to CVs or LaTeX. These are habits worth requesting whenever an AI tool generates something you'll rely on.</p>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">👁️</div>
+          <h4 class="pattern-title">Render before you trust</h4>
+          <p class="pattern-desc">Don't just read the source &mdash; compile it, run it, or render it, then look at the real output before calling it done.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">⚖️</div>
+          <h4 class="pattern-title">Score before you cut</h4>
+          <p class="pattern-desc">When something must be trimmed, weigh each piece by relevance and impact &mdash; don't cut mechanically by position or section.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-accent)">
+          <div class="pattern-icon" style="background: var(--color-accent)">🧵</div>
+          <h4 class="pattern-title">Match the fix to the problem</h4>
+          <p class="pattern-desc">A near-miss gets a nudge (<code>\enlargethispage</code>), not a cut. The project's own rules say it plainly: don't cut to fit if the fit is borderline (2.02 pages).</p>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Aha!</strong>
+          <p>An AI that writes code, or LaTeX, or any generated file, is not the same as an AI that CHECKS what that code produces. The checking step is where real quality comes from &mdash; and it's a step you can explicitly ask for.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: Quiz + transition -->
+    <div class="screen">
+      <h3 class="screen-heading animate-in">Check your understanding</h3>
+
+      <div class="quiz-container animate-in" id="quiz-module5">
+
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly. Relevance-weighted cutting means the lowest-scoring line goes first, no matter which section it's in &mdash; a real 3-page overflow with actual content still needs the scoring pass, not a mechanical trim."
+             data-explanation-wrong="Not quite. Real content spilling to page 3 isn't a near-miss you can nudge away with spacing &mdash; and the checklist explicitly rejects removing whole sections by fixed priority order.">
+          <h3 class="quiz-question">The CV compiles to 3 pages, with real content &mdash; not just a stray blank line &mdash; spilling onto page 3. What should Claude do first?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Delete the oldest education entry, since older items are always lowest priority</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Score every candidate line by relevance, uniqueness, and narrative load, then cut the lowest-scoring one first</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Add <code>\needspace</code> above the last entry so it doesn't spill over</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="option-b"
+             data-explanation-right="Exactly. This is the checklist's most common failure, and needspace is the fix built for it: it tells the compiler to keep a title and its first lines together, pushing the whole block to the next page instead of splitting it."
+             data-explanation-wrong="Not quite. Relevance-weighted cutting is for trimming content when a CV is genuinely too long &mdash; this symptom is a page-break placement problem, not a length problem.">
+          <h3 class="quiz-question">A finished CV shows a job title and company name alone at the bottom of page 1, with all its bullet points starting on page 2. Which fix addresses this exact symptom?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Apply relevance-weighted cutting to shorten the CV</span>
+            </button>
+            <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Add <code>\needspace{5\baselineskip}</code> before that <code>\cventry</code>, with <code>\usepackage{needspace}</code> in the preamble</span>
+            </button>
+            <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Recompile with xelatex instead of lualatex</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>You're building an AI tool that generates PowerPoint slides for you.</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. This module's core lesson generalizes: generating source isn't the same as checking the result. For slides, that means actually opening the rendered deck and looking at each slide before calling it finished &mdash; the same generate-render-inspect-fix loop, just applied to a different file type."
+               data-explanation-wrong="Not quite. Faster generation or more slide templates don't catch the failure mode this module is about &mdash; a slide that looks fine in the source but renders with, say, overlapping text or a cut-off image.">
+            <h3 class="quiz-question">Based on this module, what step should you insist the AI take before calling a slide deck "done"?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Generate the slides faster, using a shorter prompt</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Offer more slide templates to choose from</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Render the actual deck and visually check each slide against a checklist, fixing and re-rendering until it passes</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+      </div>
+
+      <p class="animate-in">Claude checks its own PDFs before showing them to you. But who checks Claude Code's own permissions before they reach thousands of forks of this repo? One last layer of self-checking, zoomed all the way out &mdash; that's Module 6.</p>
+    </div>
+
+  </div>
+</section>
+<section class="module" id="module-6">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">06</span>
+      <h1 class="module-title">Guardrails: How the Framework Protects Every Fork</h1>
+      <p class="module-subtitle">Module 5 watched Claude catch its own mistakes on a single PDF. This module zooms all the way out: how the maintainers catch risky changes before they reach every single person who forks this repo.</p>
+    </div>
+
+    <!-- SCREEN 1: Hook -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>This whole framework runs on <em>your</em> machine, using <em>your</em> Claude Code permissions. Thousands of other job-seekers fork this exact repo and inherit whatever it ships.</p>
+      </div>
+      <div class="animate-in">
+        <p>Imagine someone quietly changed the fork's setup so Claude could <strong>"run any command"</strong> instead of just <strong>"run this one salary-lookup script."</strong> Every future fork would silently inherit that risk.</p>
+      </div>
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">🚧</div>
+        <div class="callout-content">
+          <strong class="callout-title">The problem this module solves</strong>
+          <p>Nobody reviewing that change would necessarily notice one word changed in a config file. This module is about the code that makes sure they <em>do</em> notice.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: Metaphor -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Not a security guard. A fire-code inspector.</h2>
+      <div class="animate-in">
+        <p>A security guard stands at the door and stops people from entering. That's not what this system does.</p>
+      </div>
+      <div class="icon-rows animate-in">
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-accent-muted)">🏢</div>
+          <div>
+            <strong>The building's owners can still change things</strong>
+            <p>Add a balcony, repaint a hallway, rearrange furniture &mdash; nobody stops them.</p>
+          </div>
+        </div>
+        <div class="icon-row">
+          <div class="icon-circle" style="background: var(--color-accent)">🔥</div>
+          <div>
+            <strong>But some changes trigger an inspection</strong>
+            <p>Rewiring the electrics or adding a new door has to be flagged, documented, and signed off &mdash; precisely because those are the changes most likely to hurt someone if done carelessly.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">The core idea</strong>
+          <p>These guardrails don't block change. They force the <em>riskiest</em> changes to be visible and deliberate, so a human has to look at them on purpose.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: The docstring / what it checks -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Meet the inspector: <code>security_guards.py</code></h2>
+      <div class="animate-in">
+        <p>Two small Python scripts run automatically in <span class="term" data-definition="Continuous Integration: an automated check that runs on every proposed code change, before a human even looks at it. Think of it as a checklist that runs itself.">CI</span> &mdash; via <code>.github/workflows/ci.yml</code> &mdash; on every proposed change to this repo. Here is the file's own explanation of its job, taken directly from its top comment:</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">#!/usr/bin/env python3</span>
+<span class="code-line">"""<span class="code-comment">Supply-chain guards for the template's riskiest surfaces.</span></span>
+<span class="code-line"></span>
+<span class="code-line">Run from anywhere: python tools/security_guards.py</span>
+<span class="code-line"></span>
+<span class="code-line">This repo ships pre-approved Claude Code permissions and CLI code that every</span>
+<span class="code-line">fork user executes. These guards make the dangerous changes LOUD, not</span>
+<span class="code-line">impossible: a PR that intentionally needs one of them must update the</span>
+<span class="code-line">allowlists in this file in the same diff, so the change is explicit and</span>
+<span class="code-line">reviewable rather than buried.</span>
+<span class="code-line"></span>
+<span class="code-line">Checks:</span>
+<span class="code-line">1. .claude/settings.json &mdash; every permissions.allow entry must be in the exact</span>
+<span class="code-line">   allowlist below. Catches permission widening (e.g. Bash(*), Bash(curl:*)),</span>
+<span class="code-line">   which would auto-approve commands on every fork.</span>
+<span class="code-line">2. .gitignore &mdash; the personal-data ignore rules must all still be present.</span>
+<span class="code-line">   Catches weakening that would make future users silently commit their</span>
+<span class="code-line">   tracker, profile exports, or application archives.</span>
+<span class="code-line">3. .agents/**/package.json &mdash; no npm/bun lifecycle scripts (preinstall,</span>
+<span class="code-line">   install, postinstall, prepare, prepack) and no trustedDependencies.</span>
+<span class="code-line">   Catches code execution smuggled into `bun install`.</span>
+<span class="code-line"></span>
+<span class="code-line">Stdlib only. Exit 0 on success, 1 with a failure list otherwise.</span>
+<span class="code-line">"""</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is the file's own "job description," written for whoever opens it next.</p>
+            <p class="tl">Every fork runs this file's permissions and code. If those get quietly widened, everyone inherits the risk.</p>
+            <p class="tl">Check 1: does the list of approved Claude Code permissions still match the known-safe list?</p>
+            <p class="tl">Check 2: are the rules that keep your personal data (CV, salary data, tracker) out of Git still intact?</p>
+            <p class="tl">Check 3: can any installed tool sneak code execution into the install step?</p>
+            <p class="tl">It uses only Python's built-in <span class="term" data-definition="The 'standard library' &mdash; tools built into Python itself, with nothing extra installed. Using only stdlib means the checker itself has no third-party dependencies to worry about.">stdlib</span>, and fails loudly (exit code 1) if anything looks off.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: The allowlist cross-check -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Two lists that must match, exactly</h2>
+      <div class="animate-in">
+        <p>The repo ships an <span class="term" data-definition="A list of things explicitly permitted, where anything not on the list is rejected by default. The opposite of a blocklist, which permits everything except named exceptions.">allowlist</span> in two places: the real settings Claude Code reads, and a second copy the checker compares against.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE: .claude/settings.json</span>
+          <pre><code><span class="code-line">{</span>
+<span class="code-line">  "permissions": {</span>
+<span class="code-line">    "allow": [</span>
+<span class="code-line">      "Skill(job-application-assistant)",</span>
+<span class="code-line">      "Bash(bun run:*)",</span>
+<span class="code-line">      "Bash(python salary_lookup.py:*)",</span>
+<span class="code-line">      "Bash(python3 salary_lookup.py:*)",</span>
+<span class="code-line">      "Bash(pdftotext:*)"</span>
+<span class="code-line">    ]</span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is the real file Claude Code reads on your machine. Anything listed here runs without asking you first.</p>
+            <p class="tl">Five entries, each narrow: one skill, one bun command, two ways to run salary_lookup.py, and pdftotext.</p>
+            <p class="tl">Notice what's missing: nothing here says "run any Bash command."</p>
+          </div>
+        </div>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE: tools/security_guards.py</span>
+          <pre><code><span class="code-line"><span class="code-comment"># The exact permission entries the template ships. A PR that adds or changes</span></span>
+<span class="code-line"><span class="code-comment"># an entry must add it here too - that is the point: the diff shows both.</span></span>
+<span class="code-line">ALLOWED_PERMISSIONS = {</span>
+<span class="code-line">    "Skill(job-application-assistant)",</span>
+<span class="code-line">    "Bash(bun run:*)",</span>
+<span class="code-line">    "Bash(python salary_lookup.py:*)",</span>
+<span class="code-line">    "Bash(python3 salary_lookup.py:*)",</span>
+<span class="code-line">    "Bash(pdftotext:*)",</span>
+<span class="code-line">}</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is the checker's own private copy of "known good" permissions.</p>
+            <p class="tl">It's deliberately independent of settings.json &mdash; a second, separately-maintained source of truth to compare against.</p>
+            <p class="tl">If someone edits settings.json without touching this list too, the two stop matching. That mismatch is exactly what gets caught.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: Loud failure -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">When the lists don't match: loud, not silent</h2>
+      <div class="animate-in">
+        <p>Here is the actual check that compares the two lists and decides what to do about a mismatch.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">    for entry in allow:</span>
+<span class="code-line">        if entry not in ALLOWED_PERMISSIONS:</span>
+<span class="code-line">            errors.append(</span>
+<span class="code-line">                f".claude/settings.json: permission not in the reviewed allowlist: {entry!r}. "</span>
+<span class="code-line">                "Pre-approved permissions run without prompting on every fork. If this entry is "</span>
+<span class="code-line">                "intentional, add it to ALLOWED_PERMISSIONS in tools/security_guards.py in the "</span>
+<span class="code-line">                "same PR so the widening is explicit and reviewable."</span>
+<span class="code-line">            )</span>
+<span class="code-line">    for entry in ALLOWED_PERMISSIONS - set(allow):</span>
+<span class="code-line">        <span class="code-comment"># Not an error: settings may legitimately drop an entry. But an</span></span>
+<span class="code-line">        <span class="code-comment"># allowlist entry that no longer exists should be pruned.</span></span>
+<span class="code-line">        print(f"note: allowlisted permission not present in settings.json: {entry!r}")</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">For every permission actually in settings.json, check it's on the known-good list.</p>
+            <p class="tl">If it isn't, don't just fail &mdash; explain exactly which entry is the problem and exactly what to do about it.</p>
+            <p class="tl">The fix is spelled out in the error itself: add it to ALLOWED_PERMISSIONS, in the same pull request, so a reviewer sees the widening on purpose.</p>
+            <p class="tl">The reverse case (a list entry no longer used) is just a friendly note, not a failure &mdash; removing a permission is safe, adding one isn't.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Aha!</strong>
+          <p>Guardrails that fail loudly and specifically &mdash; naming the exact file, the exact fix &mdash; are far more useful than guardrails that just say "blocked." When you ask an AI to add a safety check to your own project, ask for an error message that tells the next person exactly what to do, the way this one does.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: The lifecycle-script check -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A second inspection point: install-time code</h2>
+      <div class="animate-in">
+        <p>This repo installs third-party job-portal search tools. The checker also blocks a well-known <span class="term" data-definition="A supply-chain risk is a way an attacker sneaks bad code in through something you trusted and installed, rather than attacking you directly.">supply-chain</span> trick: code that runs automatically the moment you install a package.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">FORBIDDEN_SCRIPTS = {"preinstall", "install", "postinstall", "prepare", "prepack"}</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">These are the names of <span class="term" data-definition="A lifecycle script is code a package can register to run automatically at a specific moment, like 'right after this package is installed' &mdash; before any human reviews what it does.">lifecycle scripts</span>: hooks that package managers run automatically at set moments, like right after install.</p>
+          </div>
+        </div>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">        bad = FORBIDDEN_SCRIPTS & set(scripts)</span>
+<span class="code-line">        if bad:</span>
+<span class="code-line">            errors.append(</span>
+<span class="code-line">                f"{relpath}: lifecycle script(s) {sorted(bad)} are forbidden - they execute "</span>
+<span class="code-line">                "arbitrary code during `bun install` on every fork user's machine."</span>
+<span class="code-line">            )</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">If any installed tool's package.json defines one of those forbidden scripts, that's an error.</p>
+            <p class="tl">Why it matters: that code would run silently on every fork user's machine the moment they type <code>bun install</code>, before any human looks at it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 7: Spot the bug -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Try it: spot the mismatch</h2>
+      <div class="animate-in">
+        <p>Below is a slightly-edited version of <code>ALLOWED_PERMISSIONS</code>. It's missing one entry that the real <code>.claude/settings.json</code> (shown two screens back) still has. Click the line where that missing entry <em>should</em> be, to trigger the failure you just read about.</p>
+      </div>
+      <div class="bug-challenge animate-in">
+        <h3>Which line reveals the gap?</h3>
+        <div class="bug-code">
+          <div class="bug-line" data-line="1" onclick="checkBugLine(this, false)">
+            <span class="line-num">1</span>
+            <code>ALLOWED_PERMISSIONS = {</code>
+          </div>
+          <div class="bug-line" data-line="2" onclick="checkBugLine(this, false)">
+            <span class="line-num">2</span>
+            <code>    "Skill(job-application-assistant)",</code>
+          </div>
+          <div class="bug-line" data-line="3" onclick="checkBugLine(this, false)">
+            <span class="line-num">3</span>
+            <code>    "Bash(bun run:*)",</code>
+          </div>
+          <div class="bug-line" data-line="4" onclick="checkBugLine(this, false)">
+            <span class="line-num">4</span>
+            <code>    "Bash(python salary_lookup.py:*)",</code>
+          </div>
+          <div class="bug-line bug-target" data-line="5" onclick="checkBugLine(this, true)">
+            <span class="line-num">5</span>
+            <code>    "Bash(python3 salary_lookup.py:*)",</code>
+          </div>
+          <div class="bug-line" data-line="6" onclick="checkBugLine(this, false)">
+            <span class="line-num">6</span>
+            <code>}</code>
+          </div>
+        </div>
+        <div class="bug-feedback" id="bug-feedback"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 8: Quiz -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check your understanding</h2>
+      <div class="quiz-container animate-in" id="quiz-module6">
+
+        <div class="quiz-question-block"
+             data-correct="fails-loud"
+             data-explanation-right="Exactly. CI fails with a message naming settings.json, the exact entry, and the exact fix: add it to ALLOWED_PERMISSIONS in the same PR. Nothing gets silently approved and nothing gets silently blocked."
+             data-explanation-wrong="Not quite. Re-read the check: it doesn't approve unknown entries, and it doesn't fail without explanation either. It names the exact file and the exact fix.">
+          <h3 class="quiz-question">A <span class="term" data-definition="A pull request (PR) is a proposed change to a codebase, submitted for review before it's merged in. Think of it as 'here's my suggested edit, please look at it before it becomes real.'">pull request (PR)</span> adds <code>Bash(curl:*)</code> to <code>.claude/settings.json</code> but does NOT update <code>ALLOWED_PERMISSIONS</code> in <code>security_guards.py</code>. What happens when CI runs?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="auto-approve" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>CI passes silently &mdash; the new permission is just added going forward</span>
+            </button>
+            <button class="quiz-option" data-value="fails-loud" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>CI fails, naming the exact unapproved entry and telling the author to update ALLOWED_PERMISSIONS in the same PR</span>
+            </button>
+            <button class="quiz-option" data-value="reverts" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>CI automatically deletes the new permission from settings.json</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="silent-code-exec"
+             data-explanation-right="Exactly. A postinstall or preinstall script runs the instant a package is installed, with no review step in between. That's the textbook supply-chain attack: hide the payload where it executes automatically, before anyone reads it."
+             data-explanation-wrong="Not quite. Think about the moment these scripts run &mdash; during `bun install`, on every fork user's machine, automatically. What's dangerous about code that runs before anyone reviews it?">
+          <h3 class="quiz-question">Why does <code>security_guards.py</code> forbid <code>postinstall</code> and <code>preinstall</code> scripts in <code>package.json</code> files specifically?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="slow-install" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because they make <code>bun install</code> run more slowly</span>
+            </button>
+            <button class="quiz-option" data-value="silent-code-exec" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because they'd let a package run arbitrary code automatically and silently the moment someone installs it, before any human reviews it</span>
+            </button>
+            <button class="quiz-option" data-value="deprecated" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because npm/bun deprecated those script names entirely</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="personal-data"
+             data-explanation-right="Exactly. The .gitignore check exists to stop personal data &mdash; salary_data.json, your real CV files, application archives &mdash; from being accidentally committed and shared. It has nothing to do with protecting the source code."
+             data-explanation-wrong="Not quite. Look back at the docstring's check #2: it's about what a future user might accidentally expose to the public, not about the framework's own code.">
+          <h3 class="quiz-question">The <code>.gitignore</code> check exists to protect what, specifically, from being accidentally committed?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="source-code" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The repo's own Python and JavaScript source code</span>
+            </button>
+            <button class="quiz-option" data-value="personal-data" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>A user's personal data &mdash; their CV files, salary data, application tracker</span>
+            </button>
+            <button class="quiz-option" data-value="ci-config" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>The CI workflow configuration itself</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module6')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module6')">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 9: Wrap-up -->
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">You can read this codebase now.</h2>
+        <p>You can open any instruction file in this repo, or one like it, and know what it will make Claude do &mdash; and tell a command from a skill, a subagent, or a CLI tool.</p>
+        <p>You know the patterns to ask for in your own AI projects: a fresh-context reviewer, a render-and-inspect loop before trusting output, an explicit allowlist paired with a loud CI failure for anything risky.</p>
+        <p>That's the whole toolkit. Go open the real files &mdash; you'll recognize exactly what you're looking at.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

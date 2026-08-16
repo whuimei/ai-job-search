@@ -4,7 +4,7 @@
 
 ## Installed portal CLIs (primary for `/scrape`)
 
-`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Shipped country-agnostic CLIs include `linkedin-search` and `freehire-search`; Danish demos and any skill you add with `/add-portal` are included the same way. You do **not** need a matching `site:` line below for those CLIs to run.
+`/scrape` discovers every portal skill under `.agents/skills/*/SKILL.md` and runs its CLI first. Shipped country-agnostic CLIs include `linkedin-search` and `freehire-search`; Danish demos, `platsbanken-search` and `mycareersfuture-search` (added via `/add-portal`), and any further skill you add the same way are included identically. You do **not** need a matching `site:` line below for those CLIs to run.
 
 The `site:` query templates in this file are the **WebSearch fallback** — for portals without a CLI, company career pages, or when a CLI fails.
 
@@ -12,66 +12,91 @@ The `site:` query templates in this file are the **WebSearch fallback** — for 
 
 ## Search Sites
 
-Primary (your market's job boards - scaffold one with `/add-portal`):
-- **[YOUR_JOB_BOARD]** - your market's largest general job board
-- **linkedin.com/jobs** - LinkedIn job listings (filter: [YOUR_COUNTRY] / [YOUR_CITY]); also covered by `linkedin-search` CLI
-- **[YOUR_INDUSTRY_JOB_BOARD]** - a niche/industry board for your field (optional)
-- **[YOUR_ADDITIONAL_JOB_BOARD]** - another major board for your market (optional)
+Primary:
+- **arbetsformedlingen.se/platsbanken** - Swedish national job board; covered by the `platsbanken-search` CLI (uses the official JobTech Dev API, not scraping). **Query in Swedish** - the underlying board has almost no English-language postings.
+- **mycareersfuture.gov.sg** - Singapore national job board; covered by the `mycareersfuture-search` CLI (uses the portal's own public API). Relevant given possible relocation back to Singapore.
+- **linkedin.com/jobs** - LinkedIn job listings (filter: Sweden / Denmark, Malmö / Copenhagen / Öresund, or Singapore); also covered by `linkedin-search` CLI
+- **jobindex.dk** - Danish general job board (shipped portal demo, relevant given Öresund/Copenhagen scope)
+- **jobnet.dk** - Danish national job board (shipped portal demo)
 
 Secondary (company career pages via Google):
-- Direct Google searches with `site:` filters for known target companies
+- Direct Google searches with `site:` filters for known target companies (none specified yet - add as they come up)
 
 ## Query Categories
 
 Queries are grouped by priority. Write **each category in every language from your Languages table** (see Language scope above). Combine each query with your location terms (e.g. your city, region, or metro area) where the site supports it.
 
-### Priority 1: [YOUR_PRIMARY_ROLE_TYPE]
+### Priority 1: AI Solutions / Implementation Consulting
 
-These match your strongest and most desired career direction.
-
-```
-site:[YOUR_JOB_BOARD] "[YOUR_PRIMARY_JOB_TITLE]" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_KEY_SKILL]" [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_PRIMARY_JOB_TITLE]" [YOUR_COUNTRY]
-```
-
-### Priority 2: [YOUR_DOMAIN_EXPERTISE]
-
-These match your domain expertise.
+These match your strongest and most desired career direction: deploying technical AI solutions to customers.
 
 ```
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] OR [YOUR_REGION]
-site:[YOUR_JOB_BOARD] [YOUR_DOMAIN_KEYWORD_2] [YOUR_COUNTRY]
-site:linkedin.com/jobs [YOUR_DOMAIN_KEYWORD_1] [YOUR_CITY] [YOUR_COUNTRY]
+platsbanken-search: search -q "AI konsult" -l Malmö
+platsbanken-search: search -q "AI implementation konsult" --jobage 14
+mycareersfuture-search: search -q "AI Solutions Consultant" --jobage 14
+mycareersfuture-search: search -q "AI Implementation Consultant"
+site:linkedin.com/jobs "AI Solutions Consultant" OR "AI Implementation Consultant" OR "AI Deployment Specialist" Sweden
+site:linkedin.com/jobs "AI Solutions Consultant" OR "AI Implementation Consultant" Denmark
+site:linkedin.com/jobs "AI Solutions Consultant" OR "AI Implementation Consultant" Singapore
 ```
 
-### Priority 3: [YOUR_ADJACENT_ROLE_TYPE]
+### Priority 2: Domain Expertise (Workflow Automation & CRM)
+
+These match your domain expertise in client discovery, workflow automation, and CRM implementation.
+
+```
+platsbanken-search: search -q "processautomation konsult" -l Malmö
+platsbanken-search: search -q "CRM konsult" --jobage 14
+mycareersfuture-search: search -q "workflow automation consultant"
+mycareersfuture-search: search -q "business analyst" --jobage 14
+site:linkedin.com/jobs "workflow automation consultant" Sweden OR Denmark
+site:linkedin.com/jobs "CRM implementation" consultant Sweden OR Denmark
+site:linkedin.com/jobs "CRM implementation" OR "business analyst" consultant Singapore
+```
+
+### Priority 3: Adjacent Roles (Solutions Engineer / Technical Implementation Manager)
 
 Adjacent roles you could pivot into.
 
 ```
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_1]" [YOUR_KEY_SKILL] [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "[YOUR_ADJACENT_TITLE_2]" [YOUR_KEY_SKILL] [YOUR_CITY]
+mycareersfuture-search: search -q "Solutions Engineer"
+mycareersfuture-search: search -q "Technical Implementation Manager"
+site:linkedin.com/jobs "Solutions Engineer" AI Sweden OR Denmark OR Singapore
+site:linkedin.com/jobs "Technical Implementation Manager" Sweden OR Denmark OR Singapore
+site:jobindex.dk "Solutions Engineer" OR "Implementation Manager" København
 ```
 
-### Priority 4: Broader Technical / Consulting
+### Priority 4: Broader Technical Consulting
 
-Wider net for general technical roles.
+Wider net for general technical/AI consulting roles.
 
 ```
-site:[YOUR_JOB_BOARD] [YOUR_KEY_SKILL] developer [YOUR_CITY]
-site:linkedin.com/jobs "[YOUR_KEY_SKILL] developer" [YOUR_CITY]
-site:[YOUR_JOB_BOARD] "technical consultant" [YOUR_DOMAIN] [YOUR_CITY]
+platsbanken-search: search -q "teknisk konsult AI"
+mycareersfuture-search: search -q "technical consultant"
+site:linkedin.com/jobs "technical consultant" AI Malmö OR Copenhagen OR Singapore
+site:jobnet.dk "AI" konsulent
 ```
 
 ## Location Filter
 
-When evaluating results, verify the job location is within reasonable commute distance from your home. Define acceptable areas:
-- [YOUR_CITY] and surrounding areas
-- [ACCEPTABLE_AREA_1]
-- [ACCEPTABLE_AREA_2]
-- [BORDERLINE_AREA] (borderline - ~X min by transit)
-- [TOO_FAR_AREA] (too far)
+Three separate location scopes are in play - evaluate each posting against whichever it belongs to:
+
+**Öresund scope** (hybrid/in-person from current base in Malmö, no relocation needed):
+- Malmö and surrounding areas (ideal)
+- Lund, Öresund region - Sweden side (ideal)
+- Copenhagen, Denmark (acceptable - hybrid across the Öresund bridge)
+- Other Danish Zealand towns near Copenhagen (borderline - depends on commute time)
+
+**Domestic relocation scope** (Sweden, relocation):
+- Stockholm
+- Göteborg / Gothenburg
+- Flag postings in these cities clearly as "relocation" so they're evaluated against relocation readiness, not commute distance
+
+**Singapore scope** (relocation, citizenship-backed):
+- Anywhere in Singapore is in scope; no local commute filtering needed (single city-state)
+- Flag Singapore postings clearly as "relocation" so they're evaluated against relocation readiness, not commute distance
+
+Anywhere outside all three scopes (i.e. not Öresund-hybrid-reachable, not Stockholm/Göteborg, and not Singapore) is too far - deal-breaker.
 
 ## Language Filter
 

@@ -1,10 +1,7 @@
-# Job Application Assistant for [YOUR_NAME]
-
-<!-- SETUP: This file is populated by running /setup -->
-<!-- After running /setup, all [PLACEHOLDER] tokens will be replaced with your actual information -->
+# Job Application Assistant for Whui-Mei Yeo
 
 ## Role
-This repo is a job application workspace. Claude acts as a career advisor and application assistant for [YOUR_NAME], helping with:
+This repo is a job application workspace. Claude acts as a career advisor and application assistant for Whui-Mei Yeo, helping with:
 1. **Job fit evaluation** - Assess job postings against your profile (skills, experience, behavioral traits)
 2. **CV tailoring** - Adapt existing CV templates (LaTeX/moderncv) to target specific roles
 3. **Cover letter writing** - Draft targeted cover letters using existing templates (LaTeX)
@@ -13,79 +10,81 @@ This repo is a job application workspace. Claude acts as a career advisor and ap
 
 ## Candidate Profile
 
-<!-- This section is auto-populated by /setup. You can also fill it in manually. -->
+Full structured profile lives in `.claude/skills/job-application-assistant/01-candidate-profile.md` (facts) and `02-behavioral-profile.md` (behavioral assessment). Summary below.
 
 ### Identity
-- **Name:** [YOUR_NAME]
-- **Location:** [YOUR_CITY], [YOUR_COUNTRY] ([YOUR_COMMUTE_CONSTRAINTS])
+- **Name:** Whui-Mei Yeo
+- **Location:** Malmö, Sweden (open to hybrid/in-person in the Öresund region, incl. Copenhagen)
+
 - **Languages:**
   | Language | Level |
   |----------|-------|
-  | [LANGUAGE] | [LEVEL] |
+  | English | Native |
+  | Mandarin | "Fluent" |
+  | Swedish | "Beginner" |
   <!-- Every language you work in professionally, with your level (CEFR, "native," "professional
   working proficiency," whatever your CV/LinkedIn use - no need to force it into one scale). An
   undeclared language is a hard deal-breaker if a posting requires it; a declared language at a
   lower level than a posting wants is flagged for your own judgment, not auto-rejected. See
   04-job-evaluation.md's Language Gate. -->
-- **CV language:** [YOUR_CV_LANGUAGE] <!-- English unless your market expects otherwise; /setup asks -->
+- **CV language:** English <!-- English unless your market expects otherwise; /setup asks -->
 
-- **Status:** [YOUR_EMPLOYMENT_STATUS]
-- **LinkedIn headline:** "[YOUR_LINKEDIN_HEADLINE]"
+- **Status:** Between roles
+- **LinkedIn:** linkedin.com/in/whuimeiyeo
 
 ### Education
-<!-- List your degrees, most recent first -->
-- **[DEGREE_LEVEL] in [FIELD]** ([YEAR_START]-[YEAR_END]) - [INSTITUTION]
-  - Thesis: "[THESIS_TITLE]"
-  - Topics: [KEY_TOPICS]
+- **BEng Electrical Engineering (Honours)** (1995-1999) - National University of Singapore (NUS)
 
 ### Professional Experience
-<!-- List your roles, most recent first -->
-- **[JOB_TITLE]** ([START_DATE] - [END_DATE]) - **[COMPANY]** ([LOCATION])
-  - [KEY_RESPONSIBILITY_1]
-  - [KEY_RESPONSIBILITY_2]
-  - [KEY_ACHIEVEMENT]
+<!-- Full list in 01-candidate-profile.md; most recent shown here -->
+- **Workflow Automation Solutions Consultant** (Feb 2026 - Jun 2026) - **PhaseOne AI** (Sweden)
+  - Architected AI lead-generation automation for a coworking client
+  - Rolled out an AI-powered personalised email reply drafter to 2 SME clients and internal CEO
+  - Delivered multimodal Slack-to-ClickUp CRM bot (voice notes + text)
 
 ### Technical Skills
-- **Primary:** [YOUR_PRIMARY_SKILLS]
-- **Secondary:** [YOUR_SECONDARY_SKILLS]
-- **Domain:** [YOUR_DOMAIN_EXPERTISE]
-- **Software:** [YOUR_TOOLS_AND_SOFTWARE]
+- **Primary:** AI workflow automation design, AI agents & multi-model LLM evaluation, client discovery & requirements gathering, business case & solution proposal development
+- **Secondary:** BPMN process mapping, CRM implementation (Zoho), Agile/Scrum, cross-cultural stakeholder management
+- **Domain:** AI/LLM solutions consulting, workflow automation for SME/enterprise
+- **Software:** Claude (Code), Codex, OpenRouter, n8n, Make.com, Voiceflow, Zoho CRM, MS 365, Atlassian Suite, BPMN, Miro
 
 ### Certifications
-<!-- List relevant certifications with dates -->
-- **[CERTIFICATION_NAME]** - [HOURS]h - completed [DATE]
+- SAFe 6 Advanced Scrum Master (SASM) - Scaled Agile, Inc. (Apr 2024)
+- Certified ScrumMaster (CSM) - Scrum Alliance (Mar 2024)
+- AI for Industry - AI Project Lifecycle - AI Singapore (Jan 2025)
+- Digital Transformation and Change Management - BCG Singapore RISE Academy (Mar 2025)
+- AI for Industry - Literacy in AI - AI Singapore (Aug 2025)
 
 ### Publications
-<!-- List peer-reviewed publications, if any -->
-- [AUTHOR_LIST] ([YEAR]). [TITLE]. [JOURNAL].
+None on record.
 
 ### Awards
-<!-- List relevant awards, hackathons, competitions -->
-- [AWARD_NAME] - [EVENT] ([YEAR])
+- 3 Granted US Patents (US 8032157; US 7483702; US 20060121935)
 
 ### Behavioral Profile
-<!-- Your behavioral assessment results (PI, DISC, Myers-Briggs, or self-assessment) -->
-- **[TRAIT_1]** - [DESCRIPTION]
-- **[TRAIT_2]** - [DESCRIPTION]
-- **Strengths:** [YOUR_STRENGTHS]
-- **Growth areas:** [YOUR_GROWTH_AREAS]
-- **Thrives in:** [YOUR_IDEAL_ENVIRONMENT]
+<!-- Full detail in 02-behavioral-profile.md -->
+- **Top CliftonStrengths:** Deliberative, Input, Responsibility, Strategic, Achiever
+- **Strengths:** Thorough discovery before acting, reliable ownership, strategic framing under complexity
+- **Growth areas:** Can read as slow to decide under time pressure; can overcommit
+- **Thrives in:** Structured, team-based environments with room to deliberate before committing
 
 ### What Excites You
-<!-- What motivates you professionally -->
-- [PASSION_1]
-- [PASSION_2]
+- Helping customers use technology to improve their operations
+- Freeing customers from menial work so they can focus on tasks that need their specialised expertise
 
 ### Target Sectors
-<!-- Industries and companies you're targeting -->
-- [SECTOR_1]: [EXAMPLE_COMPANIES]
-- [SECTOR_2]: [EXAMPLE_COMPANIES]
+- AI/technology consulting: roles centered on deploying technical solutions to customers (AI Solutions Consultant, AI Implementation Consultant, AI Deployment Specialist, Solutions Engineer, Technical Implementation Manager)
 
 ### Deal-breakers
 <!-- Hard constraints on job search. Language requirements are handled separately and
 automatically from your Languages table above - don't duplicate them here. -->
-- [DEALBREAKER_1]
-- [DEALBREAKER_2]
+- Expected to work alone / entrepreneurial ownership model
+- Fast delivery prioritized over everything else
+- Sales-driven performance outcomes (e.g. quota/commission-based)
+
+### Must-haves
+- Team-based work toward a common goal
+- Hybrid or in-person work arrangement
 
 ## Repo Structure
 - `cv/` - LaTeX CV variants (moderncv template, banking style)

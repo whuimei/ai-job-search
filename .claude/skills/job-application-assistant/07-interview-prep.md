@@ -14,30 +14,35 @@ Keep answers to 1-2 minutes. Be specific. End with what you learned or would do 
 
 ## Ready-Made STAR Examples
 
-<!-- These are populated by /setup from your actual experience. Below are templates showing the format. -->
+<!-- Drafted from resume bullets. Situation/Task framing is inferred from role context - verify and add personal detail before using live in an interview. Action/Result are as stated in your resume. -->
 
-### 1. [PROJECT_NAME] ([SKILL_DEMONSTRATED])
-**S:** [CONTEXT - what was happening, what was the problem]
-**T:** [YOUR RESPONSIBILITY - what you specifically needed to do]
-**A:** [WHAT YOU DID - specific actions, tools, methods]
-**R:** [OUTCOME - measurable results, adoption, impact]
-**Use for:** "[QUESTION_TYPE_1]", "[QUESTION_TYPE_2]"
+### 1. Multimodal Slack-to-ClickUp CRM Bot (PhaseOne AI) - Hands-on AI Build / Reducing Friction
+**S:** SME client's team was manually logging voice notes and text messages into their CRM, creating friction and lost information.
+**T:** Design and deliver a CRM intake solution that captured both voice and text without manual re-entry.
+**A:** Built a multimodal Slack-to-ClickUp bot handling both voice notes and text messages as CRM entries.
+**R:** Reduced user friction as part of a live client engagement (Feb-Jun 2026).
+**Use for:** "Tell me about a technical solution you built for a client", "How do you reduce friction in a customer's workflow?"
 
-### 2. [PROJECT_NAME] ([SKILL_DEMONSTRATED])
-**S:** [CONTEXT]
-**T:** [YOUR RESPONSIBILITY]
-**A:** [WHAT YOU DID]
-**R:** [OUTCOME]
-**Use for:** "[QUESTION_TYPE_1]", "[QUESTION_TYPE_2]"
+### 2. AI Automation Business Case (Agentic-X) - Business Case Development / Consultative Discovery
+**S:** Client organization suspected process inefficiencies but had no validated business case for an AI automation investment.
+**T:** Build the business case and a working prototype to demonstrate feasibility and ROI.
+**A:** Ran stakeholder discovery across C-level and operational staff, mapped current/future-state processes in BPMN, prototyped in Voiceflow and Cursor AI, developed cost estimates, and negotiated pricing with the CEO.
+**R:** Secured client interest in evaluating the proposal; presented the POC and business case findings to client management.
+**Use for:** "Walk me through building a business case", "How do you validate a solution before committing resources?"
 
-### 3. [PROJECT_NAME] ([SKILL_DEMONSTRATED])
-**S:** [CONTEXT]
-**T:** [YOUR RESPONSIBILITY]
-**A:** [WHAT YOU DID]
-**R:** [OUTCOME]
-**Use for:** "[QUESTION_TYPE_1]", "[QUESTION_TYPE_2]"
+### 3. Zoho CRM Rollout (SmiLe Life Sciences) - Change Management / Sole Ownership
+**S:** The organization needed a CRM implemented and adopted, with no other technical owner in place.
+**T:** Configure the CRM, define the data architecture, and drive adoption across the organization.
+**A:** Ran discovery interviews across 12 stakeholders, configured Zoho CRM with automated workflows, and delivered iterative training plus 1-on-1 onboarding.
+**R:** Achieved 80% CRM adoption within 12 months and reduced annual IT costs by 45% through independent platform evaluation.
+**Use for:** "Tell me about driving adoption of a new system", "Describe a time you owned a project end-to-end"
 
-<!-- Add more STAR examples as needed. Aim for 4-6 covering different competencies. -->
+### 4. GM-Level Funding Proposals (Sony) - Stakeholder Management Across Cultures / Business Development
+**S:** An internal technical marketing consultancy needed sustained annual funding and standardized engagement processes, working with decision-makers in Japan over a 10-year tenure.
+**T:** Secure annual budget and build scoping playbooks while coordinating cross-culturally.
+**A:** Developed 5 GM-level budget proposals through a competitive internal process, standardized engagement/scoping playbooks, and briefed GM-level stakeholders on the industrial IoT/ML landscape.
+**R:** Secured €250K in annual funding and enabled corporate-wide consultancy growth.
+**Use for:** "Tell me about working with stakeholders across cultures", "How have you secured funding or buy-in for your team?"
 
 ## Common Tough Questions
 

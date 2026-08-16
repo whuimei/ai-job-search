@@ -1,8 +1,7 @@
-%% Example CV - [YOUR_NAME]
+%% Example CV - Whui-Mei Yeo
 %% Comprehensive overview of all competencies, experience, and achievements.
 %% Use as a master reference when tailoring role-specific CVs.
 %%
-%% SETUP: Run /setup to populate this with your actual information.
 %% Compile with: lualatex main_example.tex
 %% (pdflatex often fails on modern MiKTeX with fontawesome5 font-expansion errors.)
 
@@ -33,7 +32,7 @@
     linkcolor=blue,
     filecolor=magenta,
     urlcolor=blue,
-    pdftitle={[YOUR_NAME] - CV},
+    pdftitle={Whui-Mei Yeo - CV},
     % Keep pdfpagemode=UseNone: this block runs after moderncv's own
     % \AtEndPreamble (moderncv.cls sets pdfpagemode there), so a FullScreen
     % value here would win and open every CV in fullscreen presentation mode.
@@ -43,13 +42,12 @@
 \usepackage{import}
 
 % personal data
-\name{[First]}{[Last]}
+\name{Whui-Mei}{Yeo}
 % If you have no address to list, DELETE this whole line. \address{}{}{} fails
 % with "There's no line here to end" on every moderncv version.
-\address{[Your Address, City, Country]}{}{}
-\phone[mobile]{[+XX XXXXXXXXXX]}
-\email{[your.email@example.com]}
-\extrainfo{\href{[https://linkedin.com/in/your-profile]}{LinkedIn}, \href{[https://github.com/your-username]}{GitHub}}
+\address{Malmö, Sweden}{}{}
+\email{whuimei.yeo@gmail.com}
+\extrainfo{\href{https://linkedin.com/in/whuimeiyeo}{LinkedIn}}
 
 \begin{document}
 
@@ -60,7 +58,7 @@
 % ============================================================
 
 \vspace{6pt}
-\small{[Write a 3-5 line profile statement tailored to the role you're applying for. Focus on what makes you uniquely qualified. Example: "Data scientist with a PhD in [field] and X years of industry experience. Combines deep domain expertise in [domain] with strong applied machine learning and Python development skills. Experienced in developing end-to-end ML pipelines, from data ingestion to stakeholder-facing dashboards."]}
+\small{AI Solutions Consultant with a software development background and 10+ years translating client challenges into scoped, deliverable solutions across enterprise and SME. Led client discovery sessions, solution scoping, and business case development at an AI consultancy, resulting in client interest to evaluate proposals. Hands-on build experience with AI agents, workflow automation, and multi-model LLM evaluation across SME client engagements. Secured €250K through competitive commercial proposals and enabled consultancy growth through structured engagement and scoping processes. Bilingual English/Mandarin.}
 
 % ============================================================
 %     CORE COMPETENCIES
@@ -70,15 +68,15 @@
 \vspace{1pt}
 \begin{itemize}
 
-\item \textbf{[Skill Category 1]}: [Specific skills, frameworks, tools. Be concrete.]
+\item \textbf{AI Workflow Automation}: AI agents, multi-model LLM evaluation (cost, latency, reasoning trade-offs), n8n, Make.com, Voiceflow
 
-\item \textbf{[Skill Category 2]}: [Specific skills, frameworks, tools.]
+\item \textbf{Client Discovery \& Solution Scoping}: Stakeholder discovery sessions, requirements gathering, business process mapping (BPMN)
 
-\item \textbf{[Skill Category 3]}: [Specific skills, frameworks, tools.]
+\item \textbf{Business Case Development}: Solution proposals, ROI/payback analysis, competitive commercial proposals
 
-\item \textbf{[Skill Category 4]}: [Domain expertise, methods, approaches.]
+\item \textbf{CRM \& Systems Implementation}: Zoho CRM, Slack API, ClickUp API, Google Workspace, MS 365 (SharePoint, Teams, Power Automate)
 
-\item \textbf{[Skill Category 5]}: [Tools, platforms, software.]
+\item \textbf{Project Management}: Agile methodologies (Scrum/Kanban), cross-functional coordination, cross-cultural stakeholder management
 
 \end{itemize}
 
@@ -90,33 +88,61 @@
 \vspace{3pt}
 \begin{itemize}
 
-% --- Most Recent Role ---
-\item{\cventry{[YYYY-Present]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\item{\cventry{Feb 2026--Jun 2026}{Workflow Automation Solutions Consultant}{PhaseOne AI}{Sweden}{}{\vspace{1pt}
 \begin{itemize}
-    \item [Achievement or responsibility 1 - be specific, use numbers where possible]
-    \item [Achievement or responsibility 2]
-    \item [Achievement or responsibility 3]
-    \item [Achievement or responsibility 4]
+    \item Architected AI lead-generation automation for coworking client, defining ICP, success criteria, and lightweight CRM schema
+    \item Rolled out AI-powered personalised email reply drafter to 2 SME clients and internal CEO
+    \item Delivered multimodal Slack-to-ClickUp CRM bot (voice notes + text messages), reducing user friction
+    \item Enabled marketing teammate to free ~30h/month of manual content work through 2h knowledge transfer of AI editorial pipeline architecture
 \end{itemize}}}
 
 \vspace{3pt}
 
-% --- Previous Role ---
-\item{\cventry{[YYYY-YYYY]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\item{\cventry{Sep 2025--Jan 2026}{Workflow Solutions Consultant}{Agentic-X}{Remote}{}{\vspace{1pt}
 \begin{itemize}
-    \item [Achievement or responsibility 1]
-    \item [Achievement or responsibility 2]
-    \item [Achievement or responsibility 3]
+    \item Identified process inefficiencies through stakeholder discovery across C-level and operational staff
+    \item Mapped business processes in BPMN to co-design future-state workflows with client stakeholders
+    \item Built business case demonstrating projected cost reduction, securing client interest in proposal evaluation
+    \item Negotiated service pricing with CEO; presented proof-of-concept demo and business case findings to client management
 \end{itemize}}}
 
 \vspace{3pt}
 
-% --- Earlier Role ---
-\item{\cventry{[YYYY-YYYY]}{[Job Title]}{[Company]}{[City, Country]}{}{\vspace{1pt}
+\item{\cventry{May 2024--Jun 2025}{Technical Business Analyst, CRM Lead}{SmiLe Life Sciences Venture Hub}{Sweden}{}{\vspace{1pt}
 \begin{itemize}
-    \item [Achievement or responsibility 1]
-    \item [Achievement or responsibility 2]
+    \item Achieved 80\% CRM adoption within 12 months through iterative training and 1-on-1 user onboarding
+    \item Configured Zoho CRM with automated workflows and documented data architecture as sole technical implementer
+    \item Reduced annual IT costs by 45\% through independent evaluation of CRM platform alternatives
 \end{itemize}}}
+
+\vspace{3pt}
+
+\item{\cventry{Jan 2013--Jan 2023}{Senior Project Manager, Internal Technical Marketing Consultancy}{Sony}{Sweden}{}{\vspace{1pt}
+\begin{itemize}
+    \item Enabled corporate-wide consultancy growth through standardised engagement processes and scoping playbooks
+    \item Secured €250K annual funding with 5 GM-level budget proposals through competitive internal process
+    \item Cut publishing time from 2 days to 30 minutes via Git-based document management system adopted across 8 teams
+\end{itemize}}}
+
+\vspace{3pt}
+
+\item{\cventry{Nov 2023--Jun 2024}{Scrum Master}{Lund University}{Sweden, Remote}{}{\vspace{1pt}
+\begin{itemize}
+    \item Recruited client and team members to develop an animal sensor data visualisation web portal
+    \item Defined project scope and stakeholder alignment within 3 weeks of initial contact
+\end{itemize}}}
+
+\vspace{3pt}
+
+\item{\cventry{Sep 2006--Dec 2012}{Technical Product Owner / Senior Software Developer / Scrum Master}{Sony}{Sweden}{}{\vspace{1pt}
+\begin{itemize}
+    \item Led software development team transition from Scrum to Kanban, reducing cycle time by 50\%
+    \item Shipped production software to 100+ million devices through hands-on development and technical leadership
+\end{itemize}}}
+
+\vspace{3pt}
+
+\item{\cventry{Aug 2000--Aug 2006}{Senior Software Engineer}{Nokia}{Finland}{}{}}
 
 \end{itemize}
 
@@ -128,16 +154,18 @@
 \vspace{1pt}
 \begin{itemize}
 
-\item{\cventry{[YYYY-YYYY]}{[Degree] in [Field]}{[Institution]}{[City, Country]}{}{\vspace{1pt}
-Thesis: ``[Thesis Title].'' [Brief description of research focus.]
-}}
+\item{\cventry{1995--1999}{BEng Electrical Engineering (Honours)}{National University of Singapore (NUS)}{Singapore}{}{}}
 
-\vspace{3pt}
+\end{itemize}
 
-\item{\cventry{[YYYY-YYYY]}{[Degree] in [Field]}{[Institution]}{[City, Country]}{}{\vspace{1pt}
-[Brief description or key topics.]
-}}
-
+\section{Certifications}
+\vspace{1pt}
+\begin{itemize}
+\item AI for Industry -- Literacy in AI, AI Singapore (Aug 2025)
+\item Digital Transformation and Change Management, BCG Singapore RISE Academy (Mar 2025)
+\item AI for Industry -- AI Project Lifecycle, AI Singapore (Jan 2025)
+\item SAFe 6 Advanced Scrum Master (SASM), Scaled Agile, Inc. (Apr 2024)
+\item Certified ScrumMaster (CSM), Scrum Alliance (Mar 2024)
 \end{itemize}
 
 % ============================================================
@@ -147,27 +175,17 @@ Thesis: ``[Thesis Title].'' [Brief description of research focus.]
 \section{Languages}
 \vspace{1pt}
 \begin{itemize}
-\item [Language 1] (native), [Language 2] (fluent), [Language 3] (intermediate).
+\item Mandarin (native), English (fluent), Swedish (beginner).
 \end{itemize}
 
 % ============================================================
-%     PUBLICATIONS (optional)
-% ============================================================
-
-\section{Publications}
-\vspace{1pt}
-\begin{itemize}
-\item [Author(s)] ([Year]). [Title]. [Journal/Conference]. \href{[DOI_URL]}{DOI link}
-\end{itemize}
-
-% ============================================================
-%     HONORS AND AWARDS (optional)
+%     HONORS AND AWARDS
 % ============================================================
 
 \section{Honors and Awards}
 \vspace{1pt}
 \begin{itemize}
-\item{\textbf{[Award Name]} -- [Event/Organization] ([Year]).}
+\item{\textbf{3 Granted US Patents} -- US 8032157; US 7483702; US 20060121935.}
 \end{itemize}
 
 % ============================================================

@@ -236,7 +236,13 @@ If the user picks a number, invoke the **job-application-assistant** skill workf
 
 If the run found many new jobs (roughly 8+), also suggest `/rank` - it batch-scores all new postings against the full fit framework and returns a ranked shortlist, which beats eyeballing a long table. (`/rank` sets the `ranked` and `expired` status values in `seen_jobs.json`; treat both as already-seen for dedup purposes.)
 
-### Step 6: Update Tracker (Optional)
+### Step 6: Save Results to File
+
+Save the full scrape output (the table, highlights, contacts, and any follow-up analysis
+from user questions) to `job_scraper/scrape_YYYY-MM-DD.md`. This file is the durable
+record of the run. Always create it before presenting the final summary to the user.
+
+### Step 7: Update Tracker (Optional)
 
 If the user decides to apply to any job, the tracker row is written by **job-application-assistant Step 3b**, which Step 5 already routes into - do not add a second row here. Only when the user says they applied to something outside that path, add a row using the header and the match-then-update rule in `/outcome` Step 1.
 

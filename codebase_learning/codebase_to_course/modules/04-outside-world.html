@@ -1,0 +1,397 @@
+<section class="module" id="module-4">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The Outside World</h1>
+      <p class="module-subtitle">APIs, CLIs, and a fuzzy-matching scout that finds "Acme" inside "ACME Danmark A/S"</p>
+    </div>
+
+    <!-- SCREEN 1: Hook, connecting back to Module 3 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>Back in Module 3, the Reviewer went off to research "Acme Corp's website" before approving a cover letter.</p>
+        <p>When you ran <code>/scrape</code> in Module 1's diagram, Claude didn't invent those job listings out of thin air. It ran real programs that fetch real web pages and real <span class="term" data-definition="An API (Application Programming Interface) is a documented way for one program to ask another program for data — like a restaurant menu that tells you exactly what you can order and how.">APIs</span>.</p>
+      </div>
+      <div class="animate-in">
+        <p>This module opens the hood on two of them: <code>linkedin-search</code> and the salary lookup tool. Think of them as <strong>local scouts</strong> — each with their own beat, and their own rulebook for how to behave once they're out in the field.</p>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: Two kinds of scouts -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Two Scouts, Two Rulebooks</h2>
+      <div class="animate-in">
+        <p>One scout only walks LinkedIn's public job board. It's been told, in writing, to keep visits low-key so it doesn't get thrown out.</p>
+        <p>Another scout radios a data aggregator's official switchboard — a real <span class="term" data-definition="An API is a documented way for one program to ask another for data. Calling an API is like phoning a business's official switchboard instead of reading notes taped to their front door.">API</span>, no trespassing involved — and gets back clean, structured reports instead of having to read handwritten notes off a board.</p>
+      </div>
+
+      <div class="pattern-cards animate-in">
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+          <div class="pattern-icon" style="background: var(--color-actor-1)">🕵️</div>
+          <h4 class="pattern-title">Scout 1: linkedin-search</h4>
+          <p class="pattern-desc">Reads LinkedIn's public <span class="term" data-definition="HTML (HyperText Markup Language) is the code that structures a web page — the text, images, and layout you see in a browser.">HTML</span> job pages directly. No login needed, but fragile: if LinkedIn redesigns the page, the scout's notes stop making sense. Rate-limited by courtesy, not by a real contract.</p>
+        </div>
+        <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+          <div class="pattern-icon" style="background: var(--color-actor-2)">☎️</div>
+          <h4 class="pattern-title">Scout 2: freehire-search</h4>
+          <p class="pattern-desc">Calls freehire.dev's real <span class="term" data-definition="JSON (JavaScript Object Notation) is a tidy, structured way of writing data — like a form with labeled fields instead of a wall of free-text notes.">JSON</span> API. A proper contract, structured data, no guesswork about layout.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Both are "zero install"</strong>
+          <p>Both scouts run with nothing installed beyond the <span class="term" data-definition="Bun is a fast JavaScript runtime — the program that executes JavaScript/TypeScript code, similar to Node.js.">bun</span> JavaScript runtime itself. No extra libraries to trust, update, or worry about breaking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: The ToS warning callout -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Reading a Scout's Rulebook</h2>
+      <div class="animate-in">
+        <p>Every real codebase file that touches someone else's website has a warning at the top, if you know to look. Here's the LinkedIn scout's own comment, word for word:</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">#!/usr/bin/env bun</span>
+<span class="code-line">// Self-contained CLI for searching jobs on LinkedIn's public jobs-guest endpoints,</span>
+<span class="code-line">// for any country/region (plus remote). No external CLI framework, so it runs</span>
+<span class="code-line">// anywhere `bun` is available with zero install beyond the repo clone.</span>
+<span class="code-line">//</span>
+<span class="code-line">// Personal use only. This reads LinkedIn's public job pages; automated access is</span>
+<span class="code-line">// against LinkedIn's Terms of Service, so keep volume low and do not use it</span>
+<span class="code-line">// commercially or for bulk data collection. Run it on your own responsibility.</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is a self-running command-line tool. It needs nothing installed except bun.</p>
+            <p class="tl">It works for any country or region, including "Remote" jobs.</p>
+            <p class="tl">No extra command-line framework was needed to build it.</p>
+            <p class="tl">A blank line, for readability.</p>
+            <p class="tl">This is a personal-use warning: reading LinkedIn's pages this way breaks LinkedIn's own rules.</p>
+            <p class="tl">So the scout is told to stay quiet — low volume, no reselling the data.</p>
+            <p class="tl">And a reminder: you, the runner, own the risk of using it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-warning animate-in">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-content">
+          <strong class="callout-title">"Personal use only" is the real aha</strong>
+          <p>Automated tools that touch other people's websites usually carry a written or unwritten rulebook: <span class="term" data-definition="Terms of Service (ToS) are the rules a website sets for how you're allowed to use it. Breaking them can get your access revoked, even if no law was broken.">Terms of Service</span>, rate limits, "don't scrape at scale." Respecting that isn't politeness — it's how a scout avoids getting its access cut off entirely.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: CLI flags -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A Scout Takes Orders Like Any Command-Line Tool</h2>
+      <div class="animate-in">
+        <p>The LinkedIn scout isn't magic — it's a <span class="term" data-definition="A CLI (Command-Line Interface) is a tool you control by typing text commands instead of clicking buttons. Think of it as giving written instructions instead of using a remote control.">CLI</span> you point with plain text options, the same way you'd tell a delivery app "no onions, extra spicy."</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">SEARCH FLAGS</span>
+<span class="code-line">  --location, -l &lt;text&gt;   Location to search. REQUIRED.</span>
+<span class="code-line">  --query, -q &lt;text&gt;      Keywords (job title, skill, or role). Recommended.</span>
+<span class="code-line">  --jobage &lt;days&gt;         Posted within N days: 1, 7, 14, 30. Default: all.</span>
+<span class="code-line">  --remote &lt;mode&gt;         remote | hybrid | onsite. Filter by workplace type.</span>
+<span class="code-line">  --page &lt;n&gt;              1-indexed page (10 results/page). Default 1.</span>
+<span class="code-line">  --limit, -n &lt;n&gt;         Cap results emitted (client-side).</span>
+<span class="code-line">  --format &lt;fmt&gt;          json (default) | table | plain.</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">These are the scout's <span class="term" data-definition="A flag is an option you add to a command to change its behavior — like adding '--json' to get structured data instead of plain text. When talking to an AI agent, you'd say 'add a flag for verbose output.'">flags</span> — the knobs you can turn on a search.</p>
+            <p class="tl">Where to look, and what job title or skill to look for.</p>
+            <p class="tl">How fresh the postings must be, and whether the job is remote, hybrid, or in-person.</p>
+            <p class="tl">Which page of results, and how many to keep.</p>
+            <p class="tl">What shape to hand the results back in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: freehire env var + SLA -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Contract Scout Has a Backup Plan</h2>
+      <div class="animate-in">
+        <p>freehire.dev is a personal project, actively maintained, but it runs on a <span class="term" data-definition="An SLA (Service Level Agreement) is a formal promise about how reliable a service will be — like a guarantee your parcel arrives within 3 days. 'No SLA' means no such formal promise exists.">best-effort basis with no formal SLA</span>.</p>
+        <p>If it goes down, the scout doesn't crash the whole workflow — it fails cleanly and hands back a clear error message.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">FREEHIRE_API_URL=http://localhost:8080 bun run .agents/skills/freehire-search/cli/src/cli.ts search -q "go"</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Point the scout at your own local copy of the backend, using an <span class="term" data-definition="An environment variable (env var) is a named setting you pass to a program from outside its code — like sticking a Post-it note on a machine that changes how it behaves, without touching the machine itself.">environment variable</span> instead of the hosted default.</p>
+            <p class="tl">Same tool, same commands — it just talks to a different address.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-info animate-in">
+        <div class="callout-icon">🔌</div>
+        <div class="callout-content">
+          <strong class="callout-title">Why this matters</strong>
+          <p>The scout can be redirected to a self-hosted backend with one line, because it was built to honor an override instead of hard-coding one address. That's a small design choice with a big payoff.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6: The fuzzy matcher — flow animation -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">A Third Kind of Scout: Matching Messy Names</h2>
+      <div class="animate-in">
+        <p>The salary lookup tool is a different kind of scout. It doesn't fetch anything from the internet — it searches a local file of salary data and has to guess which company you meant.</p>
+        <p>Type "Acme," and the file might have "ACME Danmark A/S (VG)." A human reads that instantly. The scout needs a rulebook to get there too.</p>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-cli","label":"You run: python salary_lookup.py \"Acme\""},
+        {"highlight":"flow-strip","label":"The query text is handed to STRIP_PATTERNS, which strips legal noise like &apos;A/S&apos;, &apos;ApS&apos;, &apos;(VG)&apos;, and anything after a comma.","packet":true,"from":"cli","to":"strip"},
+        {"highlight":"flow-normalize","label":"The cleaned query moves to normalize(), which lowercases it and strips accents and punctuation.","packet":true,"from":"strip","to":"normalize"},
+        {"highlight":"flow-match","label":"The normalized query goes to match_score(), which scores every company in salary_data.json from 0 to 100 for how well it matches.","packet":true,"from":"normalize","to":"match"},
+        {"highlight":"flow-data","label":"match_score() checks each entry against salary_data.json, the local file of company names.","packet":true,"from":"match","to":"data"},
+        {"highlight":"flow-match","label":"Results come back sorted best-first, dropping anything scoring below 30.","packet":true,"from":"data","to":"match"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-cli">
+            <div class="flow-actor-icon" style="background: var(--color-actor-1)">🧑</div>
+            <span>You (CLI)</span>
+          </div>
+          <div class="flow-actor" id="flow-strip">
+            <div class="flow-actor-icon" style="background: var(--color-actor-2)">✂️</div>
+            <span>STRIP_PATTERNS</span>
+          </div>
+          <div class="flow-actor" id="flow-normalize">
+            <div class="flow-actor-icon" style="background: var(--color-actor-3)">🧹</div>
+            <span>normalize()</span>
+          </div>
+          <div class="flow-actor" id="flow-match">
+            <div class="flow-actor-icon" style="background: var(--color-actor-4)">🎯</div>
+            <span>match_score()</span>
+          </div>
+          <div class="flow-actor" id="flow-data">
+            <div class="flow-actor-icon" style="background: var(--color-actor-5)">🗂️</div>
+            <span>salary_data.json</span>
+          </div>
+        </div>
+
+        <div class="flow-packet" id="flow-packet"></div>
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to trace a real search for "Acme"</div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 7: STRIP_PATTERNS code -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">The Noise the Scout Learns to Ignore</h2>
+      <div class="animate-in">
+        <p>Danish and Nordic company names carry a lot of legal clutter. Here's the exact list the scout strips before comparing anything.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">STRIP_PATTERNS = [</span>
+<span class="code-line">    r"\ba/s\b", r"\baps\b", r"\bi/s\b", r"\bp/s\b", r"\bk/s\b",</span>
+<span class="code-line">    r"\bivs\b", r"\bamba\b", r"\ba\.m\.b\.a\.\b",</span>
+<span class="code-line">    r"\(vg\)", r"\(.*?\)",  # (VG) and other parentheticals</span>
+<span class="code-line">    r"\bdanmark\b", r"\bdenmark\b", r"\bscandinavia\b", r"\bnordic\b",</span>
+<span class="code-line">    r"\bgroup\b", r"\bholding\b",</span>
+<span class="code-line">    r",\s*.*$",  # everything after comma (sub-entities)</span>
+<span class="code-line">]</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">A checklist of Danish legal-entity suffixes to delete: A/S, ApS, I/S, and more.</p>
+            <p class="tl">A few more suffix types, including the German-style "amba."</p>
+            <p class="tl">Anything in parentheses, like "(VG)," gets dropped too.</p>
+            <p class="tl">Country and region words like "Danmark" or "Nordic" are noise, not identity.</p>
+            <p class="tl">So are generic corporate words like "Group" or "Holding."</p>
+            <p class="tl">And anything after a comma — usually a sub-entity name — gets chopped off.</p>
+            <p class="tl">End of the checklist.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 8: match_score code -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Scoring the Match</h2>
+      <div class="animate-in">
+        <p>Once both names are cleaned up, the scout scores how well they match. A perfect match scores 100. A partial containment — your query sitting fully inside a longer name — scores lower, but still counts.</p>
+      </div>
+
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code><span class="code-line">def match_score_optimized(q_norm, q_ang, q_words_set, q_words_ang_set, query, entry_name):</span>
+<span class="code-line">    """Compute a match score between 0 and 100 using precalculated query values."""</span>
+<span class="code-line">    n_norm = normalize(entry_name)</span>
+<span class="code-line"></span>
+<span class="code-line">    if not q_norm or not n_norm:</span>
+<span class="code-line">        return 0</span>
+<span class="code-line"></span>
+<span class="code-line">    if q_norm == n_norm:</span>
+<span class="code-line">        return 100</span>
+<span class="code-line"></span>
+<span class="code-line">    if q_norm in n_norm:</span>
+<span class="code-line">        ratio = len(q_norm) / len(n_norm)</span>
+<span class="code-line">        if len(q_norm) &lt;= 4 and ratio &lt; 0.5:</span>
+<span class="code-line">            n_words = set(extract_core_words(entry_name))</span>
+<span class="code-line">            if not q_words_set & n_words:</span>
+<span class="code-line">                pass</span>
+<span class="code-line">            else:</span>
+<span class="code-line">                return 80 + int(ratio * 10)</span>
+<span class="code-line">        else:</span>
+<span class="code-line">            return 80 + int(ratio * 10)</span></code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This function compares your cleaned-up search text against one cleaned-up company name.</p>
+            <p class="tl">First, clean up the company name the same way the search text was cleaned.</p>
+            <p class="tl">If either side is empty after cleaning, there's nothing to compare — score 0.</p>
+            <p class="tl">If your search exactly matches the company name, score it 100. Perfect match.</p>
+            <p class="tl">If your search is fully contained inside the longer company name (like "Acme" inside "Acme Denmark A/S")...</p>
+            <p class="tl">...score it high but not perfect, based on how much of the name your search actually covers. This is how "Acme" finds "Acme Denmark A/S" automatically.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">Fuzzy matching, in one line</strong>
+          <p>Clean the noise, then check for exact match first, then partial containment. This same two-step pattern — normalize, then compare — shows up everywhere search boxes feel "smart."</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 9: Quiz -->
+    <div class="screen">
+      <h2 class="screen-heading animate-in">Check Your Understanding</h2>
+
+      <div class="quiz-container animate-in" id="quiz-module4">
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>You search salary data for "Acme" and the file has an entry called "ACME Danmark A/S (VG)." Will it match, and why?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-yes-strip"
+               data-explanation-right="Exactly — STRIP_PATTERNS removes 'A/S', '(VG)', and 'Danmark' before anything gets compared, and normalize() lowercases the rest. What's left, 'acme', matches your query exactly."
+               data-explanation-wrong="Not quite. Think about what STRIP_PATTERNS is designed to remove before the comparison even happens — legal suffixes, parentheses, and country names.">
+            <h3 class="quiz-question">What happens?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-no" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>No match — "ACME Danmark A/S (VG)" is too different from "Acme"</span>
+              </button>
+              <button class="quiz-option" data-value="opt-yes-strip" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes — STRIP_PATTERNS removes "A/S," "(VG)," and "Danmark" first, then normalize() lowercases what's left, leaving "acme" on both sides</span>
+              </button>
+              <button class="quiz-option" data-value="opt-luck" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes, but only by luck — the matcher doesn't actually clean the text first</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>linkedin-search reads public HTML pages. freehire-search calls a real JSON API. Which one is more likely to break if the website redesigns its page layout?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-linkedin"
+               data-explanation-right="Exactly — a page scrape depends on the page's structure staying the same. A real API is a documented contract, so the people running it have to keep it stable on purpose."
+               data-explanation-wrong="Think about which scout is reading a web page meant for human eyes, versus which one is calling an address specifically built for programs to talk to.">
+            <h3 class="quiz-question">Which is more fragile to redesigns?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-linkedin" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>linkedin-search — it reads the page's HTML structure directly, so a redesign can break it</span>
+              </button>
+              <button class="quiz-option" data-value="opt-freehire" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>freehire-search — APIs change more often than web pages</span>
+              </button>
+              <button class="quiz-option" data-value="opt-both" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both equally — neither integration pattern is more stable than the other</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <div class="scenario-block">
+          <div class="scenario-context">
+            <span class="scenario-label">Scenario</span>
+            <p>freehire.dev goes down for an hour. Based on its "best-effort, no SLA" design, what should happen to the rest of the /scrape workflow?</p>
+          </div>
+          <div class="quiz-question-block"
+               data-correct="opt-degrade"
+               data-explanation-right="Exactly — the CLI fails with a clear, non-zero-exit error instead of crashing silently, so /scrape loses one source but keeps running the rest, like LinkedIn search."
+               data-explanation-wrong="Reread the freehire skill note: 'if the API is unreachable, the CLI fails gracefully... so an outage degrades this source rather than breaking the surrounding workflow.'">
+            <h3 class="quiz-question">What should happen?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="opt-crash" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The whole /scrape command should crash, since one data source failed</span>
+              </button>
+              <button class="quiz-option" data-value="opt-degrade" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The freehire CLI fails with a clear error, but /scrape keeps running its other sources, like LinkedIn search</span>
+              </button>
+              <button class="quiz-option" data-value="opt-retry" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The CLI should silently retry forever until freehire.dev comes back</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 10: Transition to Module 5 -->
+    <div class="screen">
+      <div class="animate-in">
+        <p>So far you've seen Claude gather information from local scouts out in the field, and clean up messy names once the reports come back.</p>
+        <p><strong>Next: watch it catch its own layout mistakes in a PDF it just built, and fix them without being told how.</strong></p>
+      </div>
+    </div>
+
+  </div>
+</section>

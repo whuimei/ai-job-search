@@ -71,15 +71,22 @@ Expected output: `Output written on main_<company>_<role>.pdf (2 pages, ...)`. A
 \extrainfo{\href{[YOUR_LINKEDIN_URL]}{LinkedIn}, \href{[YOUR_GITHUB_URL]}{GitHub}}
 
 \begin{document}
-\makecvtitle
+
+% Header - hand-built, not \name/\address/\phone/\email/\extrainfo + \makecvtitle.
+% Populate [FULL_NAME]/[LOCATION]/[EMAIL]/[PHONE]/[LINKEDIN_URL] from the
+% option selected in resume_headers.yaml (see "Header (contact info)
+% selection" in /apply Step 2).
+\begin{center}
+{\fontsize{13}{15}\selectfont\bfseries\upshape\color{color1}[FULL_NAME]}\\[2pt]
+{\normalsize\mdseries\upshape [LOCATION]\ \textbullet\ \href{mailto:[EMAIL]}{[EMAIL]}\ \textbullet\ [PHONE]\ \textbullet\ \href{[LINKEDIN_URL]}{LinkedIn}}
+\end{center}
 
 % 1. Profile statement (1-3 sentences, tailored per role)
 % 2. Skills section
-% 3. Education section
-% 4. Professional Experience section
-% 5. Selected Publications (if applicable)
-% 6. Honors and Awards (if applicable)
-% 7. References
+% 3. Professional Experience section
+% 4. Education section (no graduation years)
+% 5. Certifications
+% 6. Languages
 
 \end{document}
 ```
@@ -129,12 +136,26 @@ When the role sits outside your home domain, **lead with the domain-transfer arg
 
 **Create 2-3 profile statement templates for your main role types:**
 
-<!-- SETUP: These are populated based on your background -->
-**For [YOUR_PRIMARY_ROLE_TYPE] roles:**
-> [YOUR_PROFILE_STATEMENT_TEMPLATE_1]
+**For AI Solutions/Implementation Consultant roles:**
+> AI Solutions Consultant with a software development background and 10+ years translating client challenges into scoped, deliverable solutions across enterprise and SME. Led client discovery sessions, solution scoping, and business case development at an AI consultancy, resulting in client interest to evaluate proposals. Hands-on build experience with AI agents, workflow automation, and multi-model LLM evaluation across SME client engagements. Secured €250K through competitive commercial proposals and enabled consultancy growth through structured engagement and scoping processes. Bilingual English/Mandarin.
 
-**For [YOUR_SECONDARY_ROLE_TYPE] roles:**
-> [YOUR_PROFILE_STATEMENT_TEMPLATE_2]
+**For Solutions Engineer / Technical Implementation Manager roles:**
+> Technical implementation specialist with 10+ years bridging client requirements and delivered solutions, from process mapping (BPMN) to CRM configuration and AI-powered workflow automation. Sole technical implementer driving 80% CRM adoption within 12 months and 45% IT cost reduction through platform evaluation. Combines hands-on delivery with structured discovery, business case development, and cross-functional stakeholder coordination. Bilingual English/Mandarin.
+
+**For Business Analyst roles:**
+> Business Analyst with 10+ years designing solutions that stakeholders actually adopt across enterprise and SME. Achieved 80% CRM adoption at 20-person organisation within 12 months through iterative training. Led client discovery sessions, solution scoping, and business case development at an AI consultancy, resulting in client interest to evaluate proposals. Combines fast iterative delivery using AI tools with engineering rigour in stakeholder discovery, process mapping, and workflow optimisation. Certified Scrum Master with hands-on agile development experience. Bilingual English/Mandarin.
+>
+> *[Used for: business-analyst-master-resume.md]*
+
+**For Technical Project Manager roles:**
+> Technical Project Manager with a software development background and 10+ years delivering digital transformation across enterprise and SME. Delivered 80% CRM adoption at a 20-person organisation and 98% publishing time reduction across 8 Sony teams. Architected and shipped AI workflow automation at an AI consultancy across external SME clients and internal stakeholders. Drives system adoption through fast iterative delivery, supported by training and stakeholder alignment. Certified Scrum Master with cross-cultural stakeholder management experience across US-Europe-Japan. Bilingual English/Mandarin.
+>
+> *[Used for: tech-project-manager-master-resume.md]*
+
+**For AI Deployment Specialist / AI Enablement roles:**
+> AI Deployment Specialist with a software development background and 10+ years enabling adoption of new digital systems across enterprise and SME. Delivered 80% CRM adoption at a 20-person organization within 12 months and 98% publishing time reduction across 8 Sony teams. Designs and rolls out multi-agent AI (Claude, OpenAI GPT, Gemini, Grok and Perplexity) workflow automation for SME clients and internal stakeholders. Selects models on cost and reasoning trade-offs through evals, combined with structured onboarding material, service documentation, and iterative training. Certified Scrum Master with Digital Transformation and Change Management training, working across technical and business stakeholders.
+>
+> *[Used for: ai-deployment-specialist-master-resume.md]*
 
 Statements labeled *[Used for: <company>_<role>]* were extracted from archived application drafts by `/setup` Path A. They are **phrasing references, never fact sources**: when drafting from one, every factual claim still comes from `01-candidate-profile.md` - a past tailored draft does not vouch for its own accuracy.
 
@@ -147,7 +168,7 @@ Use the posting's own core term in the matching bullet's bold label when it trut
 
 ### Education
 - Always include your highest degrees
-- For senior roles, keep education brief (dates and titles only)
+- **Omit graduation years** to avoid age discrimination. Use an empty first argument in `\cventry{}` instead of dates.
 - Include thesis topics when relevant to the target role
 
 #### In-progress qualifications must say so explicitly
@@ -204,12 +225,10 @@ If there is a gap in your employment history:
 Wherever the CV names a verifiable artifact - a public project, a hackathon entry, a publication - carry its link (`\href`) so a reader can verify the claim in one click. A CV whose strongest claims are checkable reads as more credible everywhere else too.
 
 ### Honors and Awards
-- Keep format brief, one line each
+- **Omit the Patents section** unless patents are directly relevant to the target role. They do not add value for most applications.
 
 ### References
-- List 2-4 references with name, title, company, and contact
-- End with: "More references are available upon request."
-- **Do not attach reference letters** - employers typically contact references directly
+- **Omit the References section entirely.** Employers will ask for references at interview stage. Including "Available upon request" wastes space.
 
 ## Compile-and-Inspect Loop (MANDATORY)
 
@@ -253,7 +272,7 @@ cd cv && pdftotext -layout main_<company>_<role>.pdf main_<company>_<role>.txt
 
 What to check in the extraction:
 
-- **Contact details as literal text.** The stock template's fontawesome contact icons extract as glyph names (`MOBILE-ALT`, `Envelope`) - harmless noise, because the actual address and number are printed beside them. The failure mode is a contact detail carried *only* by an icon or a hyperlink (like the `LinkedIn` link text, whose URL is not in the text layer): invisible to an ATS. The email address must always appear as printed text.
+- **Contact details as literal text.** The header (see "Header (contact block)" above) prints location, email, and phone as plain text, so this should extract cleanly by construction. The one remaining risk is the `LinkedIn` link text itself - the URL behind an `\href` is not present in the text layer, only the visible label - so that link is invisible to an ATS beyond the word "LinkedIn". The email address must always appear as printed text (it does, via `\href{mailto:...}{[EMAIL]}` using the address as the link label).
 - **No garbled output.** `(cid:NNN)` markers or `�` characters mean a font is embedded without a Unicode mapping - an ATS sees the same garbage. This shows up with unusual fonts in custom templates, not with the stock moderncv setup under lualatex.
 - **Reading order.** The stock banking style is single-column, so extraction order matches visual order. Custom templates (via `/add-template`) with sidebars or multi-column layouts can interleave unrelated lines; if extraction order is scrambled, the user is trading ATS compatibility for looks and should be told.
 - **Keyword coverage.** Match the posting's required/preferred terms against the extracted text, in the posting's language. Prefer the posting's exact term over a synonym when it is truthfully applicable - ATS matching is often literal. Never add a keyword the profile does not support.
@@ -296,8 +315,7 @@ The CV **must** fit on exactly 2 pages when compiled. Use these content limits a
 | Older roles | 2 bullets (1 line each) |
 | Education | 2-3 entries |
 | Publications | 2-3 entries |
-| Awards | 3 entries, single line each |
-| References | "Available upon request." (single line) |
+| Awards | Omit unless directly relevant to target role |
 
 **If in doubt, cut rather than squeeze.** Reducing `\vspace` or geometry scale to force-fit content makes the CV look cramped.
 
@@ -336,15 +354,14 @@ The section order varies by role type:
 1. Profile statement / elevator pitch
 2. Core competencies / Skills
 3. Professional Experience (reverse chronological)
-4. Education (reverse chronological)
-5. Languages
-6. Publications & Awards
-7. References
+4. Education (no dates)
+5. Certifications
+6. Languages
 
 **For domain-specific / specialist roles:**
 1. Profile statement / elevator pitch
 2. Core competencies / Skills
-3. Education (reverse chronological) - credentials are a key qualifier
+3. Education (no dates) - credentials are a key qualifier
 4. Professional Experience (reverse chronological)
-5. Publications & Awards
-6. References
+5. Certifications
+6. Languages

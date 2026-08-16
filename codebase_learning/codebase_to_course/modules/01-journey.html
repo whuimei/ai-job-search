@@ -1,0 +1,264 @@
+<section class="module" id="module-1">
+  <div class="module-content">
+
+    <div class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">The Journey</h1>
+      <p class="module-subtitle">What actually happens when you type <code>/apply</code></p>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <p><strong>AI Job Search</strong> is a free toolkit built on top of <span class="term" data-definition="Claude Code is Anthropic's AI coding assistant — a program you run from a terminal (a text-based command window) that can read files, write files, and carry out multi-step instructions on your behalf.">Claude Code</span>. It turns Claude Code into a personal job-application team: it checks whether a job posting is a good fit for you, drafts a tailored two-page CV and cover letter, and preps you for interviews. A geophysicist built it to land his own AI engineering job — then open-sourced it.</p>
+        <p>This module follows one command through the whole system, start to finish, so you can see the machinery behind the result.</p>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Imagine this</h2>
+        <p>You find a job posting for an AI Solutions Consultant role. You type <code>/apply &lt;url&gt;</code> into your terminal. Twenty minutes later, you have a tailored two-page CV and a one-page cover letter &mdash; both proofread and pressure-tested by a second AI reviewer.</p>
+        <p>Here is everything that happens in those twenty minutes.</p>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">🏃</div>
+        <div class="callout-content">
+          <strong class="callout-title">Think relay race, not solo sprint</strong>
+          <p>You're the runner &mdash; you just want to cross the finish line and get hired. At each leg of the race, a specialist hands off the baton: one does job-fit evaluation, another drafts, another reviews. No single piece does everything.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">The whole system, in one map</h2>
+        <p>Before we zoom into <code>/apply</code>, here's the bigger picture. Three entry points, each a <span class="term" data-definition="A command is a short typed instruction, starting with a slash, that tells Claude Code to run a specific pre-written set of steps &mdash; like a keyboard shortcut for an entire workflow.">command</span> you type into the terminal.</p>
+      </div>
+      <div class="flow-steps animate-in">
+        <div class="flow-step">
+          <div class="flow-step-num">1</div>
+          <p><code>/setup</code> &mdash; fill in your profile once, so every later step knows who you are</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-num">2</div>
+          <p><code>/scrape</code> &mdash; search job portals, present matches with fit ratings</p>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-num">3</div>
+          <p><code>/apply &lt;url&gt;</code> &mdash; evaluate fit, draft CV + cover letter, have a reviewer agent critique and revise</p>
+        </div>
+      </div>
+      <div class="animate-in" style="margin-top: var(--space-8);">
+        <p>This module picks up right at step 3, the moment you hand Claude a real job posting.</p>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Watch the handoff happen</h2>
+        <p>Here's the courier route your job posting takes through the system. Click through each step.</p>
+      </div>
+
+      <div class="flow-animation animate-in" data-steps='[
+        {"highlight":"flow-actor-1","label":"You type /apply <url> in the terminal."},
+        {"highlight":"flow-actor-2","label":"You hand Claude a checklist to follow.","packet":true,"from":"actor-1","to":"actor-2"},
+        {"highlight":"flow-actor-3","label":"Claude reads Step 0: is this a URL or plain text?","packet":true,"from":"actor-2","to":"actor-3"},
+        {"highlight":"flow-actor-4","label":"Claude fetches the posting and pulls out company, role, location, language.","packet":true,"from":"actor-3","to":"actor-4"},
+        {"highlight":"flow-actor-3","label":"Those facts stay in memory for every remaining step. No re-fetching.","packet":true,"from":"actor-4","to":"actor-3"}
+      ]'>
+        <div class="flow-actors">
+          <div class="flow-actor" id="flow-actor-1">
+            <div class="flow-actor-icon">🧑</div>
+            <span>User</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-2">
+            <div class="flow-actor-icon">📋</div>
+            <span>apply.md instructions</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-3">
+            <div class="flow-actor-icon">🤖</div>
+            <span>Claude Code</span>
+          </div>
+          <div class="flow-actor" id="flow-actor-4">
+            <div class="flow-actor-icon">📄</div>
+            <span>Job Posting</span>
+          </div>
+        </div>
+
+        <div class="flow-packet" id="flow-packet"></div>
+
+        <div class="flow-step-label" id="flow-label">Click "Next Step" to begin</div>
+
+        <div class="flow-controls">
+          <button class="btn flow-next-btn">Next Step</button>
+          <button class="btn flow-reset-btn">Restart</button>
+          <span class="flow-progress"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">The key insight: it's just a checklist</h2>
+        <p>Here's the part that surprises most people. <code>apply.md</code> isn't a hidden program or a black box &mdash; it's a <span class="term" data-definition="Markdown is a plain-text format for writing documents with simple symbols for headings, bold text, and lists (like # for a heading). It's the format most instruction files and READMEs in this project use.">Markdown</span> file, the same kind of plain-text file you'd use for a to-do list. Claude Code reads it top to bottom and follows it like a recipe.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line"># /apply - Drafter-Reviewer Job Application Workflow</span>
+<span class="code-line"></span>
+<span class="code-line">You are orchestrating a two-agent job application workflow. The job posting is provided below as `$ARGUMENTS` (either a URL or pasted text).</span>
+<span class="code-line"></span>
+<span class="code-line">Follow these steps **exactly in order**. Do not skip steps.</span>
+<span class="code-line"></span>
+<span class="code-line">**Token-efficiency rules for this workflow:**</span>
+<span class="code-line">- Never re-Read a file whose contents are already in your context from an earlier step. If you read it in Step 1, it is still available in Step 2.</span>
+<span class="code-line">- When dispatching the reviewer agent, pass draft content **inline in the agent prompt** rather than asking the agent to Read files you already have in memory.</span>
+<span class="code-line">- Run the full verification checklist exactly once, at the end (Step 6). The reviewer focuses on content critique, not verification.</span>
+<span class="code-line">- Step 5 (compile and inspect PDFs) is mandatory and non-skippable...</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">This is the title of the recipe, and a reminder that two AI helpers are involved: one drafts, one reviews. Whatever you pasted after <code>/apply</code> &mdash; a link or raw text &mdash; gets stored in a placeholder called <code>$ARGUMENTS</code>.</p>
+            <p class="tl">A firm rule: go through the steps in order, don't improvise, don't skip ahead.</p>
+            <p class="tl">These are cost-saving habits: don't make Claude re-read a file it already has in memory, and don't waste a second AI's time re-fetching things the first one already found.</p>
+            <p class="tl">Save the big "check everything" pass for the very end, once, instead of repeating it after every step.</p>
+            <p class="tl">Some steps are flagged as unskippable because skipping them causes real, hard-to-spot problems later &mdash; like a CV that looks fine in the source file but renders broken.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-accent animate-in">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <strong class="callout-title">There's no hidden server</strong>
+          <p>No database, no login, no cloud backend running somewhere. The "code" here is mostly plain-English instructions that an AI reads and follows, step by step, in a folder on your own computer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Step 0: the very first thing Claude does</h2>
+        <p>Before anything else, Claude has to figure out what you actually gave it.</p>
+      </div>
+      <div class="translation-block animate-in">
+        <div class="translation-code">
+          <span class="translation-label">CODE</span>
+          <pre><code>
+<span class="code-line">## Step 0: Parse Input</span>
+<span class="code-line"></span>
+<span class="code-line">- If `$ARGUMENTS` looks like a URL, use `WebFetch` to retrieve the job posting content.</span>
+<span class="code-line">- If it is pasted text, use it directly.</span>
+<span class="code-line">- Extract: **company name**, **role title**, **department** (if mentioned), **location**, and **language** of the posting (Danish or English).</span>
+<span class="code-line">- Store these for use throughout the workflow.</span>
+          </code></pre>
+        </div>
+        <div class="translation-english">
+          <span class="translation-label">PLAIN ENGLISH</span>
+          <div class="translation-lines">
+            <p class="tl">Claude checks: does what you gave it look like a web link?</p>
+            <p class="tl">If it's a link, Claude uses a <span class="term" data-definition="WebFetch is a tool Claude Code can call to visit a web address and pull back the page's content, the same way your browser loads a page &mdash; except Claude reads the text, it doesn't show you a screenshot.">tool called WebFetch</span> to go open that page and read it. If you pasted the job description directly instead, Claude skips fetching and just reads what you typed.</p>
+            <p class="tl">Either way, Claude then pulls out the specific facts it'll need later: company name, job title, department, location, and whether the posting is in Danish or English.</p>
+            <p class="tl">Those facts get kept in Claude's memory for every later step &mdash; nobody has to re-explain them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">Quick check</h2>
+        <p>Three scenarios. Think it through before you pick.</p>
+      </div>
+
+      <div class="quiz-container animate-in" id="quiz-module1">
+
+        <div class="quiz-question-block"
+             data-correct="opt-b"
+             data-explanation-right="Exactly. Step 0 branches on what it's given: URL goes through WebFetch, pasted text skips straight to extraction. Same destination, different route in."
+             data-explanation-wrong="Not quite. Re-read the two bullet points in Step 0 &mdash; they describe two different paths depending on what $ARGUMENTS looks like.">
+          <h3 class="quiz-question">You paste the raw text of a job posting instead of a URL into <code>/apply</code>. What does Step 0 do differently?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Nothing works &mdash; <code>/apply</code> requires a URL</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Claude skips WebFetch and reads the pasted text directly, then extracts the same facts either way</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Claude asks you to convert the text into a URL first</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="opt-b"
+             data-explanation-right="Right. This is a cost- and reliability-tradeoff: verifying every step individually is expensive and repetitive, so the workflow front-loads discipline (do it right, in order, once) and saves the expensive full check for one pass at the end."
+             data-explanation-wrong="Not quite. Look again at the 'token-efficiency rules' &mdash; the reasoning isn't about being extra cautious, it's about avoiding repeated, costly work.">
+          <h3 class="quiz-question">Why does <code>apply.md</code> say "do not skip steps" but also "run the verification checklist exactly once, at the end"?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because the two rules contradict each other and one is a mistake</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because checking after every single step would waste time and Claude's context; doing steps in strict order plus one final check is cheaper and just as reliable</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Because the reviewer agent isn't trustworthy until the very last step</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <div class="quiz-question-block"
+             data-correct="opt-a"
+             data-explanation-right="Exactly. Skills and commands are just editable text files. A new skill keeps translation as a separate, reusable capability &mdash; you could invoke it elsewhere too. Bolting a French-translation step directly into apply.md would work, but couples an unrelated capability to this one specific workflow."
+             data-explanation-wrong="Think about it differently: apply.md is a checklist for one workflow. Translating a CV is a distinct, reusable capability that other workflows might also want &mdash; that points toward a separate file, not a bolt-on step.">
+          <h3 class="quiz-question">You want <code>/apply</code> to also translate the CV into French. Is that a new skill file, or a change to <code>apply.md</code>'s existing steps?</h3>
+          <div class="quiz-options">
+            <button class="quiz-option" data-value="opt-a" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Best as a new, separate skill file that <code>apply.md</code> can call &mdash; translation is its own reusable capability</span>
+            </button>
+            <button class="quiz-option" data-value="opt-b" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>Impossible &mdash; only the original developer can add new capabilities</span>
+            </button>
+            <button class="quiz-option" data-value="opt-c" onclick="selectOption(this)">
+              <div class="quiz-option-radio"></div>
+              <span>It must be hardcoded into Claude Code itself, not into any Markdown file</span>
+            </button>
+          </div>
+          <div class="quiz-feedback"></div>
+        </div>
+
+        <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+        <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+      </div>
+    </div>
+
+    <div class="screen">
+      <div class="animate-in">
+        <h2 class="screen-heading">What this means for you</h2>
+        <p><code>/apply</code> is really an ordered checklist that Claude executes, one line at a time. Because it's just a Markdown file, you can open it, read every step, and even edit it yourself &mdash; no programming required.</p>
+        <p>Want Claude to skip a step this one time, or add a step of your own? You can just tell it. It's your checklist.</p>
+      </div>
+      <div class="animate-in" style="margin-top: var(--space-10); padding-top: var(--space-8); border-top: 1px solid var(--color-border-light);">
+        <p>You just watched Claude follow instructions and fetch a job posting. But who are all these <code>.md</code> files, and what's a "skill" versus a "command"? And what happens after Step 0, when the drafting actually starts? Coming up in Module 2: meet the full cast &mdash; including a sneak peek at two AI agents who are about to literally argue over your cover letter.</p>
+      </div>
+    </div>
+
+  </div>
+</section>

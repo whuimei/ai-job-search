@@ -52,6 +52,13 @@ class TestPathRules(unittest.TestCase):
         """Cautious tie-break: Google resolves ties to Allow, we do not."""
         self.assertFalse(allowed("User-agent: *\nDisallow: /a\nAllow: /a\n", "*", "/a"))
 
+    def test_equal_specificity_tie_goes_to_disallow_when_allow_listed_first(self):
+        """The only ordering that exercises the tie-break clause: with Allow
+        first, deleting the clause makes the first rule at a given length win
+        and Allow would leak through. The Disallow-first sibling above cannot
+        detect that mutation (review finding F21, 2026-08-19)."""
+        self.assertFalse(allowed("User-agent: *\nAllow: /a\nDisallow: /a\n", "*", "/a"))
+
     def test_api_block_and_sibling_path(self):
         self.assertFalse(allowed(JOBUP, "*", "/api/v1/public/search"))
         self.assertTrue(allowed(JOBUP, "*", "/en/jobs/"))
@@ -130,6 +137,49 @@ class TestSoftTwoHundred(unittest.TestCase):
         self.assertEqual(rc, 1)
         self.assertIn("not a robots.txt", msg)
 
+    def test_gate_reads_policy_as_browser_when_honest_request_is_refused(self):
+        """09-web-research.md's Barclays-class recovery: the policy file itself
+        returns 403 to Claude-User and 200 to a browser, and the checker must
+        then read it as a browser and obey it strictly. This is gate()'s UA
+        fallback loop, previously untested despite the doc's coverage claim
+        (review finding F30, 2026-08-19)."""
+        import robots_check
+
+        original = robots_check._fetch
+
+        def waf(url, ua):
+            if ua == robots_check.BROWSER:
+                return ("User-agent: *\nAllow: /\n", 200)
+            return ("<html>403 Forbidden</html>", 403)
+
+        robots_check._fetch = waf
+        try:
+            rc, msg = robots_check.gate("https://waf.example/jobs")
+        finally:
+            robots_check._fetch = original
+        self.assertEqual(rc, 0)
+        self.assertIn("ALLOWED", msg)
+
+    def test_gate_obeys_a_browser_fetched_policy_strictly(self):
+        """The fallback must not fail open: a policy readable only as a browser
+        still disallows what it disallows."""
+        import robots_check
+
+        original = robots_check._fetch
+
+        def waf(url, ua):
+            if ua == robots_check.BROWSER:
+                return ("User-agent: *\nDisallow: /jobs\n", 200)
+            return ("<html>403 Forbidden</html>", 403)
+
+        robots_check._fetch = waf
+        try:
+            rc, msg = robots_check.gate("https://waf.example/jobs")
+        finally:
+            robots_check._fetch = original
+        self.assertEqual(rc, 1)
+        self.assertIn("DISALLOWED", msg)
+
     def test_a_genuinely_empty_robots_is_still_allow_all(self):
         """RFC 9309: an empty file permits everything. Do not over-correct."""
         self.assertTrue(is_robots_body(""))
@@ -207,6 +257,60 @@ class TestArgumentHardening(unittest.TestCase):
         finally:
             robots_check._fetch = original
         self.assertEqual(seen[0], "https://x.example/robots.txt")
+
+
+class TestNonAsciiCurlOutput(unittest.TestCase):
+    """curl's output is decoded as UTF-8, never the locale's code page.
+
+    With text=True and no encoding, Windows decoded with the locale's code page.
+    Under cp1254 (Turkish) the bytes 0x81 and 0x9e are undefined, so the pipe
+    reader thread died, stdout came back None, and the gate printed
+    "UNCONFIRMED (AttributeError)" for policies it never read - blocking a
+    retry those policies allow (reproduced 2026-09-29).
+    """
+
+    def _gate_with_curl_output(self, url, body, status):
+        """gate(url) with curl swapped for a process that prints `body` and the
+        status the way curl's -w does, decoded however _fetch asks."""
+        import robots_check
+
+        # A fixture cp1254 can decode would pass without the fix.
+        self.assertRaises(UnicodeDecodeError, body.decode, "cp1254")
+        raw = body + b"\n" + str(status).encode()
+        real_run = subprocess.run
+
+        def fake_curl(argv, **kwargs):
+            # Unpinned text mode takes the host locale's code page. Pin the
+            # reporter's, so a UTF-8 host (CI) cannot pass the bug by luck.
+            if kwargs.get("text") and not kwargs.get("encoding"):
+                kwargs["encoding"] = "cp1254"
+            write = "import sys; sys.stdout.buffer.write(bytes.fromhex(sys.argv[1]))"
+            return real_run([sys.executable, "-c", write, raw.hex()], **kwargs)
+
+        robots_check.subprocess.run = fake_curl
+        try:
+            return robots_check.gate(url)
+        finally:
+            robots_check.subprocess.run = real_run
+
+    def test_rule_holding_a_cp1254_undefined_byte_is_read_and_obeyed(self):
+        """The rule is verbatim from tr.indeed.com/robots.txt: 職 is e8 81 b7.
+        DISALLOWED on its path proves it was decoded, not merely survived."""
+        body = "User-agent: *\nDisallow: /職涯貼士/\n".encode("utf-8")
+        rc, msg = self._gate_with_curl_output("https://tr.indeed.example/cmp/x/reviews", body, 200)
+        self.assertEqual(rc, 0, msg)
+        self.assertIn("robots.txt permits this path", msg)
+        rc, msg = self._gate_with_curl_output("https://tr.indeed.example/職涯貼士/x", body, 200)
+        self.assertEqual(rc, 1, msg)
+        self.assertIn("DISALLOWED", msg)
+
+    def test_404_page_holding_a_cp1254_undefined_byte_still_means_no_policy(self):
+        """kap.org.tr answers /robots.txt with a UTF-8 HTML 404 that names
+        "Merkezi Kayıt Kuruluşu A.Ş." - Ş is c5 9e."""
+        body = '<html lang="tr"><body>Merkezi Kayıt Kuruluşu A.Ş.</body></html>'.encode("utf-8")
+        rc, msg = self._gate_with_curl_output("https://kap.example/tr/sirket-bilgileri", body, 404)
+        self.assertEqual(rc, 0, msg)
+        self.assertIn("no robots.txt published", msg)
 
 
 
